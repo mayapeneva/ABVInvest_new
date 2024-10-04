@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35312.102
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ABVInvest", "ABVInvest\ABVInvest.csproj", "{30ED6256-CEF5-4FD6-B143-3CF65AC26F82}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ABVInvest.Client", "ABVInvest.Client\ABVInvest.Client.csproj", "{198B623D-3826-485F-90E5-426551B82549}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{30ED6256-CEF5-4FD6-B143-3CF65AC26F82}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30ED6256-CEF5-4FD6-B143-3CF65AC26F82}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30ED6256-CEF5-4FD6-B143-3CF65AC26F82}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30ED6256-CEF5-4FD6-B143-3CF65AC26F82}.Release|Any CPU.Build.0 = Release|Any CPU
+		{198B623D-3826-485F-90E5-426551B82549}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{198B623D-3826-485F-90E5-426551B82549}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{198B623D-3826-485F-90E5-426551B82549}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{198B623D-3826-485F-90E5-426551B82549}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E27E88DD-53D6-4FB4-8FBB-FA51D6B16940}
+	EndGlobalSection
+EndGlobal
