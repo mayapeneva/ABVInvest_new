@@ -1,4 +1,4 @@
-using ABVInvest.Data;
+using ABVInvest.Data.Models;
 using Microsoft.AspNetCore.Identity;
 
 namespace ABVInvest.Components.Account

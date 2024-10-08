@@ -1,6 +1,6 @@
 using ABVInvest.Components.Account.Pages;
 using ABVInvest.Components.Account.Pages.Manage;
-using ABVInvest.Data;
+using ABVInvest.Data.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Http.Extensions;

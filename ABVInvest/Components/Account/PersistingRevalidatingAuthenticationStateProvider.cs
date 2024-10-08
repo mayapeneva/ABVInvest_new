@@ -1,5 +1,5 @@
 using ABVInvest.Client;
-using ABVInvest.Data;
+using ABVInvest.Data.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Server;

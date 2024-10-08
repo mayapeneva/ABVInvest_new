@@ -1,7 +1,7 @@
-using ABVInvest.Client.Pages;
 using ABVInvest.Components;
 using ABVInvest.Components.Account;
 using ABVInvest.Data;
+using ABVInvest.Data.Models;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
