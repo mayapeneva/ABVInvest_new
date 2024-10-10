@@ -4,17 +4,25 @@ body {
     padding: 0;
 }
 
+.body-content {
+    margin-top: 50px;
+}
+
 /* Navbar*/
 .navbar {
     color: #d2db34;
     background-color: #2a833f;
 }
 
-.navbar-header {
+.navbar-container {
+    resize: horizontal;
+    overflow: hidden;
+    display: flex;
     margin-left: 100px;
 }
 
 .navbar-brand {
+    flex: initial;
     padding: 5px 10px;
     color: #D2DB34 !important;
 }
@@ -25,7 +33,8 @@ body {
     }
 
 .nav-link {
-    padding: 5px 10px;
+    flex: auto;
+    padding: 10px 20px 0;
     color: #D2DB34;
 }
 
@@ -35,7 +44,6 @@ body {
     }
 
 .carousel-slide {
-    margin-top: 50px;
     margin-bottom: 50px;
 }
 
@@ -46,8 +54,11 @@ body {
 .page-footer {
     position: fixed;
     bottom: 0;
-    text-align: right;
     width: 100%;
+}
+
+.abv-logo {
+    margin-bottom: 20px;
 }
 
 /* Font-sizes*/
@@ -56,7 +67,7 @@ body {
 }
 
 .extra-large-fontsize {
-    font-size: 30px !important;
+    font-size: 24px !important;
 }
 
 /* Text colors*/
@@ -92,17 +103,4 @@ body {
 .hr-2 {
     line-height: 2;
     color: #89bf32
-}
-
-/* QR code generator */
-#qrCode {
-    margin: 15px;
-}
-
-/* Hide/rearrange for smaller screens */
-@media screen and (max-width: 767px) {
-    /* Hide captions */
-    .carousel-caption {
-        display: none;
-    }
 }
