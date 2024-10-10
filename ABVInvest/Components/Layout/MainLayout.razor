@@ -1,23 +1,24 @@
 ﻿@inherits LayoutComponentBase
 
 <div class="page">
-    <div class="sidebar">
-        <NavMenu />
-    </div>
-
     <main>
-        <div class="top-row px-4">
-            <a href="https://learn.microsoft.com/aspnet/core/" target="_blank">About</a>
+        <NavMenu />
+
+        <div class="container body-content">
+            @Body
+            <partial name="_CookieConsentPartial" />
         </div>
 
-        <article class="content px-4">
-            @Body
-        </article>
+        <div class="page-footer">
+            <div class="container text-center bg-abvmiddlegreen">
+                <p>АБВ Инвестиции. Всички права запазени. &copy; 2024</p>
+            </div>
+        </div>
     </main>
 </div>
 
 <div id="blazor-error-ui">
-    An unhandled error has occurred.
+    <h3 class="bg-abvred text-center">Възникна грешка.</h3>
     <a href="" class="reload">Reload</a>
     <a class="dismiss">🗙</a>
 </div>

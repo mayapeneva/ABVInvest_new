@@ -1,7 +1,31 @@
 ﻿@page "/"
+@rendermode InteractiveServer
 
-<PageTitle>Home</PageTitle>
+<div class="carousel-slide">
+    <Carousel Autoplay="CarouselAutoPlay.StartOnPageLoad">
+        <CarouselItem Active="true">
+            <Image Src="https://res.cloudinary.com/mausha/image/upload/v1543241497/ABV/bullandbear.png" />
+            <CarouselCaption>
+                <h2><strong>АБВ Инвестиции - Вашият партньор на фондовата борса.</strong></h2>
+            </CarouselCaption>
+        </CarouselItem>
+        <CarouselItem>
+            <Image Src="https://res.cloudinary.com/mausha/image/upload/v1543241446/ABV/business.jpg" />
+            <CarouselCaption>
+                <h2><strong>Инвестирайте парите си с нас!</strong></h2>
+            </CarouselCaption>
+        </CarouselItem>
+        <CarouselItem>
+            <Image Src="https://res.cloudinary.com/mausha/image/upload/v1543241449/ABV/buysellgreen.jpg" />
+            <CarouselCaption>
+                <h2><strong>Покупка и продажба на акции.</strong></h2>
+            </CarouselCaption>
+        </CarouselItem>
+    </Carousel>
+</div>
 
-<h1>Hello, world!</h1>
-
-Welcome to your new app.
+<div class="row">
+    <Button Type="ButtonType.Link" class="col-md-4 bg-abvdarkgreen bg-bg-abvmiddlegreen extra-large-fontsize menu-link" To="/Account/Register"> Регистрация </Button>
+    <Button Type="ButtonType.Link" class="col-md-4 bg-abvdarkgreen bg-bg-abvlightgreen extra-large-fontsize menu-link" To="/Account/Login"> Вход </Button>
+    <Button Type="ButtonType.Link" class="col-md-4 bg-abvdarkgreen bg-bg-abvmiddlegreen extra-large-fontsize menu-link" To="Load"> Новини </Button>
+</div>

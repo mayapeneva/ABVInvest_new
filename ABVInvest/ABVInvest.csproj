@@ -10,7 +10,9 @@
   <ItemGroup>
     <ProjectReference Include="..\ABVInvest.Client\ABVInvest.Client.csproj" />
     <ProjectReference Include="..\ABVInvest.Data\ABVInvest.Data.csproj" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.8" />
+    <PackageReference Include="Blazor.Bootstrap" Version="3.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.10" />
+	  <PackageReference Include="CloudinaryDotNet" Version="1.26.2" />
   </ItemGroup>
 
 </Project>

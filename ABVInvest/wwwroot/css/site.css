@@ -1,0 +1,108 @@
+﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification\
+for details on configuring this project to bundle and minify static web assets. */
+body {
+    padding: 0;
+}
+
+/* Navbar*/
+.navbar {
+    color: #d2db34;
+    background-color: #2a833f;
+}
+
+.navbar-header {
+    margin-left: 100px;
+}
+
+.navbar-brand {
+    padding: 5px 10px;
+    color: #D2DB34 !important;
+}
+
+    .navbar-brand:hover {
+        color: #2A833F !important;
+        background-color: #D2DB34;
+    }
+
+.nav-link {
+    padding: 5px 10px;
+    color: #D2DB34;
+}
+
+    .nav-link:hover {
+        color: #2A833F !important;
+        background-color: #D2DB34;
+    }
+
+.carousel-slide {
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.menu-link:hover {
+    color: #2A833F;
+}
+
+.page-footer {
+    position: fixed;
+    bottom: 0;
+    text-align: right;
+    width: 100%;
+}
+
+/* Font-sizes*/
+.large-fontsize {
+    font-size: 20px !important;
+}
+
+.extra-large-fontsize {
+    font-size: 30px !important;
+}
+
+/* Text colors*/
+.bg-abvdarkgreen {
+    color: #2A833F;
+}
+
+.bg-abvmiddlegreen {
+    color: #89BF32;
+}
+
+.bg-abvlightgreen {
+    color: #D2DB34;
+}
+
+.bg-abvred {
+    color: #DF0101;
+}
+
+/* Backgroud color*/
+.bg-bg-abvdarkgreen {
+    background-color: #2A833F;
+}
+
+.bg-bg-abvmiddlegreen {
+    background-color: #89BF32;
+}
+
+.bg-bg-abvlightgreen {
+    background-color: #D2DB34;
+}
+
+.hr-2 {
+    line-height: 2;
+    color: #89bf32
+}
+
+/* QR code generator */
+#qrCode {
+    margin: 15px;
+}
+
+/* Hide/rearrange for smaller screens */
+@media screen and (max-width: 767px) {
+    /* Hide captions */
+    .carousel-caption {
+        display: none;
+    }
+}
