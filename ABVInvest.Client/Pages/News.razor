@@ -24,9 +24,5 @@
     protected override async Task OnInitializedAsync()
     {
         RssModels = RSSFeedParser.LoadNews();
-        if (RssModels.Count() > 0)
-        {
-            RssModels.OrderByDescending(m => m.PublishedDate);
-        } 
     }
 }

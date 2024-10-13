@@ -23,19 +23,13 @@ namespace ABVInvest.Common.Parsers
             {
                 try
                 {
-                    //WebClient webClient = new WebClient();
-                    //webClient.Headers.Add("user-agent", "MyApplication/v1.0 (http://abvinvest.eu)");
-                    //webClient.Headers.Add("referer", "http://abvinvest.eu");
-
-                    //using XmlReader reader = XmlReader.Create(webClient.OpenRead("https://www.capital.bg/rss/"));
-
                     using var reader = XmlReader.Create(rss);
                     var feed = SyndicationFeed.Load(reader);
                     reader.Close();
 
                     foreach (SyndicationItem item in feed.Items)
                     {
-                        var publishDate = item.PublishDate.UtcDateTime; // DateTime.Parse(item.PublishDate.UtcDateTime);
+                        var publishDate = item.PublishDate.UtcDateTime;
                         if (publishDate > this.twoWeeksBackDate)
                         {
                             rssFeedModels.Add(new RSSFeedViewModel
@@ -43,18 +37,18 @@ namespace ABVInvest.Common.Parsers
                                 Title = item.Title?.Text,
                                 Uri = item.Links[0]?.Uri.ToString(),
                                 PublishedDate = publishDate,
-                                Summary = item.Summary?.ToString()
+                                Summary = item.Summary?.Text
                             });
                         }
                     }
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine(ex.Message);
+                    // TODO: log the exception
                 }
             }
 
-            return rssFeedModels;
+            return rssFeedModels.OrderByDescending(m => m.PublishedDate);
         }
     }
 }
