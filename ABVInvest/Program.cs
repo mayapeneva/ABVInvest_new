@@ -1,3 +1,4 @@
+using ABVInvest.Common.Parsers;
 using ABVInvest.Components;
 using ABVInvest.Components.Account;
 using ABVInvest.Data;
@@ -38,6 +39,7 @@ builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.Requ
     .AddDefaultTokenProviders();
 
 builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
+builder.Services.AddScoped<IRSSFeedParser, RSSFeedParser>();
 
 var app = builder.Build();
 

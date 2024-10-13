@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ABVInvest.Client\ABVInvest.Client.csproj" />
+    <ProjectReference Include="..\ABVInvest.Common\ABVInvest.Common.csproj" />
     <ProjectReference Include="..\ABVInvest.Data\ABVInvest.Data.csproj" />
     <PackageReference Include="Blazor.Bootstrap" Version="3.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.10" />

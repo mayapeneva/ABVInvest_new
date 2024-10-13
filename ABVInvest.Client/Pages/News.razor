@@ -1,0 +1,32 @@
+﻿@page "/news"
+@rendermode InteractiveAuto
+
+@inject IRSSFeedParser RSSFeedParser
+
+<div class="container">
+    <h2 class="bg-abvmiddlegreen"> Новини </h2>
+    <hr />
+    @if (RssModels != null && RssModels.Count() > 0)
+    {
+        foreach (var item in RssModels)
+        {
+            <a class="bg-abvdarkgreen" target="_blank" href="@item.Uri"> @item.Title </a>
+            <div class="bg-abvmiddlegreen"> @item.Summary </div>
+            <div class="bg-abvlightgreen"> @item.PublishedDate </div>
+            <hr />
+        }
+    }
+</div>
+
+@code {
+    public IEnumerable<RSSFeedViewModel> RssModels = new List<RSSFeedViewModel>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        RssModels = RSSFeedParser.LoadNews();
+        if (RssModels.Count() > 0)
+        {
+            RssModels.OrderByDescending(m => m.PublishedDate);
+        } 
+    }
+}
