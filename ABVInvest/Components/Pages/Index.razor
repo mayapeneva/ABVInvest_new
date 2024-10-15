@@ -26,7 +26,17 @@
 </div>
 
 <div class="row">
-    <Button Type="ButtonType.Link" class="col-md-4 bg-abvdarkgreen bg-bg-abvmiddlegreen extra-large-fontsize menu-link" To="/Account/Register"> Регистрация </Button>
-    <Button Type="ButtonType.Link" class="col-md-4 bg-abvdarkgreen bg-bg-abvlightgreen extra-large-fontsize menu-link" To="/Account/Login"> Вход </Button>
-    <Button Type="ButtonType.Link" class="col-md-4 bg-abvdarkgreen bg-bg-abvmiddlegreen extra-large-fontsize menu-link" To="News"> Новини </Button>
+    <div class="menu-button bg-bg-abvlightgreen col-md-4 text-center">
+        <a class="menu-link bg-abvdarkgreen extra-large-fontsize" href="/Account/Register"> Регистрация </a>
+    </div>
+    <div class="menu-button bg-bg-abvlightgreen col-md-4 text-center">
+        <a class="menu-link bg-abvdarkgreen extra-large-fontsize" href="/Account/Login"> Вход </a>
+    </div>
+    <div class="menu-button menu-link bg-bg-abvlightgreen col-md-4 text-center">
+        <a class="menu-link bg-abvdarkgreen extra-large-fontsize" href="News"> Новини </a>
+    </div>
 </div>
+
+@code {
+
+}

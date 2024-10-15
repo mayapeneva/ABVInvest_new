@@ -1,5 +1,13 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification\
 for details on configuring this project to bundle and minify static web assets. */
+
+:root {
+    --darkgreen-color: #2A833F;
+    --middlegreen-color: #89BF32;
+    --lightgreen-color: #D2DB34;
+    --red-color: #DF0101;
+}
+
 body {
     padding: 0;
 }
@@ -10,8 +18,8 @@ body {
 
 /* Navbar*/
 .navbar {
-    color: #d2db34;
-    background-color: #2a833f;
+    color: var(--lightgreen-color);
+    background-color: var(--darkgreen-color);
 }
 
 .navbar-container {
@@ -24,23 +32,23 @@ body {
 .navbar-brand {
     flex: initial;
     padding: 5px 10px;
-    color: #D2DB34 !important;
+    color: var(--lightgreen-color) !important;
 }
 
     .navbar-brand:hover {
-        color: #2A833F !important;
-        background-color: #D2DB34;
+        color: var(--darkgreen-color) !important;
+        background-color: var(--lightgreen-color);
     }
 
 .nav-link {
     flex: auto;
     padding: 10px 20px 0;
-    color: #D2DB34;
+    color: var(--lightgreen-color);
 }
 
     .nav-link:hover {
-        color: #2A833F !important;
-        background-color: #D2DB34;
+        color: var(--darkgreen-color) !important;
+        background-color: var(--lightgreen-color);
     }
 
 /*Index*/
@@ -48,8 +56,17 @@ body {
     margin-bottom: 50px;
 }
 
-.menu-link:hover {
-    color: #2A833F;
+.menu-button {
+    border-radius: 10px;
+    padding: 10px;
+}
+
+    .menu-button:hover {
+        background-color: var(--middlegreen-color);
+    }
+
+.menu-link {
+    text-decoration: none;
 }
 
 .page-footer {
@@ -97,35 +114,35 @@ body {
 
 /* Text colors*/
 .bg-abvdarkgreen {
-    color: #2A833F;
+    color: var(--darkgreen-color);
 }
 
 .bg-abvmiddlegreen {
-    color: #89BF32;
+    color: var(--middlegreen-color);
 }
 
 .bg-abvlightgreen {
-    color: #D2DB34;
+    color: @lightgreen;
 }
 
 .bg-abvred {
-    color: #DF0101;
+    color: var(--red-color);
 }
 
 /* Backgroud color*/
 .bg-bg-abvdarkgreen {
-    background-color: #2A833F;
+    background-color: var(--darkgreen-color);
 }
 
 .bg-bg-abvmiddlegreen {
-    background-color: #89BF32;
+    background-color: var(--middlegreen-color);
 }
 
 .bg-bg-abvlightgreen {
-    background-color: #D2DB34;
+    background-color: var(--lightgreen-color);
 }
 
 .hr-2 {
     line-height: 2;
-    color: #89bf32
+    color: var(--middlegreen-color)
 }
