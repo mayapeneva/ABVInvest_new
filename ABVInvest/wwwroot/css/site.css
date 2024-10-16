@@ -13,6 +13,7 @@ body {
 }
 
 .body-content {
+    color: var(--darkgreen-color);
     margin-top: 50px;
 }
 
@@ -101,6 +102,11 @@ body {
 
 .gmap_iframe {
     height: 450px !important;
+}
+
+/*Login*/
+.login-links {
+    margin-top: 40px;
 }
 
 /* Font-sizes*/

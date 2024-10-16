@@ -12,7 +12,7 @@ namespace ABVInvest.Common.Parsers
         public RSSFeedParser()
         {
             twoWeeksBackDate = DateTime.UtcNow.Subtract(new TimeSpan(14, 0, 0, 0));
-            rssAddresses = [Constants.InvestorRSSCompanies, Constants.InvestorRSSMarkets, Constants.InvestorRSSFinance, Constants.X3NewsRSS];
+            rssAddresses = [Constants.RSSFeed.InvestorRSSCompanies, Constants.RSSFeed.InvestorRSSMarkets, Constants.RSSFeed.InvestorRSSFinance, Constants.RSSFeed.X3NewsRSS];
         }
 
         public IEnumerable<RSSFeedViewModel> LoadNews()
