@@ -6,6 +6,7 @@ for details on configuring this project to bundle and minify static web assets. 
     --middlegreen-color: #89BF32;
     --lightgreen-color: #D2DB34;
     --red-color: #DF0101;
+    --bs-border-color: #89BF32;
 }
 
 body {
@@ -109,7 +110,27 @@ body {
     margin-top: 40px;
 }
 
-/* Font-sizes*/
+.login-box:hover {
+    outline: 10px solid white;
+}
+
+.login-box:focus-within {
+    outline: 10px solid white;
+}
+
+.login-checkbox-box:checked {
+    background-color: var(--middlegreen-color);
+}
+
+.login-checkbox-box:hover {
+    outline: 10px solid white;
+}
+
+.login-checkbox-box:focus-within {
+    outline: 10px solid white;
+}
+
+/*/* Font-sizes*/
 .large-fontsize {
     font-size: 20px !important;
 }

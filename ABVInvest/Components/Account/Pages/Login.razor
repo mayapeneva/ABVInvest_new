@@ -1,67 +1,60 @@
 ﻿@page "/Account/Login"
 
-@using System.ComponentModel.DataAnnotations
-@using Microsoft.AspNetCore.Authentication
-@using Microsoft.AspNetCore.Identity
-@using ABVInvest.Data.Models
-
 @inject SignInManager<ApplicationUser> SignInManager
 @inject ILogger<Login> Logger
 @inject NavigationManager NavigationManager
 @inject IdentityRedirectManager RedirectManager
 
-<PageTitle>Log in</PageTitle>
-
-<h1>Log in</h1>
-<div class="row">
-    <div class="col-md-4">
-        <section>
-            <StatusMessage Message="@errorMessage" />
-            <EditForm Model="Input" method="post" OnValidSubmit="LoginUser" FormName="login">
-                <DataAnnotationsValidator />
-                <h2>Use a local account to log in.</h2>
-                <hr />
-                <ValidationSummary class="text-danger" role="alert" />
-                <div class="form-floating mb-3">
-                    <InputText @bind-Value="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
-                    <label for="email" class="form-label">Email</label>
-                    <ValidationMessage For="() => Input.Email" class="text-danger" />
-                </div>
-                <div class="form-floating mb-3">
-                    <InputText type="password" @bind-Value="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" placeholder="password" />
-                    <label for="password" class="form-label">Password</label>
-                    <ValidationMessage For="() => Input.Password" class="text-danger" />
-                </div>
-                <div class="checkbox mb-3">
-                    <label class="form-label">
-                        <InputCheckbox @bind-Value="Input.RememberMe" class="darker-border-checkbox form-check-input" />
-                        Remember me
-                    </label>
-                </div>
-                <div>
-                    <button type="submit" class="w-100 btn btn-lg btn-primary">Log in</button>
-                </div>
-                <div>
-                    <p>
-                        <a href="Account/ForgotPassword">Forgot your password?</a>
-                    </p>
-                    <p>
-                        <a href="@(NavigationManager.GetUriWithQueryParameters("Account/Register", new Dictionary<string, object?> { ["ReturnUrl"] = ReturnUrl }))">Register as a new user</a>
-                    </p>
-                    <p>
-                        <a href="Account/ResendEmailConfirmation">Resend email confirmation</a>
-                    </p>
-                </div>
-            </EditForm>
-        </section>
-    </div>
-    <div class="col-md-6 col-md-offset-2">
-        <section>
-            <h3>Use another service to log in.</h3>
+<h2 class="bg-abvmiddlegreen"> Вход за потребители </h2>
+<div class="col-md-6">
+    <section>
+        <StatusMessage Message="@errorMessage" />
+        <EditForm Model="Input" method="post" OnValidSubmit="LoginUser" FormName="login">
+            <DataAnnotationsValidator />
             <hr />
-            <ExternalLoginPicker />
-        </section>
-    </div>
+            <ValidationSummary class="text-danger" role="alert" />
+            <div class="form-floating mb-3 login-box">
+                <InputText @bind-Value="Input.UserName" class="form-control" autocomplete="username" aria-required="true" placeholder="username" />
+                <label for="username" class="form-label"> Потребител </label>
+                <ValidationMessage For="() => Input.UserName" class="text-danger" />
+            </div>
+            <div class="form-floating mb-3 login-box">
+                <InputText @bind-Value="Input.PIN" class="form-control" autocomplete="pin" aria-required="true" placeholder="PIN" />
+                <label for="pin" class="form-label"> ПИН </label>
+                <ValidationMessage For="() => Input.PIN" class="text-danger" />
+            </div>
+            <div class="form-floating mb-3 login-box">
+                <InputText @bind-Value="Input.Email" class="form-control" autocomplete="email" aria-required="true" placeholder="name@example.com" />
+                <label for="email" class="form-label"> Имейл </label>
+                <ValidationMessage For="() => Input.Email" class="text-danger" />
+            </div>
+            <div class="form-floating mb-3 login-box">
+                <InputText type="password" @bind-Value="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" placeholder="password" />
+                <label for="password" class="form-label"> Парола </label>
+                <ValidationMessage For="() => Input.Password" class="text-danger" />
+            </div>
+            <div class="checkbox mb-3 login-checkbox">
+                <label class="form-label">
+                    <InputCheckbox @bind-Value="Input.RememberMe" class="darker-border-checkbox form-check-input login-checkbox-box" />
+                    Запомни ме
+                </label>
+            </div>
+            <div>
+                <button type="submit" class="btn bg-bg-abvlightgreen bg-abvdarkgreen w-100"> Вход </button>
+            </div>
+            <div class="login-links">
+                <p>
+                    <a href="Account/ForgotPassword" class="bg-abvmiddlegreen"> Забравена парола </a>
+                </p>
+                <p>
+                    <a href="@(NavigationManager.GetUriWithQueryParameters("Account/Register", new Dictionary<string, object?> { ["ReturnUrl"] = ReturnUrl }))" class="bg-abvmiddlegreen"> Регистрирайте се като нов потребител </a>
+                </p>
+                <p>
+                    <a href="Account/ResendEmailConfirmation" class="bg-abvmiddlegreen"> Препрати имейл потвърждение </a>
+                </p>
+            </div>
+        </EditForm>
+    </section>
 </div>
 
 @code {
@@ -114,6 +107,15 @@
 
     private sealed class InputModel
     {
+        [Required]
+        [RegularExpression(Constants.Identity.UserNameRegex, ErrorMessage = Messages.Identity.UsernameError)]
+        public string UserName { get; set; }
+
+        [Required]
+        [RegularExpression(Constants.Identity.PINRegex, ErrorMessage = Messages.Identity.PINError)]
+        [Display(Name = "PIN")]
+        public string PIN { get; set; }
+
         [Required]
         [EmailAddress]
         public string Email { get; set; } = "";
