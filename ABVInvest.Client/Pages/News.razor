@@ -3,6 +3,7 @@
 @rendermode InteractiveAuto
 
 @inject IRSSFeedParser RSSFeedParser
+@inject NavigationManager navigationManager;
 
 <div class="container">
     <h2 class="bg-abvmiddlegreen"> Новини </h2>
@@ -25,5 +26,16 @@
     protected override async Task OnInitializedAsync()
     {
         RssModels = RSSFeedParser.LoadNews();
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (firstRender)
+        {
+            var timer = new Timer(new TimerCallback(_ =>
+            {
+                navigationManager.Refresh();
+            }), null, 60000, 60000);
+        }
     }
 }
