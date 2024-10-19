@@ -1,17 +1,19 @@
 ﻿@page "/Account/Login"
 
 @inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager;
 @inject ILogger<Login> Logger
 @inject NavigationManager NavigationManager
 @inject IdentityRedirectManager RedirectManager
 
 <h2 class="bg-abvmiddlegreen"> Вход за потребители </h2>
-<div class="col-md-6">
+<hr />
+
+<div class="col-md-4">
     <section>
         <StatusMessage Message="@errorMessage" />
         <EditForm Model="Input" method="post" OnValidSubmit="LoginUser" FormName="login">
             <DataAnnotationsValidator />
-            <hr />
             <ValidationSummary class="text-danger" role="alert" />
             <div class="form-floating mb-3 login-box">
                 <InputText @bind-Value="Input.UserName" class="form-control" autocomplete="username" aria-required="true" placeholder="username" />
@@ -22,11 +24,6 @@
                 <InputText @bind-Value="Input.PIN" class="form-control" autocomplete="pin" aria-required="true" placeholder="PIN" />
                 <label for="pin" class="form-label"> ПИН </label>
                 <ValidationMessage For="() => Input.PIN" class="text-danger" />
-            </div>
-            <div class="form-floating mb-3 login-box">
-                <InputText @bind-Value="Input.Email" class="form-control" autocomplete="email" aria-required="true" placeholder="name@example.com" />
-                <label for="email" class="form-label"> Имейл </label>
-                <ValidationMessage For="() => Input.Email" class="text-danger" />
             </div>
             <div class="form-floating mb-3 login-box">
                 <InputText type="password" @bind-Value="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" placeholder="password" />
@@ -40,7 +37,7 @@
                 </label>
             </div>
             <div>
-                <button type="submit" class="btn bg-bg-abvlightgreen bg-abvdarkgreen w-100"> Вход </button>
+                <button type="submit" class="btn bg-bg-abvlightgreen bg-abvdarkgreen large-fontsize w-50"> Вход </button>
             </div>
             <div class="login-links">
                 <p>
@@ -82,9 +79,15 @@
     {
         // This doesn't count login failures towards account lockout
         // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-        var result = await SignInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
+        var result = await SignInManager.PasswordSignInAsync(Input.UserName, Input.Password, Input.RememberMe, lockoutOnFailure: false);
         if (result.Succeeded)
         {
+            var dbUser = UserManager.Users.SingleOrDefault(u => u.UserName == this.Input.UserName);
+            if (dbUser == null || this.Input.PIN != dbUser.PIN)
+            {
+                errorMessage = Messages.Identity.InvalidLogInAttempt;
+            }
+
             Logger.LogInformation("User logged in.");
             RedirectManager.RedirectTo(ReturnUrl);
         }
@@ -109,11 +112,7 @@
         [RegularExpression(Constants.Identity.PINRegex, ErrorMessage = Messages.Identity.PINError)]
         [Display(Name = "PIN")]
         public string PIN { get; set; }
-
-        [Required]
-        [EmailAddress]
-        public string Email { get; set; } = "";
-
+        
         [Required]
         [DataType(DataType.Password)]
         public string Password { get; set; } = "";

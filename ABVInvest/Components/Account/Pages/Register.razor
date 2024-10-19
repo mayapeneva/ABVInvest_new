@@ -1,12 +1,5 @@
 ﻿@page "/Account/Register"
 
-@using System.ComponentModel.DataAnnotations
-@using System.Text
-@using System.Text.Encodings.Web
-@using Microsoft.AspNetCore.Identity
-@using Microsoft.AspNetCore.WebUtilities
-@using ABVInvest.Data.Models
-
 @inject UserManager<ApplicationUser> UserManager
 @inject IUserStore<ApplicationUser> UserStore
 @inject SignInManager<ApplicationUser> SignInManager
@@ -15,42 +8,41 @@
 @inject NavigationManager NavigationManager
 @inject IdentityRedirectManager RedirectManager
 
-<PageTitle>Register</PageTitle>
+<h2> Създаване на нов потребител </h2>
+<hr />
 
-<h1>Register</h1>
-
-<div class="row">
-    <div class="col-md-4">
-        <StatusMessage Message="@Message" />
-        <EditForm Model="Input" asp-route-returnUrl="@ReturnUrl" method="post" OnValidSubmit="RegisterUser" FormName="register">
-            <DataAnnotationsValidator />
-            <h2>Create a new account.</h2>
-            <hr />
-            <ValidationSummary class="text-danger" role="alert" />
-            <div class="form-floating mb-3">
-                <InputText @bind-Value="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
-                <label for="email">Email</label>
-                <ValidationMessage For="() => Input.Email" class="text-danger" />
-            </div>
-            <div class="form-floating mb-3">
-                <InputText type="password" @bind-Value="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
-                <label for="password">Password</label>
-                <ValidationMessage For="() => Input.Password" class="text-danger" />
-            </div>
-            <div class="form-floating mb-3">
-                <InputText type="password" @bind-Value="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
-                <label for="confirm-password">Confirm Password</label>
-                <ValidationMessage For="() => Input.ConfirmPassword" class="text-danger" />
-            </div>
-            <button type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
-        </EditForm>
-    </div>
-    <div class="col-md-6 col-md-offset-2">
-        <section>
-            <h3>Use another service to register.</h3>
-            <hr />
-        </section>
-    </div>
+<div class="col-md-4">
+    <StatusMessage Message="@Message" />
+    <EditForm Model="Input" asp-route-returnUrl="@ReturnUrl" method="post" OnValidSubmit="RegisterUser" FormName="register">
+        <DataAnnotationsValidator />
+        <ValidationSummary class="text-danger" role="alert" />
+        <div class="form-floating mb-3 register-box">
+            <InputText @bind-Value="Input.UserName" class="form-control" autocomplete="username" aria-required="true" placeholder="username" />
+            <label for="username" class="form-label"> Потребител </label>
+            <ValidationMessage For="() => Input.UserName" class="text-danger" />
+        </div>
+        <div class="form-floating mb-3 register-box">
+            <InputText @bind-Value="Input.PIN" class="form-control" autocomplete="pin" aria-required="true" placeholder="PIN" />
+            <label for="pin" class="form-label"> ПИН </label>
+            <ValidationMessage For="() => Input.PIN" class="text-danger" />
+        </div>
+        <div class="form-floating mb-3 register-box">
+            <InputText @bind-Value="Input.Email" class="form-control" autocomplete="email" aria-required="true" placeholder="name@example.com" />
+            <label for="email" class="form-label"> Имейл </label>
+            <ValidationMessage For="() => Input.Email" class="text-danger" />
+        </div>
+        <div class="form-floating mb-3 register-box">
+            <InputText type="password" @bind-Value="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
+            <label for="password"> Парола </label>
+            <ValidationMessage For="() => Input.Password" class="text-danger" />
+        </div>
+        <div class="form-floating mb-3 register-box">
+            <InputText type="password" @bind-Value="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
+            <label for="confirm-password"> Потвърди паролата </label>
+            <ValidationMessage For="() => Input.ConfirmPassword" class="text-danger" />
+        </div>
+        <button type="submit" class="btn bg-bg-abvlightgreen bg-abvdarkgreen large-fontsize register-button w-50"> Регистрирай се </button>
+    </EditForm>
 </div>
 
 @code {
@@ -67,6 +59,7 @@
     public async Task RegisterUser(EditContext editContext)
     {
         var user = CreateUser();
+        user.PIN = Input.PIN;
 
         await UserStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
         var emailStore = GetEmailStore();
@@ -78,6 +71,8 @@
             identityErrors = result.Errors;
             return;
         }
+
+        //await UserManager.AddToRoleAsync(user, Constants.User);
 
         Logger.LogInformation("User created a new account with password.");
 
@@ -126,7 +121,17 @@
     private sealed class InputModel
     {
         [Required]
+        [RegularExpression(Constants.Identity.UserNameRegex, ErrorMessage = Messages.Identity.UsernameError)]
+        public string UserName { get; set; }
+
+        [Required]
+        [RegularExpression(Constants.Identity.PINRegex, ErrorMessage = Messages.Identity.PINError)]
+        [Display(Name = "PIN")]
+        public string PIN { get; set; }
+
+        [Required]
         [EmailAddress]
+        [DataType(DataType.EmailAddress, ErrorMessage = Messages.Identity.EmailError)]
         [Display(Name = "Email")]
         public string Email { get; set; } = "";
 
@@ -136,6 +141,7 @@
         [Display(Name = "Password")]
         public string Password { get; set; } = "";
 
+        [Required]
         [DataType(DataType.Password)]
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
