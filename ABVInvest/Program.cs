@@ -4,6 +4,7 @@ using ABVInvest.Components;
 using ABVInvest.Components.Account;
 using ABVInvest.Data;
 using ABVInvest.Data.Models;
+using ABVInvest.Seeders;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -35,6 +36,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddSignInManager()
     .AddDefaultTokenProviders();
@@ -72,6 +74,8 @@ app.UseHttpsRedirection();
 
 app.UseStaticFiles();
 app.UseAntiforgery();
+
+app.UseMiddleware<RolesSeedMiddleware>();
 
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode()

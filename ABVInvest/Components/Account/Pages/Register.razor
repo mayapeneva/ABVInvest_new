@@ -72,7 +72,7 @@
             return;
         }
 
-        //await UserManager.AddToRoleAsync(user, Constants.User);
+        await UserManager.AddToRoleAsync(user, Constants.Role.User);
 
         Logger.LogInformation("User created a new account with password.");
 
@@ -121,11 +121,11 @@
     private sealed class InputModel
     {
         [Required]
-        [RegularExpression(Constants.Identity.UserNameRegex, ErrorMessage = Messages.Identity.UsernameError)]
+        [RegularExpression(Constants.User.UserNameRegex, ErrorMessage = Messages.Identity.UsernameError)]
         public string UserName { get; set; }
 
         [Required]
-        [RegularExpression(Constants.Identity.PINRegex, ErrorMessage = Messages.Identity.PINError)]
+        [RegularExpression(Constants.User.PINRegex, ErrorMessage = Messages.Identity.PINError)]
         [Display(Name = "PIN")]
         public string PIN { get; set; }
 

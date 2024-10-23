@@ -5,7 +5,7 @@ namespace ABVInvest.Components.Account
 {
     internal sealed class IdentityRedirectManager(NavigationManager navigationManager)
     {
-        public const string StatusCookieName = "Identity.StatusMessage";
+        public const string StatusCookieName = "User.StatusMessage";
 
         private static readonly CookieBuilder StatusCookieBuilder = new()
         {

@@ -15,10 +15,16 @@
             public const string X3NewsRSS = "https://www.x3news.com/?page=rssfeed&language=bg";
         }
         
-        public static class Identity
+        public static class User
         {
             public const string PINRegex = "^\\d{5}$";
             public const string UserNameRegex = "^[A-Z0-9]{5}$|^[A-Z0-9]{10}$";
+        }
+
+        public static class Role
+        {
+            public const string Admin = "Admin";
+            public const string User = "User";
         }
     }
 }
