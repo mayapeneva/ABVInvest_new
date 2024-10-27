@@ -4,16 +4,12 @@ using Microsoft.AspNetCore.Identity;
 
 namespace ABVInvest.Seeders
 {
-    public class RolesSeedMiddleware
+    public class RolesSeedMiddleware(RequestDelegate next)
     {
-        private readonly RequestDelegate next;
-
         private const string AdminUserName = "ADMIN";
         private const string AdminEmail = "admin@gmail.com";
         private const string AdminPass = "789-Admin";
         private const string PIN = "00000";
-
-        public RolesSeedMiddleware(RequestDelegate next) => this.next = next;
 
         public async Task InvokeAsync(HttpContext context, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
         {
@@ -22,7 +18,7 @@ namespace ABVInvest.Seeders
                 await RolesSeed(userManager, roleManager);
             }
 
-            await this.next(context);
+            await next(context);
         }
 
         private static async Task RolesSeed(UserManager<ApplicationUser> userManager,
