@@ -1,8 +1,8 @@
-﻿@page "/news"
+﻿@page "/Common/News"
 
-@rendermode InteractiveAuto
+@rendermode InteractiveServer
 
-@inject IRSSFeedParser RSSFeedParser
+@inject IRSSFeedService RSSFeedParser
 @inject NavigationManager navigationManager;
 
 <div class="container">
@@ -25,7 +25,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        RssModels = RSSFeedParser.LoadNews();
+        RssModels = await RSSFeedParser.LoadNews();
     }
 
     protected override void OnAfterRender(bool firstRender)

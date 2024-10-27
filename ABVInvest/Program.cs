@@ -1,4 +1,3 @@
-using ABVInvest.Common;
 using ABVInvest.Common.Parsers;
 using ABVInvest.Components;
 using ABVInvest.Components.Account;
@@ -42,18 +41,10 @@ builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.Requ
     .AddDefaultTokenProviders();
 
 builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
-builder.Services.AddScoped<IRSSFeedParser, RSSFeedParser>();
 
-builder.Services.AddCors(options =>
-{
-    options.AddDefaultPolicy(
-        policy =>
-        {
-            policy.WithOrigins("http://localhost:53141", "http://localhost:53142", Constants.RSSFeed.CapitalRSSCompanies, Constants.RSSFeed.CapitalRSSMarkets, Constants.RSSFeed.CapitalRSSFinance, Constants.RSSFeed.InvestorRSSCompanies, Constants.RSSFeed.InvestorRSSMarkets, Constants.RSSFeed.InvestorRSSFinance, Constants.RSSFeed.X3NewsRSS)
-                .AllowAnyHeader()
-                .AllowAnyMethod();
-        });
-});
+builder.Services.AddHttpClient();
+
+builder.Services.AddTransient<IRSSFeedService, RSSFeedService>();
 
 var app = builder.Build();
 
