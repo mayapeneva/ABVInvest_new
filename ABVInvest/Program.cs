@@ -3,7 +3,10 @@ using ABVInvest.Components;
 using ABVInvest.Components.Account;
 using ABVInvest.Data;
 using ABVInvest.Data.Models;
+using ABVInvest.Mapping;
 using ABVInvest.Seeders;
+using ABVInvest.Services.Portfolio;
+using AutoMapper;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -42,9 +45,19 @@ builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.Requ
 
 builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
 
-builder.Services.AddHttpClient();
+var mapperConfiguration = new MapperConfiguration(configuration =>
+{
+    var profile = new MappingProfile();
+    configuration.AddProfile(profile);
+});
+var mapper = mapperConfiguration.CreateMapper();
+builder.Services.AddSingleton(mapper);
 
+
+builder.Services.AddHttpClient();
 builder.Services.AddTransient<IRSSFeedService, RSSFeedService>();
+
+builder.Services.AddScoped<IPortfoliosService, PortfoliosService>();
 
 var app = builder.Build();
 

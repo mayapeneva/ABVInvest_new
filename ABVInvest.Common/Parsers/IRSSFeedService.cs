@@ -1,4 +1,4 @@
-﻿using ABVInvest.Common.Models;
+﻿using ABVInvest.Common.ViewModels;
 
 namespace ABVInvest.Common.Parsers
 {

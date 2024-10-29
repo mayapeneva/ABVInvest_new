@@ -1,4 +1,4 @@
-﻿using ABVInvest.Common.Models;
+﻿using ABVInvest.Common.ViewModels;
 using System.ServiceModel.Syndication;
 using System.Xml;
 
