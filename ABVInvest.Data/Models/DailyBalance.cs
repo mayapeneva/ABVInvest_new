@@ -9,7 +9,7 @@ namespace ABVInvest.Data.Models
 
         [Required]
         [DataType(DataType.Date)]
-        public DateTime Date { get; set; }
+        public DateOnly Date { get; set; }
 
         [Required]
         public virtual Balance Balance { get; set; }

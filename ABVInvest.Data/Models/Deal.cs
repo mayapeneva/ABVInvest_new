@@ -47,7 +47,7 @@ namespace ABVInvest.Data.Models
 
         [Required]
         [DataType(DataType.Date)]
-        public DateTime Settlement { get; set; }
+        public DateOnly Settlement { get; set; }
 
         [Required]
         public virtual Market Market { get; set; }

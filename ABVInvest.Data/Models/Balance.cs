@@ -33,7 +33,7 @@ namespace ABVInvest.Data.Models
         [Column(TypeName = "decimal(18, 4)")]
         public decimal VirtualProfitPercentage { get; private set; }
 
-        public void SetBalanceFigures(ApplicationUser user, DateTime date)
+        public void SetBalanceFigures(ApplicationUser user, DateOnly date)
         {
             this.UsersPortfolio = user.Portfolio.SingleOrDefault(p => p.Date.ToString(DateTimeParseFormat) == date.ToString(DateTimeParseFormat))?.SecuritiesPerIssuerCollection ?? [];
 

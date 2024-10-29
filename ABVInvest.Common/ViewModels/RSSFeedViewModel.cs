@@ -1,4 +1,4 @@
-﻿namespace ABVInvest.Common.Models
+﻿namespace ABVInvest.Common.ViewModels
 {
     public class RSSFeedViewModel
     {
