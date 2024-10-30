@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ABVInvest.Client", "ABVInve
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ABVInvest.Data", "ABVInvest.Data\ABVInvest.Data.csproj", "{541BBCA2-6F23-418F-A92A-E16293AA34B4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ABVInvest.Common", "ABVInvest.Common\ABVInvest.Common.csproj", "{98B3B007-8476-46A1-B1C5-5D6B544D68CE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ABVInvest.Common", "ABVInvest.Common\ABVInvest.Common.csproj", "{98B3B007-8476-46A1-B1C5-5D6B544D68CE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ABVInvest.Services", "ABVInvest.Services\ABVInvest.Services.csproj", "{C6F306F4-1C2D-4535-866F-F655B1AD241E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{98B3B007-8476-46A1-B1C5-5D6B544D68CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{98B3B007-8476-46A1-B1C5-5D6B544D68CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{98B3B007-8476-46A1-B1C5-5D6B544D68CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6F306F4-1C2D-4535-866F-F655B1AD241E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6F306F4-1C2D-4535-866F-F655B1AD241E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6F306F4-1C2D-4535-866F-F655B1AD241E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6F306F4-1C2D-4535-866F-F655B1AD241E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

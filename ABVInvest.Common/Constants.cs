@@ -2,6 +2,17 @@
 {
     public static class Constants
     {
+        public static class Common
+        {
+            
+        }
+
+        public static class Role
+        {
+            public const string Admin = "Admin";
+            public const string User = "User";
+        }
+
         public static class RSSFeed
         {
             public const string CapitalRSSCompanies = "https://www.capital.bg/rss/?rubrid=2268/";
@@ -21,10 +32,10 @@
             public const string UserNameRegex = "^[A-Z0-9]{5}$|^[A-Z0-9]{10}$";
         }
 
-        public static class Role
+        public static class ViewModel
         {
-            public const string Admin = "Admin";
-            public const string User = "User";
+            public const string SvSeCulture = "sv-SE";
+            public const string DateTimeParseFormat = "dd/MM/yyyy";
         }
     }
 }

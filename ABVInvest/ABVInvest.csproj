@@ -1,19 +1,30 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <UserSecretsId>aspnet-ABVInvest-f2e2eb55-1981-4fb8-bab8-e99041763086</UserSecretsId>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<UserSecretsId>aspnet-ABVInvest-f2e2eb55-1981-4fb8-bab8-e99041763086</UserSecretsId>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\ABVInvest.Client\ABVInvest.Client.csproj" />
-    <ProjectReference Include="..\ABVInvest.Common\ABVInvest.Common.csproj" />
-    <ProjectReference Include="..\ABVInvest.Data\ABVInvest.Data.csproj" />
-    <PackageReference Include="Blazor.Bootstrap" Version="3.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.10" />
-	  <PackageReference Include="CloudinaryDotNet" Version="1.26.2" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\ABVInvest.Client\ABVInvest.Client.csproj" />
+		<ProjectReference Include="..\ABVInvest.Common\ABVInvest.Common.csproj" />
+		<ProjectReference Include="..\ABVInvest.Data\ABVInvest.Data.csproj" />
+		<ProjectReference Include="..\ABVInvest.Services\ABVInvest.Services.csproj" />
+		<PackageReference Include="AutoMapper" Version="13.0.1" />
+		<PackageReference Include="Blazor.Bootstrap" Version="3.0.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.10" />
+		<PackageReference Include="CloudinaryDotNet" Version="1.26.2" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.10">
+		  <PrivateAssets>all</PrivateAssets>
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
+
+	<ItemGroup>
+		<Folder Include="Components\Pages\Admin\" />
+		<Folder Include="Validation\" />
+	</ItemGroup>
 
 </Project>

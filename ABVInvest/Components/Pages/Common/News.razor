@@ -3,7 +3,7 @@
 @rendermode InteractiveServer
 
 @inject IRSSFeedService RSSFeedParser
-@inject NavigationManager navigationManager;
+@inject NavigationManager NavigationManager;
 
 <div class="container">
     <h2 class="bg-abvmiddlegreen"> Новини </h2>
@@ -21,7 +21,7 @@
 </div>
 
 @code {
-    public IEnumerable<RSSFeedViewModel> RssModels = new List<RSSFeedViewModel>();
+    private IEnumerable<RSSFeedViewModel> RssModels = new List<RSSFeedViewModel>();
 
     protected override async Task OnInitializedAsync()
     {
@@ -34,7 +34,7 @@
         {
             var timer = new Timer(new TimerCallback(_ =>
             {
-                navigationManager.Refresh();
+                NavigationManager.Refresh();
             }), null, 60000, 60000);
         }
     }

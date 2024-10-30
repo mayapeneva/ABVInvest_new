@@ -1,0 +1,64 @@
+﻿@page "/User/Portfolio"
+
+@rendermode InteractiveAuto
+
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject IPortfoliosService PortfoliosService
+
+<div class="container">
+    <h2 class="bg-abvmiddlegreen"> Портфолио </h2>
+    <hr />
+
+    @if (PortfolioModels.Count() == 0)
+    {
+        <EditForm Model="Input" method="post" OnValidSubmit="HandleOnValidDateSubmit" FormName="portfolioForm">
+            <DataAnnotationsValidator />
+            <ValidationSummary class="text-danger" role="alert" />
+            <div class="form-group">
+                <div class="col-md-5 mb-3">
+                    <label class="col-form-label"> За да да получите информация за портфолиото си, моля изберете дата след @MinDate.ToString(Constants.ViewModel.DateTimeParseFormat) и не по-късна от днес: </label>
+                </div>
+                <div class="col-md-2 mb-3">
+                    <DateInput TValue="DateOnly?" @bind-Value="Input.Date" EnableMinMax="true" Min="@MinDate" Max="@MaxDate" Placeholder="Изберете дата" />
+                    <ValidationMessage For="() => Input.Date" class="text-danger" />
+                </div>
+                    <Button Type="ButtonType.Submit" Class="date-button bg-bg-abvlightgreen bg-abvdarkgreen large-fontsize"> Избери </Button>
+            </div>
+        </EditForm>
+    }
+    else
+    {
+        
+    }
+</div>
+
+@code {
+    private readonly DateOnly MinDate = new DateOnly(2016, 01, 01);
+    private readonly DateOnly MaxDate = DateOnly.FromDateTime(DateTime.UtcNow);
+
+    [SupplyParameterFromForm]
+    private InputModel Input { get; set; } = new();
+
+    private IEnumerable<PortfolioViewModel> PortfolioModels = new List<PortfolioViewModel>();
+
+    public async Task HandleOnValidDateSubmit()
+    {
+         if (Input.Date != null)
+        {
+            var authenticationState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+            var portfolio = await PortfoliosService.GetUserDailyPortfolio<PortfolioViewModel>(authenticationState.User, Input.Date.Value);
+            if (portfolio is null)
+            {
+                // return error
+            }
+
+            PortfolioModels = portfolio;
+        }
+    }
+
+    private sealed class InputModel
+    {
+        [DataType(DataType.Date)]
+        public DateOnly? Date;
+    }
+}
