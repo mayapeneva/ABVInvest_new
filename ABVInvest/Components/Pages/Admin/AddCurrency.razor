@@ -1,17 +1,17 @@
 ﻿@inject IDataService DataService
 
-<div class="col-md-8">
+<div class="col-md-4">
     <h4 class="bg-abvmiddlegreen">Попълнете трибуквения код на валутата, която искате да добавите:</h4>
 
     <EditForm Model="Input" method="post" OnValidSubmit="AddCurrencyData" FormName="addCurrencyForm">
         <DataAnnotationsValidator />
         <div class="form-group">
-            <div class="col-md-6 mb-3">
-                <InputText @bind-Value="Input.Code" Placeholder="Валутен код" @oninput="ClearDisplayMessage"/>
-                <ValidationMessage For="() => Input.Code" class="text-danger"/>
+            <div class="row m-0 mb-3">
+                <InputText @bind-Value="Input.Code" Placeholder="Валутен код" @oninput="ClearDisplayMessage" />
+                <ValidationMessage For="() => Input.Code" class="text-danger" />
             </div>
             <StatusDisplayMessage DisplayMessage="@ErrorMessage" />
-            <Button Type="ButtonType.Submit" Class="date-button bg-bg-abvlightgreen bg-abvdarkgreen large-fontsize"> Добави </Button>
+            <Button Type="ButtonType.Submit" Class="add-data-button bg-bg-abvlightgreen bg-abvdarkgreen large-fontsize"> Добави </Button>
         </div>
     </EditForm>
 </div>

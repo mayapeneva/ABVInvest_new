@@ -1,29 +1,29 @@
 ﻿@inject IDataService DataService
 
-<div class="col-md-8">
+<div class="col-md-6">
     <h4 class="bg-abvmiddlegreen">Попълнете данните на ценните книжа, които искате да добавите:</h4>
 
     <EditForm Model="Input" method="post" OnValidSubmit="AddSecurityData" FormName="addSecurityForm">
         <DataAnnotationsValidator />
         <div class="form-group">
-            <div class="col-md-6 mb-3">
+            <div class="row m-0 mb-3">
                 <InputText @bind-Value="Input.Issuer" Placeholder="Емитент" @oninput="ClearDisplayMessage" />
                 <ValidationMessage For="() => Input.Issuer" class="text-danger" />
             </div>
-            <div class="col-md-6 mb-3">
+            <div class="row m-0 mb-3">
                 <InputText @bind-Value="Input.ISIN" Placeholder="Международен идентификационен код на ценните книжа (ISIN)" @oninput="ClearDisplayMessage" />
                 <ValidationMessage For="() => Input.ISIN" class="text-danger" />
             </div>
-            <div class="col-md-6 mb-3">
+            <div class="row m-0 mb-3">
                 <InputText @bind-Value="Input.BfbCode" Placeholder="БФБ код" @oninput="ClearDisplayMessage" />
                 <ValidationMessage For="() => Input.BfbCode" class="text-danger" />
             </div>
-            <div class="col-md-6 mb-3">
+            <div class="row m-0 mb-3">
                 <InputText @bind-Value="Input.Currency" Placeholder="Валута" @oninput="ClearDisplayMessage" />
                 <ValidationMessage For="() => Input.Currency" class="text-danger" />
             </div>
             <StatusDisplayMessage DisplayMessage="@ErrorMessage" />
-            <Button Type="ButtonType.Submit" Class="date-button bg-bg-abvlightgreen bg-abvdarkgreen large-fontsize"> Добави </Button>
+            <Button Type="ButtonType.Submit" Class="add-data-button bg-bg-abvlightgreen bg-abvdarkgreen large-fontsize"> Добави </Button>
         </div>
     </EditForm>
 </div>

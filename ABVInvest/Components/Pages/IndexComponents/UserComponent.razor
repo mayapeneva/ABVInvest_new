@@ -1,4 +1,9 @@
-﻿<div clas="row">
+﻿@using ABVInvest.Data.Models
+@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<ApplicationUser> SignInManager
+
+<div clas="row">
     <div class="col-md-2"></div>
     <div class="col-md-8">
         <img src="https://res.cloudinary.com/mausha/image/upload/v1543241400/ABV/ABVlogo.jpg" alt="ABV-logo" class="img-responsive" asp-append-version="true">
@@ -27,6 +32,10 @@
     </div>
 </div>
 
-@code {
+<Button Type="ButtonType.Link" @onclick="Logout">Изход</Button>
 
+@code {
+    public async Task Logout(){
+        await this.SignInManager.SignOutAsync();
+    }
 }

@@ -154,6 +154,10 @@ body {
     margin-top: 40px;
 }
 
+.add-data-button {
+    margin-top: 20px;
+}
+
 .display-message {
     width: fit-content;
 }

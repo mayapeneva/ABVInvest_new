@@ -5,14 +5,14 @@
 <AuthorizeView>
     <Authorized Context="authContext">
         <AuthorizeView Roles="@ShortConstants.Role.Admin">
-            <IndexAdmin />
+            <AdminComponent />
         </AuthorizeView>
         <AuthorizeView Roles="@ShortConstants.Role.User">
-            <IndexUser />
+            <UserComponent />
         </AuthorizeView>
     </Authorized>
     <NotAuthorized>
-        <IndexNotAuthorized />
+        <NotAuthorizedComponent />
     </NotAuthorized>
 </AuthorizeView>
 
