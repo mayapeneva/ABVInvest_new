@@ -85,7 +85,7 @@
             var dbUser = UserManager.Users.SingleOrDefault(u => u.UserName == this.Input.UserName);
             if (dbUser == null || this.Input.PIN != dbUser.PIN)
             {
-                errorMessage = Messages.Identity.InvalidLogInAttempt;
+                errorMessage = Messages.User.InvalidLogInAttempt;
             }
 
             Logger.LogInformation("User logged in.");
@@ -98,22 +98,22 @@
         }
         else
         {
-            errorMessage = "Error: Invalid login attempt.";
+            errorMessage = Messages.User.InvalidLogInAttempt;
         }
     }
 
     private sealed class InputModel
     {
-        [Required]
-        [RegularExpression(Constants.User.UserNameRegex, ErrorMessage = Messages.Identity.UsernameError)]
+        [Required(ErrorMessage = Messages.Data.RequiredField)]
+        [RegularExpression(ShortConstants.User.UserNameRegex, ErrorMessage = Messages.User.UsernameError)]
         public string UserName { get; set; }
 
-        [Required]
-        [RegularExpression(Constants.User.PINRegex, ErrorMessage = Messages.Identity.PINError)]
+        [Required(ErrorMessage = Messages.Data.RequiredField)]
+        [RegularExpression(ShortConstants.User.PINRegex, ErrorMessage = Messages.User.PINError)]
         [Display(Name = "PIN")]
         public string PIN { get; set; }
         
-        [Required]
+        [Required(ErrorMessage = Messages.Data.RequiredField)]
         [DataType(DataType.Password)]
         public string Password { get; set; } = "";
 

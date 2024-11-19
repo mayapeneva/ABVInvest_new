@@ -1,0 +1,53 @@
+﻿@inject IDataService DataService
+
+<div class="col-md-8">
+    <h4 class="bg-abvmiddlegreen">Попълнете името и MIC на пазара, който искате да добавите:</h4>
+
+    <EditForm Model="Input" method="post" OnValidSubmit="AddMarketData" FormName="addMarketForm">
+        <DataAnnotationsValidator />
+        <div class="form-group">
+            <div class="col-md-6 mb-3">
+                <InputText @bind-Value="Input.Name" Placeholder="Пазар" @oninput="ClearDisplayMessage" />
+                <ValidationMessage For="() => Input.Name" class="text-danger" />
+            </div>
+            <div class="col-md-6 mb-3">
+                <InputText @bind-Value="Input.MIC" Placeholder="Идентификационен код на пазара (MIC)" @oninput="ClearDisplayMessage" />
+                <ValidationMessage For="() => Input.MIC" class="text-danger" />
+            </div>
+            <StatusDisplayMessage DisplayMessage="@ErrorMessage" />
+            <Button Type="ButtonType.Submit" Class="date-button bg-bg-abvlightgreen bg-abvdarkgreen large-fontsize"> Добави </Button>
+        </div>
+    </EditForm>
+</div>
+
+@code {
+    private string? ErrorMessage;
+
+    [SupplyParameterFromForm]
+    private InputModel Input { get; set; } = new();
+
+    public async Task AddMarketData()
+    {
+        if (Input.Name != null && Input.MIC != null)
+        {
+            var result = await DataService.CreateMarket(Input.Name, Input.MIC);
+            ErrorMessage = !result.IsSuccessful() ? $"Грешка: {string.Join(", ", result.Errors)}" : string.Format(Messages.Data.MarketAdded, Input.Name);
+        }
+    }
+
+    public async Task ClearDisplayMessage()
+    {
+        ErrorMessage = string.Empty;
+    }
+
+    private sealed class InputModel
+    {
+        [Required(ErrorMessage = Messages.Data.RequiredField)]
+        [DataType(DataType.Text)]
+        public string Name { get; set; }
+
+        [Required(ErrorMessage = Messages.Data.RequiredField)]
+        [RegularExpression("^[A-Z]{4}$", ErrorMessage = Messages.Data.MarketMICError)]
+        public string MIC { get; set; }
+    }
+}

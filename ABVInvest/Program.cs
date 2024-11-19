@@ -5,7 +5,8 @@ using ABVInvest.Data;
 using ABVInvest.Data.Models;
 using ABVInvest.Mapping;
 using ABVInvest.Seeders;
-using ABVInvest.Services.Portfolio;
+using ABVInvest.Services.Data;
+using ABVInvest.Services.Portfolios;
 using AutoMapper;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -55,9 +56,10 @@ builder.Services.AddSingleton(mapper);
 
 
 builder.Services.AddHttpClient();
-builder.Services.AddTransient<IRSSFeedService, RSSFeedService>();
+builder.Services.AddScoped<IRSSFeedService, RSSFeedService>();
 
 builder.Services.AddScoped<IPortfoliosService, PortfoliosService>();
+builder.Services.AddScoped<IDataService, DataService>();
 
 var app = builder.Build();
 
@@ -73,9 +75,6 @@ else
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
-
-app.UseAuthentication();
-app.UseAuthorization();
 
 app.UseHttpsRedirection();
 

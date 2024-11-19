@@ -22,9 +22,4 @@
 		</PackageReference>
 	</ItemGroup>
 
-	<ItemGroup>
-		<Folder Include="Components\Pages\Admin\" />
-		<Folder Include="Validation\" />
-	</ItemGroup>
-
 </Project>

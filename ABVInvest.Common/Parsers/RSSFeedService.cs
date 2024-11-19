@@ -1,4 +1,5 @@
-﻿using ABVInvest.Common.ViewModels;
+﻿using ABVInvest.Common.Constants;
+using ABVInvest.Common.ViewModels;
 using System.ServiceModel.Syndication;
 using System.Xml;
 
@@ -15,7 +16,7 @@ namespace ABVInvest.Common.Parsers
             this.httpClient = clientFactory.CreateClient();
 
             twoWeeksBackDate = DateTime.UtcNow.Subtract(new TimeSpan(14, 0, 0, 0));
-            rssAddresses = [Constants.RSSFeed.InvestorRSSCompanies, Constants.RSSFeed.InvestorRSSMarkets, Constants.RSSFeed.InvestorRSSFinance, Constants.RSSFeed.X3NewsRSS];
+            rssAddresses = [ShortConstants.RSSFeed.InvestorRSSCompanies, ShortConstants.RSSFeed.InvestorRSSMarkets, ShortConstants.RSSFeed.InvestorRSSFinance, ShortConstants.RSSFeed.X3NewsRSS];
         }
 
         public async Task<IEnumerable<RSSFeedViewModel>> LoadNews()

@@ -61,7 +61,7 @@
 
     private sealed class InputModel
     {
-        [Required]
+        [Required(ErrorMessage = Messages.Data.RequiredField)]
         [EmailAddress]
         public string Email { get; set; } = "";
     }

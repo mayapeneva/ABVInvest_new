@@ -1,0 +1,68 @@
+﻿@inject IDataService DataService
+
+<div class="col-md-8">
+    <h4 class="bg-abvmiddlegreen">Попълнете данните на ценните книжа, които искате да добавите:</h4>
+
+    <EditForm Model="Input" method="post" OnValidSubmit="AddSecurityData" FormName="addSecurityForm">
+        <DataAnnotationsValidator />
+        <div class="form-group">
+            <div class="col-md-6 mb-3">
+                <InputText @bind-Value="Input.Issuer" Placeholder="Емитент" @oninput="ClearDisplayMessage" />
+                <ValidationMessage For="() => Input.Issuer" class="text-danger" />
+            </div>
+            <div class="col-md-6 mb-3">
+                <InputText @bind-Value="Input.ISIN" Placeholder="Международен идентификационен код на ценните книжа (ISIN)" @oninput="ClearDisplayMessage" />
+                <ValidationMessage For="() => Input.ISIN" class="text-danger" />
+            </div>
+            <div class="col-md-6 mb-3">
+                <InputText @bind-Value="Input.BfbCode" Placeholder="БФБ код" @oninput="ClearDisplayMessage" />
+                <ValidationMessage For="() => Input.BfbCode" class="text-danger" />
+            </div>
+            <div class="col-md-6 mb-3">
+                <InputText @bind-Value="Input.Currency" Placeholder="Валута" @oninput="ClearDisplayMessage" />
+                <ValidationMessage For="() => Input.Currency" class="text-danger" />
+            </div>
+            <StatusDisplayMessage DisplayMessage="@ErrorMessage" />
+            <Button Type="ButtonType.Submit" Class="date-button bg-bg-abvlightgreen bg-abvdarkgreen large-fontsize"> Добави </Button>
+        </div>
+    </EditForm>
+</div>
+
+@code {
+    private string? ErrorMessage;
+
+    [SupplyParameterFromForm]
+    private InputModel Input { get; set; } = new();
+
+    public async Task AddSecurityData()
+    {
+        if (Input.Issuer != null && Input.ISIN != null)
+        {
+            var result = await DataService.CreateSecurity(Input.Issuer, Input.ISIN, Input.BfbCode, Input.Currency);
+            ErrorMessage = !result.IsSuccessful() ? $"Грешка: {string.Join(", ", result.Errors)}" : string.Format(Messages.Data.SecurityAdded, Input.ISIN);
+        }
+    }
+
+    public async Task ClearDisplayMessage()
+    {
+        ErrorMessage = string.Empty;
+    }
+
+    private sealed class InputModel
+    {
+        [Required(ErrorMessage = Messages.Data.RequiredField)]
+        [DataType(DataType.Text)]
+        public string Issuer { get; set; }
+
+        [Required(ErrorMessage = Messages.Data.RequiredField)]
+        [RegularExpression(@"^[A-Z0-9]{12}$", ErrorMessage = Messages.Data.IsinError)]
+        public string ISIN { get; set; }
+
+        [RegularExpression(@"^[A-Z0-9]{3,4}$", ErrorMessage = Messages.Data.BfbCodeError)]
+        public string BfbCode { get; set; }
+
+        [RegularExpression(@"^[A-Z]{3}$", ErrorMessage = Messages.Data.CurrencyCodeError)]
+        [DataType(DataType.Currency)]
+        public string Currency { get; set; }
+    }
+}

@@ -4,15 +4,15 @@
 
 <AuthorizeView>
     <Authorized Context="authContext">
-        <AuthorizeView Roles="@Constants.Role.Admin">
-            <IndexAdmin></IndexAdmin>
+        <AuthorizeView Roles="@ShortConstants.Role.Admin">
+            <IndexAdmin />
         </AuthorizeView>
-        <AuthorizeView Roles="@Constants.Role.User">
-            <IndexUser></IndexUser>
+        <AuthorizeView Roles="@ShortConstants.Role.User">
+            <IndexUser />
         </AuthorizeView>
     </Authorized>
     <NotAuthorized>
-        <IndexNotAuthorized></IndexNotAuthorized>
+        <IndexNotAuthorized />
     </NotAuthorized>
 </AuthorizeView>
 

@@ -1,0 +1,12 @@
+﻿@if (!string.IsNullOrWhiteSpace(DisplayMessage))
+{
+    var statusMessageClass = DisplayMessage.StartsWith("Грешка") ? "danger" : "success";
+    <div class="display-message alert alert-@statusMessageClass mb-3" role="alert">
+        @DisplayMessage
+    </div>
+}
+
+@code {
+    [Parameter]
+    public string? DisplayMessage { get; set; }
+}

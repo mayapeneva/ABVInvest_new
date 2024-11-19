@@ -72,7 +72,7 @@
             return;
         }
 
-        await UserManager.AddToRoleAsync(user, Constants.Role.User);
+        await UserManager.AddToRoleAsync(user, ShortConstants.Role.User);
 
         Logger.LogInformation("User created a new account with password.");
 
@@ -120,28 +120,28 @@
 
     private sealed class InputModel
     {
-        [Required]
-        [RegularExpression(Constants.User.UserNameRegex, ErrorMessage = Messages.Identity.UsernameError)]
+        [Required(ErrorMessage = Messages.Data.RequiredField)]
+        [RegularExpression(ShortConstants.User.UserNameRegex, ErrorMessage = Messages.User.UsernameError)]
         public string UserName { get; set; }
 
-        [Required]
-        [RegularExpression(Constants.User.PINRegex, ErrorMessage = Messages.Identity.PINError)]
+        [Required(ErrorMessage = Messages.Data.RequiredField)]
+        [RegularExpression(ShortConstants.User.PINRegex, ErrorMessage = Messages.User.PINError)]
         [Display(Name = "PIN")]
         public string PIN { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = Messages.Data.RequiredField)]
         [EmailAddress]
-        [DataType(DataType.EmailAddress, ErrorMessage = Messages.Identity.EmailError)]
+        [DataType(DataType.EmailAddress, ErrorMessage = Messages.User.EmailError)]
         [Display(Name = "Email")]
         public string Email { get; set; } = "";
 
-        [Required]
+        [Required(ErrorMessage = Messages.Data.RequiredField)]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; } = "";
 
-        [Required]
+        [Required(ErrorMessage = Messages.Data.RequiredField)]
         [DataType(DataType.Password)]
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]

@@ -1,4 +1,4 @@
-﻿using ABVInvest.Common;
+﻿using ABVInvest.Common.Constants;
 using ABVInvest.Data.Models;
 using Microsoft.AspNetCore.Identity;
 
@@ -24,8 +24,8 @@ namespace ABVInvest.Seeders
         private static async Task RolesSeed(UserManager<ApplicationUser> userManager,
             RoleManager<IdentityRole> roleManager)
         {
-            await roleManager.CreateAsync(new IdentityRole { Name = Constants.Role.Admin });
-            await roleManager.CreateAsync(new IdentityRole { Name = Constants.Role.User });
+            await roleManager.CreateAsync(new IdentityRole { Name = ShortConstants.Role.Admin });
+            await roleManager.CreateAsync(new IdentityRole { Name = ShortConstants.Role.User });
 
             var user = new ApplicationUser
             {

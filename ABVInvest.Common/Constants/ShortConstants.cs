@@ -1,10 +1,23 @@
-﻿namespace ABVInvest.Common
+﻿namespace ABVInvest.Common.Constants
 {
-    public static class Constants
+    public static class ShortConstants
     {
         public static class Common
         {
-            
+            public const string Error = "Грешка";
+            public const string SvSeCulture = "sv-SE";
+            public const string DateTimeParseFormat = "dd/MM/yyyy";
+        }
+
+        public static class Portfolios
+        {
+            public const string AveragePrice = "Средна цена";
+            public const string MarketPrice = "Пазарна цена";
+            public const string MarketValue = "Пазарна стойност";
+            public const string PortfolioShare = "Тегло в портфейла";
+            public const string Profit = "Доходност";
+            public const string ProfitInPersentage = "Доходност в %";
+            public const string Quantity = "Наличност";
         }
 
         public static class Role
@@ -25,17 +38,11 @@
 
             public const string X3NewsRSS = "https://www.x3news.com/?page=rssfeed&language=bg";
         }
-        
+
         public static class User
         {
             public const string PINRegex = "^\\d{5}$";
             public const string UserNameRegex = "^[A-Z0-9]{5}$|^[A-Z0-9]{10}$";
-        }
-
-        public static class ViewModel
-        {
-            public const string SvSeCulture = "sv-SE";
-            public const string DateTimeParseFormat = "dd/MM/yyyy";
         }
     }
 }
