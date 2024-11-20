@@ -5,6 +5,7 @@ using ABVInvest.Data;
 using ABVInvest.Data.Models;
 using ABVInvest.Mapping;
 using ABVInvest.Seeders;
+using ABVInvest.Services.Balances;
 using ABVInvest.Services.Data;
 using ABVInvest.Services.Portfolios;
 using AutoMapper;
@@ -59,6 +60,7 @@ builder.Services.AddHttpClient();
 builder.Services.AddScoped<IRSSFeedService, RSSFeedService>();
 
 builder.Services.AddScoped<IPortfoliosService, PortfoliosService>();
+builder.Services.AddScoped<IBalancesService, BalancesService>();
 builder.Services.AddScoped<IDataService, DataService>();
 
 var app = builder.Build();

@@ -1,4 +1,6 @@
-﻿using ABVInvest.Common.Constants;
+﻿using ABVInvest.Common.BindingModels;
+using ABVInvest.Common.BindingModels.Portfolios;
+using ABVInvest.Common.Constants;
 using ABVInvest.Common.ViewModels;
 using ABVInvest.Data.Models;
 using AutoMapper;
@@ -19,6 +21,8 @@ namespace ABVInvest.Mapping
                 .ForMember(dest => dest.TotalMarketPrice, opt => opt.MapFrom(src => src.TotalMarketPrice.ToString("N2", CultureInfo.CreateSpecificCulture(ShortConstants.Common.SvSeCulture))))
                 .ForMember(dest => dest.ProfitPercentage, opt => opt.MapFrom(src => src.ProfitPercentage.ToString("N2", CultureInfo.CreateSpecificCulture(ShortConstants.Common.SvSeCulture))))
                 .ForMember(dest => dest.PortfolioShare, opt => opt.MapFrom(src => src.PortfolioShare.ToString("N2", CultureInfo.CreateSpecificCulture(ShortConstants.Common.SvSeCulture))));
+
+            CreateMap<SecurityBindingModel, Instrument>();
         }
     }
 }

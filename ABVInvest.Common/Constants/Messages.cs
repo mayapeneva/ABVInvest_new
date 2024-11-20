@@ -16,6 +16,7 @@
             public const string MarketExists = "Пазар с това име вече съществува.";
             public const string MarketDataIsWrong = "Въведените данни относно пазара не са правилни.";
             public const string MarketMICError = "Идентификационният код на пазара трябва да е дълъг 4 символа и да съдържа само главни латински букви.";
+            public const string NoBalance = "Няма налична информация за баланса Ви към тази дата. Моля, изберете дата след 01/01/2016г. и не по-късна от {0}г.";
             public const string RequiredField = "Полето е задължително";
             public const string SecurityAdded = "Ценни книжа с ISIN код {0} са добавен.";
             public const string SecurityExists = "Ценни книжа с този ISIN код вече съществуват.";
@@ -23,7 +24,6 @@
             public const string WrongCurrencyData = "Валутният код се състои от 3 главни латински букви.";
             public const string WrongMarketData = "Името на пазара е неправилно.";
             public const string WrongSecurityData = "ISIN кодът се състои от 12 цифри или главни латински букви. БФБ кодът се състои от 3 или 4 цифри или главни латински букви.";
-
         }
 
         public static class Deals
@@ -45,6 +45,7 @@
             public const string SecurityCannotBeRegistered = "- Ценни книжа за клиент с потребителско име {0} не могат да бъдат регистрирани поради неправилни данни: {1}: {2}.";
             public const string SecurityExistsInThisPortfolio = "- Ценни книжа за клиент с потребителско име {0} не могат да бъдат регистрирани повторно за дата {1}: Емитент: {2}, ISIN: {3}, БФБ код {4}, Валута: {5}.";
             public const string UploadingSuccessfull = "Качването на информация приключи успешно.";
+            public const string UploadingSumarry = "Резюме: Качването на информация приключи. Бяха изпълнени {0} промени.";
         }
 
         public static class User

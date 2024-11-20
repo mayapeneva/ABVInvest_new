@@ -38,7 +38,14 @@
     {
         if (Input.Issuer != null && Input.ISIN != null)
         {
-            var result = await DataService.CreateSecurity(Input.Issuer, Input.ISIN, Input.BfbCode, Input.Currency);
+            var securityInfo = new SecurityBindingModel
+                {
+                    Issuer = Input.Issuer,
+                    ISIN = Input.ISIN,
+                    BfbCode = Input.BfbCode,
+                    Currency = Input.Currency
+                };
+            var result = await DataService.CreateSecurity(securityInfo);
             ErrorMessage = !result.IsSuccessful() ? $"Грешка: {string.Join(", ", result.Errors)}" : string.Format(Messages.Data.SecurityAdded, Input.ISIN);
         }
     }
