@@ -149,6 +149,20 @@ body {
     margin-top: 30px;
 }
 
+/*Admin*/
+.accordion {
+    --bs-accordion-btn-color: var(--darkgreen-color);
+    --bs-accordion-btn-bg: none;
+    --bs-accordion-active-color: var(--darkgreen-color);
+    --bs-accordion-active-bg: var(--middlegreen-color);
+}
+
+input {
+    border: var(--bs-border-width) solid var(--bs-border-color);
+    border-radius: var(--bs-border-radius);
+    padding: 7px 10px;
+}
+
 /*Other*/
 .date-button {
     margin-top: 40px;
@@ -162,7 +176,7 @@ body {
     width: fit-content;
 }
 
-/*/* Font-sizes*/
+/* Font-sizes*/
 .large-fontsize {
     font-size: 20px !important;
 }

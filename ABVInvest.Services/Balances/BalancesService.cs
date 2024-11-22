@@ -24,7 +24,7 @@ namespace ABVInvest.Services.Balances
             var dailyBalance = user.Balances.SingleOrDefault(b => b.Date == date);
             if (dailyBalance is null)
             {
-                result.Errors.Add(string.Format(Messages.Data.NoBalance, DateTime.UtcNow.ToString(ShortConstants.Common.DateTimeParseFormat)));
+                result.Errors.Add(string.Format(Messages.Common.NoBalance, DateTime.UtcNow.ToString(ShortConstants.Common.DateTimeParseFormat)));
                 return result;
             }
 

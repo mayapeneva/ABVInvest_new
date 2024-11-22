@@ -104,16 +104,16 @@
 
     private sealed class InputModel
     {
-        [Required(ErrorMessage = Messages.Data.RequiredField)]
+        [Required(ErrorMessage = Messages.Common.RequiredField)]
         [RegularExpression(ShortConstants.User.UserNameRegex, ErrorMessage = Messages.User.UsernameError)]
         public string UserName { get; set; }
 
-        [Required(ErrorMessage = Messages.Data.RequiredField)]
+        [Required(ErrorMessage = Messages.Common.RequiredField)]
         [RegularExpression(ShortConstants.User.PINRegex, ErrorMessage = Messages.User.PINError)]
         [Display(Name = "PIN")]
         public string PIN { get; set; }
         
-        [Required(ErrorMessage = Messages.Data.RequiredField)]
+        [Required(ErrorMessage = Messages.Common.RequiredField)]
         [DataType(DataType.Password)]
         public string Password { get; set; } = "";
 

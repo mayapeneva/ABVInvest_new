@@ -1,4 +1,4 @@
-using ABVInvest.Common.Parsers;
+using ABVInvest.Common.Helpers;
 using ABVInvest.Components;
 using ABVInvest.Components.Account;
 using ABVInvest.Data;
@@ -7,6 +7,7 @@ using ABVInvest.Mapping;
 using ABVInvest.Seeders;
 using ABVInvest.Services.Balances;
 using ABVInvest.Services.Data;
+using ABVInvest.Services.News;
 using ABVInvest.Services.Portfolios;
 using AutoMapper;
 using Microsoft.AspNetCore.Components.Authorization;
@@ -58,6 +59,7 @@ builder.Services.AddSingleton(mapper);
 
 builder.Services.AddHttpClient();
 builder.Services.AddScoped<IRSSFeedService, RSSFeedService>();
+builder.Services.AddScoped<IDeserialiser, Deserialiser>();
 
 builder.Services.AddScoped<IPortfoliosService, PortfoliosService>();
 builder.Services.AddScoped<IBalancesService, BalancesService>();
