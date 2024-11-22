@@ -16,7 +16,7 @@
             <ValidationSummary class="text-danger" role="alert" />
             <div class="form-group">
                 <div class="col-md-5 mb-3">
-                    <label class="col-form-label"> За да да получите информация за портфолиото си, моля изберете дата след @MinDate.ToString(Constants.ViewModel.DateTimeParseFormat) и не по-късна от днес: </label>
+                    <label class="col-form-label"> За да да получите информация за портфолиото си, моля изберете дата след @MinDate.ToString(ShortConstants.Common.DateTimeParseFormat) и не по-късна от днес: </label>
                 </div>
                 <div class="col-md-2 mb-3">
                     <DateInput TValue="DateOnly?" @bind-Value="Input.Date" EnableMinMax="true" Min="@MinDate" Max="@MaxDate" Placeholder="Изберете дата" />
