@@ -91,7 +91,7 @@ namespace ABVInvest.Services.Portfolios
                 // Validate portfolio and add it to user's Portfolios
                 if (!ModelValidator.IsValid(dbPortfolio) || dbPortfolio.SecuritiesPerIssuerCollection.Count == 0)
                 {
-                    result.Errors.Add(string.Format(Messages.Portfolios.PortfolioCannotBeCreated, portfolio.Key, date));
+                    result.Errors.Add(string.Format(Messages.DealsAndPortfolios.PortfolioCannotBeCreated, portfolio.Key, date));
                     continue;
                 }
 
@@ -105,7 +105,7 @@ namespace ABVInvest.Services.Portfolios
             }
 
             if (changesCounter > 0 && !result.IsSuccessful())
-                result.Errors.Add(string.Format(Messages.Portfolios.UploadingSumarry, changesCounter));
+                result.Errors.Add(string.Format(Messages.DealsAndPortfolios.UploadingSumarry, changesCounter));
 
             return result;
         }
@@ -127,14 +127,14 @@ namespace ABVInvest.Services.Portfolios
             var security = await dataService.GetOrCreateSecurity(securityInfo);
             if (security is null)
             {
-                result.Errors.Add(string.Format(Messages.Portfolios.SecurityCannotBeCreated, portfolioKey, securityInfo.Issuer, securityInfo.ISIN, securityInfo.NewCode, securityInfo.Currency));
+                result.Errors.Add(string.Format(Messages.DealsAndPortfolios.SecurityCannotBeCreated, portfolioKey, securityInfo.Issuer, securityInfo.ISIN, securityInfo.NewCode, securityInfo.Currency));
                 return result;
             }
 
             // Check if such portfolioRow already exists in the usersPortfolio for this date
             if (dbPortfolio.SecuritiesPerIssuerCollection.Any(sc => sc.Security.ISIN == security.ISIN))
             {
-                result.Errors.Add(string.Format(Messages.Portfolios.SecurityExistsInThisPortfolio, portfolioKey, date, securityInfo.Issuer, securityInfo.ISIN, securityInfo.NewCode, securityInfo.Currency));
+                result.Errors.Add(string.Format(Messages.DealsAndPortfolios.SecurityExistsInThisPortfolio, portfolioKey, date, securityInfo.Issuer, securityInfo.ISIN, securityInfo.NewCode, securityInfo.Currency));
                 return result;
             }
 
@@ -142,7 +142,7 @@ namespace ABVInvest.Services.Portfolios
             var currency = await dataService.GetOrCreateCurrency(securityInfo.Currency);
             if (currency is null)
             {
-                result.Errors.Add(string.Format(Messages.Portfolios.CurrencyCannotBeCreated, securityInfo.Currency, portfolioKey, securityInfo.Issuer, securityInfo.ISIN, securityInfo.NewCode));
+                result.Errors.Add(string.Format(Messages.DealsAndPortfolios.CurrencyCannotBeCreated, securityInfo.Currency, portfolioKey, securityInfo.Issuer, securityInfo.ISIN, securityInfo.NewCode));
                 return result;
             }
 
@@ -161,7 +161,7 @@ namespace ABVInvest.Services.Portfolios
             // Validate SecuritiesPerClient and add them to the portfolio
             if (!ModelValidator.IsValid(securitiesPerClient!))
             {
-                result.Errors.Add(string.Format(Messages.Portfolios.SecurityCannotBeCreated, portfolioKey, securityInfo.Issuer, securityInfo.ISIN, securityInfo.NewCode, securityInfo.Currency));
+                result.Errors.Add(string.Format(Messages.DealsAndPortfolios.SecurityCannotBeCreated, portfolioKey, securityInfo.Issuer, securityInfo.ISIN, securityInfo.NewCode, securityInfo.Currency));
                 return result;
             }
 
@@ -174,49 +174,49 @@ namespace ABVInvest.Services.Portfolios
             var result = new ApplicationResult<SecuritiesPerClient>();
             if (!decimal.TryParse(accountData.Quantity.Replace(" ", string.Empty), out var quantity))
             {
-                result.Errors.Add(string.Format(Messages.Portfolios.SecurityCannotBeRegistered, portfolioKey, ShortConstants.Portfolios.Quantity, accountData.Quantity));
+                result.Errors.Add(string.Format(Messages.DealsAndPortfolios.SecurityCannotBeRegistered, portfolioKey, ShortConstants.Portfolios.Quantity, accountData.Quantity));
                 return result;
             }
 
             if (!decimal.TryParse(accountData.OpenPrice.Replace(" ", string.Empty), out var averagePriceBuy))
             {
-                result.Errors.Add(string.Format(Messages.Portfolios.SecurityCannotBeRegistered, portfolioKey, ShortConstants.Portfolios.AveragePrice, accountData.OpenPrice));
+                result.Errors.Add(string.Format(Messages.DealsAndPortfolios.SecurityCannotBeRegistered, portfolioKey, ShortConstants.Portfolios.AveragePrice, accountData.OpenPrice));
                 return result;
             }
 
             if (!decimal.TryParse(accountData.MarketPrice.Replace(" ", string.Empty), out var marketPrice))
             {
-                result.Errors.Add(string.Format(Messages.Portfolios.SecurityCannotBeRegistered, portfolioKey, ShortConstants.Portfolios.MarketPrice, accountData.MarketPrice));
+                result.Errors.Add(string.Format(Messages.DealsAndPortfolios.SecurityCannotBeRegistered, portfolioKey, ShortConstants.Portfolios.MarketPrice, accountData.MarketPrice));
                 return result;
             }
 
             if (!decimal.TryParse(accountData.MarketValue.Replace(" ", string.Empty), out var totalMarketPrice))
             {
-                result.Errors.Add(string.Format(Messages.Portfolios.SecurityCannotBeRegistered, portfolioKey, ShortConstants.Portfolios.MarketValue, accountData.MarketValue));
+                result.Errors.Add(string.Format(Messages.DealsAndPortfolios.SecurityCannotBeRegistered, portfolioKey, ShortConstants.Portfolios.MarketValue, accountData.MarketValue));
                 return result;
             }
 
             if (!decimal.TryParse(accountData.Result.Replace(" ", string.Empty), out var profit))
             {
-                result.Errors.Add(string.Format(Messages.Portfolios.SecurityCannotBeRegistered, portfolioKey, ShortConstants.Portfolios.Profit, accountData.Result));
+                result.Errors.Add(string.Format(Messages.DealsAndPortfolios.SecurityCannotBeRegistered, portfolioKey, ShortConstants.Portfolios.Profit, accountData.Result));
                 return result;
             }
 
             if (!decimal.TryParse(accountData.ResultBGN.Replace(" ", string.Empty), out var profitInBGN))
             {
-                result.Errors.Add(string.Format(Messages.Portfolios.SecurityCannotBeRegistered, portfolioKey, profitInBGN.ToString("N2", CultureInfo.CreateSpecificCulture(ShortConstants.Common.SvSeCulture)), accountData.ResultBGN));
+                result.Errors.Add(string.Format(Messages.DealsAndPortfolios.SecurityCannotBeRegistered, portfolioKey, profitInBGN.ToString("N2", CultureInfo.CreateSpecificCulture(ShortConstants.Common.SvSeCulture)), accountData.ResultBGN));
                 return result;
             }
 
             if (!decimal.TryParse(portfolioRow.Other.YieldPercent.Replace(" ", string.Empty), out var profitPercent))
             {
-                result.Errors.Add(string.Format(Messages.Portfolios.SecurityCannotBeRegistered, portfolioKey, ShortConstants.Portfolios.ProfitInPersentage, portfolioRow.Other.YieldPercent));
+                result.Errors.Add(string.Format(Messages.DealsAndPortfolios.SecurityCannotBeRegistered, portfolioKey, ShortConstants.Portfolios.ProfitInPersentage, portfolioRow.Other.YieldPercent));
                 return result;
             }
 
             if (!decimal.TryParse(portfolioRow.Other.RelativePart.Replace(" ", string.Empty), out var portfolioShare))
             {
-                result.Errors.Add(string.Format(Messages.Portfolios.SecurityCannotBeRegistered, portfolioKey, ShortConstants.Portfolios.PortfolioShare, portfolioRow.Other.RelativePart));
+                result.Errors.Add(string.Format(Messages.DealsAndPortfolios.SecurityCannotBeRegistered, portfolioKey, ShortConstants.Portfolios.PortfolioShare, portfolioRow.Other.RelativePart));
                 return result;
             }
 

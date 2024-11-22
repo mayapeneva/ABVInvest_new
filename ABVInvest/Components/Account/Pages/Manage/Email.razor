@@ -115,7 +115,7 @@
 
     private sealed class InputModel
     {
-        [Required(ErrorMessage = Messages.Data.RequiredField)]
+        [Required(ErrorMessage = Messages.Common.RequiredField)]
         [EmailAddress]
         [Display(Name = "New email")]
         public string? NewEmail { get; set; }

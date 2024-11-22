@@ -1,6 +1,6 @@
-﻿@page "/Common/News"
+﻿@page "/CommonArea/News"
 
-@rendermode InteractiveAuto
+@rendermode InteractiveServer
 
 @inject IRSSFeedService RSSFeedParser
 @inject NavigationManager NavigationManager;
@@ -9,7 +9,7 @@
     <h2 class="bg-abvmiddlegreen"> Новини </h2>
     <hr />
 
-    @if (RssModels != null && RssModels.Count() > 0)
+    @if (RssModels is not null && RssModels.Count() > 0)
     {
         foreach (var item in RssModels)
         {

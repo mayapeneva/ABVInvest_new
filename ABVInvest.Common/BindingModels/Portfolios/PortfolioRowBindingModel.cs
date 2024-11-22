@@ -5,11 +5,11 @@ namespace ABVInvest.Common.BindingModels.Portfolios
 {
 
     [XmlType("New", IncludeInSchema = true)]
-    public class PortfolioRowBindingModel
+    public struct PortfolioRowBindingModel
     {
-        [XmlElement("Client")]
+        [XmlElement("ABVClient")]
         [Required]
-        public Client Client { get; set; }
+        public AppClient Client { get; set; }
 
         [XmlElement("Instrument")]
         [Required]

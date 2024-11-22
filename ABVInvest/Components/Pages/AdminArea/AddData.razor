@@ -1,0 +1,32 @@
+﻿@page "/AdminArea/AddData"
+
+@attribute [Authorize(Roles = ShortConstants.Role.Admin)]
+
+@rendermode InteractiveServer
+
+<div class="container">
+    <h2 class="bg-abvmiddlegreen"> Управление на данните </h2>
+    <hr />
+
+    <Accordion Flush="true">
+        <AccordionItem Class="bg-abvdarkgreen" Title="Добавяне на валута">
+            <Content>
+                <AddCurrencyComponent />
+            </Content>
+        </AccordionItem>
+        <AccordionItem Class="bg-abvdarkgreen" Title="Добавяне на пазар">
+            <Content>
+                <AddMarketComponent />
+            </Content>
+        </AccordionItem>
+        <AccordionItem Class="bg-abvdarkgreen" Title="Добавяне на ценни книжа">
+            <Content>
+                <AddSecurityComponent />
+            </Content>
+        </AccordionItem>
+    </Accordion>
+</div>
+
+@code {
+
+}

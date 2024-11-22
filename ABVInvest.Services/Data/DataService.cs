@@ -1,6 +1,5 @@
 ﻿using ABVInvest.Common;
 using ABVInvest.Common.BindingModels;
-using ABVInvest.Common.BindingModels.Portfolios;
 using ABVInvest.Common.Constants;
 using ABVInvest.Common.Validators;
 using ABVInvest.Data;

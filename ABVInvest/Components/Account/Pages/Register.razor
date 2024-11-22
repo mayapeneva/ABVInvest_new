@@ -120,28 +120,28 @@
 
     private sealed class InputModel
     {
-        [Required(ErrorMessage = Messages.Data.RequiredField)]
+        [Required(ErrorMessage = Messages.Common.RequiredField)]
         [RegularExpression(ShortConstants.User.UserNameRegex, ErrorMessage = Messages.User.UsernameError)]
         public string UserName { get; set; }
 
-        [Required(ErrorMessage = Messages.Data.RequiredField)]
+        [Required(ErrorMessage = Messages.Common.RequiredField)]
         [RegularExpression(ShortConstants.User.PINRegex, ErrorMessage = Messages.User.PINError)]
         [Display(Name = "PIN")]
         public string PIN { get; set; }
 
-        [Required(ErrorMessage = Messages.Data.RequiredField)]
+        [Required(ErrorMessage = Messages.Common.RequiredField)]
         [EmailAddress]
         [DataType(DataType.EmailAddress, ErrorMessage = Messages.User.EmailError)]
         [Display(Name = "Email")]
         public string Email { get; set; } = "";
 
-        [Required(ErrorMessage = Messages.Data.RequiredField)]
+        [Required(ErrorMessage = Messages.Common.RequiredField)]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; } = "";
 
-        [Required(ErrorMessage = Messages.Data.RequiredField)]
+        [Required(ErrorMessage = Messages.Common.RequiredField)]
         [DataType(DataType.Password)]
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]

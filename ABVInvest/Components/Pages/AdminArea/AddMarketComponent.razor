@@ -1,7 +1,7 @@
 ﻿@inject IDataService DataService
 
 <div class="col-md-4">
-    <h4 class="bg-abvmiddlegreen">Попълнете името и MIC на пазара, който искате да добавите:</h4>
+    <h4> Попълнете името и MIC на пазара, който искате да добавите: </h4>
 
     <EditForm Model="Input" method="post" OnValidSubmit="AddMarketData" FormName="addMarketForm">
         <DataAnnotationsValidator />
@@ -28,7 +28,7 @@
 
     public async Task AddMarketData()
     {
-        if (Input.Name != null && Input.MIC != null)
+        if (Input.Name is not null && Input.MIC is not null)
         {
             var result = await DataService.CreateMarket(Input.Name, Input.MIC);
             ErrorMessage = !result.IsSuccessful() ? $"Грешка: {string.Join(", ", result.Errors)}" : string.Format(Messages.Data.MarketAdded, Input.Name);
@@ -42,11 +42,11 @@
 
     private sealed class InputModel
     {
-        [Required(ErrorMessage = Messages.Data.RequiredField)]
+        [Required(ErrorMessage = Messages.Common.RequiredField)]
         [DataType(DataType.Text)]
         public string Name { get; set; }
 
-        [Required(ErrorMessage = Messages.Data.RequiredField)]
+        [Required(ErrorMessage = Messages.Common.RequiredField)]
         [RegularExpression("^[A-Z]{4}$", ErrorMessage = Messages.Data.MarketMICError)]
         public string MIC { get; set; }
     }
