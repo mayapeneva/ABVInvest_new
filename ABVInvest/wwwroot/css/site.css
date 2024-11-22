@@ -195,7 +195,7 @@ input {
 }
 
 .bg-abvlightgreen {
-    color: @lightgreen;
+    color: var(--lightgreen-color);
 }
 
 .bg-abvred {

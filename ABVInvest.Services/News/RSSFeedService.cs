@@ -43,7 +43,7 @@ namespace ABVInvest.Services.News
                             rssFeedModels.Add(new RSSFeedViewModel
                             {
                                 Title = item.Title?.Text,
-                                Uri = item.Links[0]?.Uri?.ToString(),
+                                Uri = item.Links[0]?.Uri?.ToString()!,
                                 PublishedDate = publishDate,
                                 Summary = item.Summary?.Text
                             });
