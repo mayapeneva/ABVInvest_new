@@ -4,7 +4,7 @@ using System.Xml.Serialization;
 namespace ABVInvest.Common.BindingModels.Portfolios
 {
     [XmlType("Other")]
-    public class Other
+    public struct Other
     {
         [XmlElement("YieldPercent")]
         [Required]

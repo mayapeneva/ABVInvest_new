@@ -1,6 +1,5 @@
 ﻿using ABVInvest.Common;
 using ABVInvest.Common.BindingModels;
-using ABVInvest.Common.BindingModels.Portfolios;
 using ABVInvest.Data.Models;
 
 namespace ABVInvest.Services.Data

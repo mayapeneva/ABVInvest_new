@@ -3,8 +3,8 @@ using System.Xml.Serialization;
 
 namespace ABVInvest.Common.BindingModels.Portfolios
 {
-    [XmlType("Client", IncludeInSchema = true)]
-    public class Client
+    [XmlType("ABVClient", IncludeInSchema = true)]
+    public struct AppClient
     {
         [XmlElement("CDNumber")]
         [Required]

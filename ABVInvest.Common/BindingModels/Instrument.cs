@@ -1,10 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Xml.Serialization;
 
-namespace ABVInvest.Common.BindingModels.Portfolios
+namespace ABVInvest.Common.BindingModels
 {
     [XmlType("Instrument")]
-    public class Instrument
+    public struct Instrument
     {
         [XmlElement("ISIN")]
         [Required]

@@ -1,7 +1,7 @@
 ﻿@inject IDataService DataService
 
 <div class="col-md-6">
-    <h4 class="bg-abvmiddlegreen">Попълнете данните на ценните книжа, които искате да добавите:</h4>
+    <h4> Попълнете данните на ценните книжа, които искате да добавите: </h4>
 
     <EditForm Model="Input" method="post" OnValidSubmit="AddSecurityData" FormName="addSecurityForm">
         <DataAnnotationsValidator />
@@ -36,7 +36,7 @@
 
     public async Task AddSecurityData()
     {
-        if (Input.Issuer != null && Input.ISIN != null)
+        if (Input.Issuer is not null && Input.ISIN is not null)
         {
             var securityInfo = new SecurityBindingModel
                 {
@@ -57,11 +57,11 @@
 
     private sealed class InputModel
     {
-        [Required(ErrorMessage = Messages.Data.RequiredField)]
+        [Required(ErrorMessage = Messages.Common.RequiredField)]
         [DataType(DataType.Text)]
         public string Issuer { get; set; }
 
-        [Required(ErrorMessage = Messages.Data.RequiredField)]
+        [Required(ErrorMessage = Messages.Common.RequiredField)]
         [RegularExpression(@"^[A-Z0-9]{12}$", ErrorMessage = Messages.Data.IsinError)]
         public string ISIN { get; set; }
 

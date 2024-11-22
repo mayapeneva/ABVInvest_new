@@ -4,7 +4,7 @@ using System.Xml.Serialization;
 namespace ABVInvest.Common.BindingModels.Portfolios
 {
     [XmlType("AccountData")]
-    public class AccountData
+    public struct AccountData
     {
         [XmlElement("Quantity")]
         [Required]

@@ -1,7 +1,7 @@
 ﻿@inject IDataService DataService
 
 <div class="col-md-4">
-    <h4 class="bg-abvmiddlegreen">Попълнете трибуквения код на валутата, която искате да добавите:</h4>
+    <h4> Попълнете трибуквения код на валутата, която искате да добавите: </h4>
 
     <EditForm Model="Input" method="post" OnValidSubmit="AddCurrencyData" FormName="addCurrencyForm">
         <DataAnnotationsValidator />
@@ -24,7 +24,7 @@
 
     public async Task AddCurrencyData()
     {
-        if (Input.Code != null)
+        if (Input.Code is not null)
         {
             var result = await DataService.CreateCurrency(Input.Code);
             ErrorMessage = !result.IsSuccessful() ? $"Грешка: {string.Join(", ", result.Errors)}" : string.Format(Messages.Data.CurrencyAdded, Input.Code);
@@ -38,7 +38,7 @@
 
     private sealed class InputModel
     {
-        [Required(ErrorMessage = Messages.Data.RequiredField)]
+        [Required(ErrorMessage = Messages.Common.RequiredField)]
         [RegularExpression("^[A-Z]{3}$", ErrorMessage = Messages.Data.CurrencyCodeError)]
         public string? Code { get; set; }
     }

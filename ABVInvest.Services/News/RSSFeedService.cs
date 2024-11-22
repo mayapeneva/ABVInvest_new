@@ -3,7 +3,7 @@ using ABVInvest.Common.ViewModels;
 using System.ServiceModel.Syndication;
 using System.Xml;
 
-namespace ABVInvest.Common.Parsers
+namespace ABVInvest.Services.News
 {
     public class RSSFeedService : IRSSFeedService
     {
@@ -13,7 +13,7 @@ namespace ABVInvest.Common.Parsers
 
         public RSSFeedService(IHttpClientFactory clientFactory)
         {
-            this.httpClient = clientFactory.CreateClient();
+            httpClient = clientFactory.CreateClient();
 
             twoWeeksBackDate = DateTime.UtcNow.Subtract(new TimeSpan(14, 0, 0, 0));
             rssAddresses = [ShortConstants.RSSFeed.InvestorRSSCompanies, ShortConstants.RSSFeed.InvestorRSSMarkets, ShortConstants.RSSFeed.InvestorRSSFinance, ShortConstants.RSSFeed.X3NewsRSS];
@@ -38,7 +38,7 @@ namespace ABVInvest.Common.Parsers
                     foreach (SyndicationItem item in feed.Items)
                     {
                         var publishDate = item.PublishDate.UtcDateTime;
-                        if (publishDate > this.twoWeeksBackDate)
+                        if (publishDate > twoWeeksBackDate)
                         {
                             rssFeedModels.Add(new RSSFeedViewModel
                             {

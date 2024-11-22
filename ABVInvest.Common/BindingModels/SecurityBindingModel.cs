@@ -1,6 +1,6 @@
 ﻿namespace ABVInvest.Common.BindingModels
 {
-    public class SecurityBindingModel
+    public struct SecurityBindingModel
     {
         public string Issuer { get; set; }
 

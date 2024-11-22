@@ -35,8 +35,8 @@ namespace ABVInvest.Components.Account
             state = persistentComponentState;
             options = optionsAccessor.Value;
 
-            AuthenticationStateChanged += OnAuthenticationStateChanged;
-            subscription = state.RegisterOnPersisting(OnPersistingAsync, RenderMode.InteractiveWebAssembly);
+            AuthenticationStateChanged += this.OnAuthenticationStateChanged;
+            subscription = state.RegisterOnPersisting(this.OnPersistingAsync, RenderMode.InteractiveWebAssembly);
         }
 
         protected override TimeSpan RevalidationInterval => TimeSpan.FromMinutes(30);
@@ -47,7 +47,7 @@ namespace ABVInvest.Components.Account
             // Get the user manager from a new scope to ensure it fetches fresh data
             await using var scope = scopeFactory.CreateAsyncScope();
             var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
-            return await ValidateSecurityStampAsync(userManager, authenticationState.User);
+            return await this.ValidateSecurityStampAsync(userManager, authenticationState.User);
         }
 
         private async Task<bool> ValidateSecurityStampAsync(UserManager<ApplicationUser> userManager, ClaimsPrincipal principal)
@@ -89,7 +89,7 @@ namespace ABVInvest.Components.Account
                 var userId = principal.FindFirst(options.ClaimsIdentity.UserIdClaimType)?.Value;
                 var email = principal.FindFirst(options.ClaimsIdentity.EmailClaimType)?.Value;
 
-                if (userId != null && email != null)
+                if (userId is not null && email is not null)
                 {
                     state.PersistAsJson(nameof(UserInfo), new UserInfo
                     {
@@ -103,7 +103,7 @@ namespace ABVInvest.Components.Account
         protected override void Dispose(bool disposing)
         {
             subscription.Dispose();
-            AuthenticationStateChanged -= OnAuthenticationStateChanged;
+            AuthenticationStateChanged -= this.OnAuthenticationStateChanged;
             base.Dispose(disposing);
         }
     }

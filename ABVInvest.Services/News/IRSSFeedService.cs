@@ -1,6 +1,6 @@
 ﻿using ABVInvest.Common.ViewModels;
 
-namespace ABVInvest.Common.Parsers
+namespace ABVInvest.Services.News
 {
     public interface IRSSFeedService
     {
