@@ -41,16 +41,14 @@ namespace ABVInvest.Services.Portfolios
         public async Task<IEnumerable<T>> GetUserDailyPortfolio<T>(ClaimsPrincipal user, DateOnly date)
         {
             var dbUser = await userManager.GetUserAsync(user);
-            return dbUser?.Portfolio?
-                .SingleOrDefault(p => p.Date == date)?
+            return dbUser?.Portfolio.SingleOrDefault(p => p.Date == date)?
                 .SecuritiesPerIssuerCollection?
-                .Select(mapper.Map<T>) ?? []; ;
+                .Select(mapper.Map<T>) ?? [];
         }
 
         public async Task<ApplicationResultBase> SeedPortfolios(IEnumerable<PortfolioRowBindingModel> deserializedPortfolios, DateOnly date)
         {
             var result = new ApplicationResultBase();
-
             var changesCounter = 0;
 
             // Group the entries by Client and process portfolios for each client
@@ -82,10 +80,7 @@ namespace ABVInvest.Services.Portfolios
                 foreach (var portfolioRow in portfolio)
                 {
                     var portfolioResult = await this.CreatePortfolioRowForUser(date, user.FullName, portfolioRow, portfolio.Key, dbPortfolio);
-                    if (!portfolioResult.IsSuccessful())
-                    {
-                        portfolioResult.Errors.ToList().ForEach(result.Errors.Add);
-                    }
+                    if (!portfolioResult.IsSuccessful()) portfolioResult.Errors.ToList().ForEach(result.Errors.Add);
                 }
 
                 // Validate portfolio and add it to user's Portfolios
@@ -116,10 +111,7 @@ namespace ABVInvest.Services.Portfolios
             var result = new ApplicationResultBase();
 
             // Fill in user's FullName if empty
-            if (string.IsNullOrWhiteSpace(userName))
-            {
-                userName = portfolioRow.Client.Name;
-            }
+            if (string.IsNullOrWhiteSpace(userName)) userName = portfolioRow.Client.Name;
 
             var securityInfo = portfolioRow.Instrument;
 

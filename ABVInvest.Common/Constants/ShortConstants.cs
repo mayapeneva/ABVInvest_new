@@ -4,14 +4,28 @@
     {
         public static class Common
         {
-            public const string Error = "Грешка";
-            public const string SvSeCulture = "sv-SE";
             public const string DateTimeParseFormat = "dd/MM/yyyy";
+            public const string Error = "Грешка";
             public const string FileUploadPath = "UploadedFiles";
             public static readonly DateOnly MaxDate = DateOnly.FromDateTime(DateTime.UtcNow);
             public static readonly DateOnly MinDate = new DateOnly(2016, 01, 01);
+            public const string SvSeCulture = "sv-SE";
             public const string XmlFileExt = ".xml";
             public const string XmlRootAttr = "WebData";
+        }
+
+        public static class Deals
+        {
+            public const string BgnValue = "Стойност в лева";
+            public const string Buy = "BUY";
+            public const string Coupon = "Купон";
+            public const string CurrencyValue = "Стойност в дадената валута";
+            public const string Fee = "Комисионна";
+            public const string Price = "Цена";
+            public const string Quantity = "Количество";
+            public const string Sell = "SELL";
+            public const string Settlement = "Сетълмент";
+            public const string TypeOfDeal = "Тип на сделката";
         }
 
         public static class Portfolios
