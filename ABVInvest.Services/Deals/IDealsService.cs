@@ -8,6 +8,6 @@ namespace ABVInvest.Services.Deals
     {
         Task<IEnumerable<T>> GetUserDailyDeals<T>(ClaimsPrincipal user, DateOnly date);
 
-        Task<ApplicationResultBase> SeedDeals(DealRowBindingModel[] deserializedDeals, DateOnly date);
+        Task<ApplicationResultBase> SeedDeals(IEnumerable<DealRowBindingModel> deserializedDeals, DateOnly date);
     }
 }

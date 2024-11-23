@@ -41,7 +41,7 @@ namespace ABVInvest.Services.Deals
                 .Select(d => mapper.Map<T>(d)) ?? [];
         }
 
-        public async Task<ApplicationResultBase> SeedDeals(DealRowBindingModel[] deserializedDeals, DateOnly date)
+        public async Task<ApplicationResultBase> SeedDeals(IEnumerable<DealRowBindingModel> deserializedDeals, DateOnly date)
         {
             var result = new ApplicationResultBase();
             var changesCounter = 0;

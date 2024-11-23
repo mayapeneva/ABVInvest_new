@@ -1,0 +1,60 @@
+@page "/AdminArea/UploadDealsInfo"
+
+@attribute [Authorize(Roles = ShortConstants.Role.Admin)]
+
+@rendermode InteractiveServer
+
+@inject IDeserialiser UploadsHelper
+@inject IDealsService DealsService
+
+<div class="container">
+    <h2 class="bg-abvmiddlegreen"> Качване на информация за сделки </h2>
+    <hr />
+
+    <div class="col-md-4">
+        <h4> Тук можете да качите файлът с клиентските сделки: </h4>
+
+        <EditForm Model="Input" method="post" OnValidSubmit="AddDeals" FormName="addDealsForm">
+            <DataAnnotationsValidator />
+            <div class="form-group">
+                <div class="row p-0 m-0 mb-3">
+                    <DateInput TValue="DateOnly?" @bind-Value="Input.Date" EnableMinMax="true" Min="@ShortConstants.Common.MinDate" Max="@ShortConstants.Common.MaxDate" Placeholder="Изберете дата" />
+                    <ValidationMessage For="() => Input.Date" class="text-danger" />
+                </div>
+                <div class="row mb-3 mx-auto">
+                    <InputFile @bind-Value="Input.XMLFile" Placeholder="Клиентски сделки" />
+                    <ValidationMessage For="() => Input.XMLFile" class="text-danger" />
+                </div>
+                <StatusDisplayMessage DisplayMessage="@ErrorMessage" />
+                <Button Type="ButtonType.Submit" Class="add-data-button bg-bg-abvlightgreen bg-abvdarkgreen large-fontsize"> Качи </Button>
+            </div>
+        </EditForm>
+    </div>
+</div>
+
+@code {
+    private string? ErrorMessage;
+
+    [SupplyParameterFromForm]
+    private FileInputModel Input { get; set; } = new();
+
+    public async Task AddDeals()
+    {
+        if (Input.Date is not null && Input.XMLFile is not null)
+        {
+            var xmlFile = Input.XMLFile;
+            if (xmlFile.ContentType.EndsWith(ShortConstants.Common.XmlFileExt))
+            {
+                var fileName = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ShortConstants.Common.FileUploadPath) + ShortConstants.Common.XmlFileExt;
+                if (xmlFile.Size > 0)
+                {
+                    var deserializedDeals = await UploadsHelper.DeserialiseXmlFile<DealRowBindingModel>(fileName);
+                    if (!ModelValidator.IsValid(deserializedDeals)) ErrorMessage = Messages.Common.CouldNotUploadInformation;
+
+                    var result = await this.DealsService.SeedDeals(deserializedDeals, Input.Date.Value);
+                    ErrorMessage = !result.IsSuccessful() ? ErrorMessage = $"Грешка: {string.Join(", ", result.Errors)}" : Messages.DealsAndPortfolios.UploadingSuccessfull;
+                }
+            }
+        }
+    }
+}
