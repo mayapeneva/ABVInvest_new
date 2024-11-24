@@ -18,24 +18,21 @@ namespace ABVInvest.Services.Portfolios
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IBalancesService balancesService;
         private readonly IDataService dataService;
-        private readonly IMapper mapper;
 
         public PortfoliosService(ApplicationDbContext db,
             UserManager<ApplicationUser> userManager,
             IBalancesService balancesService,
             IDataService dataService,
             IMapper mapper)
-            : base(db)
+            : base(db, mapper)
         {
             ArgumentNullException.ThrowIfNull(userManager);
             ArgumentNullException.ThrowIfNull(balancesService);
             ArgumentNullException.ThrowIfNull(dataService);
-            ArgumentNullException.ThrowIfNull(mapper);
 
             this.userManager = userManager;
             this.balancesService = balancesService;
             this.dataService = dataService;
-            this.mapper = mapper;
         }
 
         public async Task<IEnumerable<T>> GetUserDailyPortfolio<T>(ClaimsPrincipal user, DateOnly date)
@@ -43,7 +40,7 @@ namespace ABVInvest.Services.Portfolios
             var dbUser = await userManager.GetUserAsync(user);
             return dbUser?.Portfolio.SingleOrDefault(p => p.Date == date)?
                 .SecuritiesPerIssuerCollection?
-                .Select(mapper.Map<T>) ?? [];
+                .Select(this.Mapper.Map<T>) ?? [];
         }
 
         public async Task<ApplicationResultBase> SeedPortfolios(IEnumerable<PortfolioRowBindingModel> deserializedPortfolios, DateOnly date)

@@ -21,7 +21,7 @@
             public const string IsinError = "ISIN кодът трябва да е дълъг 12 символа и да съдържа главни латински букви и цифри.";
             public const string IssuerDataIsWrong = "Въведените данни относно емитента не са правилни.";
             public const string MarketAdded = "Пазар с име {0} е добавен.";
-            public const string MarketExists = "Пазар с това име вече съществува.";
+            public const string MarketExists = "Пазар с това име или код вече съществува.";
             public const string MarketDataIsWrong = "Въведените данни относно пазара не са правилни.";
             public const string MarketMICError = "Идентификационният код на пазара трябва да е дълъг 4 символа и да съдържа само главни латински букви.";
             public const string SecurityAdded = "Ценни книжа с ISIN код {0} са добавен.";

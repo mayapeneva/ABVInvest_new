@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ABVInvest.Common", "ABVInve
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ABVInvest.Services", "ABVInvest.Services\ABVInvest.Services.csproj", "{C6F306F4-1C2D-4535-866F-F655B1AD241E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ABVInvest.Services.Tests", "ABVInvest.Services.Tests\ABVInvest.Services.Tests.csproj", "{AF7C3C87-C27C-4A23-866A-A52B2294266E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{C6F306F4-1C2D-4535-866F-F655B1AD241E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C6F306F4-1C2D-4535-866F-F655B1AD241E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C6F306F4-1C2D-4535-866F-F655B1AD241E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF7C3C87-C27C-4A23-866A-A52B2294266E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF7C3C87-C27C-4A23-866A-A52B2294266E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF7C3C87-C27C-4A23-866A-A52B2294266E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF7C3C87-C27C-4A23-866A-A52B2294266E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

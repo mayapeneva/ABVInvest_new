@@ -5,13 +5,13 @@ using ABVInvest.Data.Models;
 using AutoMapper;
 using System.Globalization;
 
-namespace ABVInvest.Mapping
+namespace ABVInvest.Common.Mapping
 {
     public class MappingProfile : Profile
     {
         public MappingProfile()
         {
-            CreateMap<SecuritiesPerClient, PortfolioViewModel>()
+            this.CreateMap<SecuritiesPerClient, PortfolioViewModel>()
                 .ForMember(dest => dest.DailySecuritiesPerClientDate, opt => opt.MapFrom(src => src.DailySecuritiesPerClient.Date.ToString(ShortConstants.Common.DateTimeParseFormat)))
                 .ForMember(dest => dest.Quantity, opt => opt.MapFrom(src => src.Quantity.ToString("N", CultureInfo.CreateSpecificCulture(ShortConstants.Common.SvSeCulture))))
                 .ForMember(dest => dest.AveragePriceBuy, opt => opt.MapFrom(src => src.AveragePriceBuy.ToString("N3", CultureInfo.CreateSpecificCulture(ShortConstants.Common.SvSeCulture))))
@@ -21,7 +21,7 @@ namespace ABVInvest.Mapping
                 .ForMember(dest => dest.ProfitPercentage, opt => opt.MapFrom(src => src.ProfitPercentage.ToString("N2", CultureInfo.CreateSpecificCulture(ShortConstants.Common.SvSeCulture))))
                 .ForMember(dest => dest.PortfolioShare, opt => opt.MapFrom(src => src.PortfolioShare.ToString("N2", CultureInfo.CreateSpecificCulture(ShortConstants.Common.SvSeCulture))));
 
-            CreateMap<SecurityBindingModel, Instrument>();
+            this.CreateMap<Instrument, SecurityBindingModel>();
         }
     }
 }

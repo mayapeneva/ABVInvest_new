@@ -1,9 +1,9 @@
 using ABVInvest.Common.Helpers;
+using ABVInvest.Common.Mapping;
 using ABVInvest.Components;
 using ABVInvest.Components.Account;
 using ABVInvest.Data;
 using ABVInvest.Data.Models;
-using ABVInvest.Mapping;
 using ABVInvest.Seeders;
 using ABVInvest.Services.Balances;
 using ABVInvest.Services.Data;

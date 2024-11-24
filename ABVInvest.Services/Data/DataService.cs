@@ -8,17 +8,9 @@ using AutoMapper;
 
 namespace ABVInvest.Services.Data
 {
-    public class DataService : BaseService, IDataService
+    public class DataService(ApplicationDbContext db, IMapper mapper)
+        : BaseService(db, mapper), IDataService
     {
-        private readonly IMapper mapper;
-
-        public DataService(ApplicationDbContext db, IMapper mapper)
-            : base(db)
-        {
-            ArgumentNullException.ThrowIfNull(mapper);
-            this.mapper = mapper;
-        }
-
         public async Task<Currency?> GetOrCreateCurrency(string currencyCode)
         {
             var currency = this.Db.Currencies.SingleOrDefault(c => c.Code == currencyCode);
@@ -37,7 +29,7 @@ namespace ABVInvest.Services.Data
                 return Task.FromResult(result);
             }
 
-            return InternalCreateCurrency(code);
+            return this.InternalCreateCurrency(code);
         }
 
         public async Task<ApplicationResult<Market>> CreateMarket(string name, string mic)
@@ -76,7 +68,7 @@ namespace ABVInvest.Services.Data
             var security = this.Db.Securities.SingleOrDefault(s => s.ISIN == securityInfo.ISIN);
             if (security is not null) return security;
 
-            var securityResult = await this.InternalCreateSecurity(mapper.Map<SecurityBindingModel>(securityInfo));
+            var securityResult = await this.InternalCreateSecurity(this.Mapper.Map<SecurityBindingModel>(securityInfo));
             return securityResult.IsSuccessful() ? securityResult.Data : null;
         }
 
@@ -89,7 +81,7 @@ namespace ABVInvest.Services.Data
                 return Task.FromResult(result);
             }
 
-            return InternalCreateSecurity(securityInfo);
+            return this.InternalCreateSecurity(securityInfo);
         }
 
         private async Task<ApplicationResult<Currency>> InternalCreateCurrency(string code)

@@ -6,17 +6,9 @@ using AutoMapper;
 
 namespace ABVInvest.Services.Balances
 {
-    public class BalancesService : BaseService, IBalancesService
+    public class BalancesService(ApplicationDbContext db, IMapper mapper)
+        : BaseService(db, mapper), IBalancesService
     {
-        private readonly IMapper mapper;
-
-        public BalancesService(ApplicationDbContext db, IMapper mapper)
-            : base(db)
-        {
-            ArgumentNullException.ThrowIfNull(mapper);
-            this.mapper = mapper;
-        }
-
         public ApplicationResult<T> GetUserDailyBalance<T>(ApplicationUser user, DateOnly date)
         {
             var result = new ApplicationResult<T>();
@@ -28,7 +20,7 @@ namespace ABVInvest.Services.Balances
                 return result;
             }
 
-            result.Data = mapper.Map<T>(dailyBalance.Balance);
+            result.Data = this.Mapper.Map<T>(dailyBalance.Balance);
             return result;
         }
 

@@ -16,21 +16,18 @@ namespace ABVInvest.Services.Deals
     {
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IDataService dataService;
-        private readonly IMapper mapper;
 
         public DealsService(ApplicationDbContext db,
             UserManager<ApplicationUser> userManager,
             IDataService dataService,
             IMapper mapper)
-            : base(db)
+            : base(db, mapper)
         {
             ArgumentNullException.ThrowIfNull(userManager);
             ArgumentNullException.ThrowIfNull(dataService);
-            ArgumentNullException.ThrowIfNull(mapper);
 
             this.userManager = userManager;
             this.dataService = dataService;
-            this.mapper = mapper;
         }
 
         public async Task<IEnumerable<T>> GetUserDailyDeals<T>(ClaimsPrincipal user, DateOnly date)
@@ -38,7 +35,7 @@ namespace ABVInvest.Services.Deals
             var dbUser = await userManager.GetUserAsync(user);
             return dbUser?.Deals.SingleOrDefault(p => p.Date == date)?
                 .Deals?
-                .Select(d => mapper.Map<T>(d)) ?? [];
+                .Select(d => this.Mapper.Map<T>(d)) ?? [];
         }
 
         public async Task<ApplicationResultBase> SeedDeals(IEnumerable<DealRowBindingModel> deserializedDeals, DateOnly date)

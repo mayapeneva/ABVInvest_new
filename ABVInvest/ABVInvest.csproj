@@ -12,7 +12,6 @@
 		<ProjectReference Include="..\ABVInvest.Common\ABVInvest.Common.csproj" />
 		<ProjectReference Include="..\ABVInvest.Data\ABVInvest.Data.csproj" />
 		<ProjectReference Include="..\ABVInvest.Services\ABVInvest.Services.csproj" />
-		<PackageReference Include="AutoMapper" Version="13.0.1" />
 		<PackageReference Include="Blazor.Bootstrap" Version="3.0.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.10" />
 		<PackageReference Include="CloudinaryDotNet" Version="1.26.2" />
