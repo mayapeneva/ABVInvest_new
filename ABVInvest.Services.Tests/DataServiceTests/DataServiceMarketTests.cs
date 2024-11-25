@@ -5,20 +5,18 @@ using Xunit;
 
 namespace ABVInvest.Services.Tests.DataServiceTests
 {
-    public class DataServiceMarketTests : BaseDataServiceTests
+    public class DataServiceMarketTests
     {
-        private const string MarketName = "БФБ";
-        private const string MarketCode = "XBUL";
-
         [Fact]
         public async Task CreateMarket_ShouldCreateMarket()
         {
             // Arrange
+            var (dataService, db) = TestExtensions.DataServiceSetup();
             var expectedMarketsCount = 1;
 
             // Act
-            var actualResult = await DataService.CreateMarket(MarketName, MarketCode);
-            var actualMarketsCount = Db.Markets.Count();
+            var actualResult = await dataService.CreateMarket(Constants.MarketName, Constants.MarketCode);
+            var actualMarketsCount = db.Markets.Count();
 
             // Assert
             Assert.NotNull(actualResult);
@@ -27,48 +25,55 @@ namespace ABVInvest.Services.Tests.DataServiceTests
             var data = actualResult.Data;
             Assert.NotNull(data);
 
-            Assert.Equal(MarketName, data.Name);
-            Assert.Equal(MarketCode, data.MIC);
+            Assert.Equal(Constants.MarketName, data.Name);
+            Assert.Equal(Constants.MarketCode, data.MIC);
             Assert.Equal(expectedMarketsCount, actualMarketsCount);
+
+            db.Dispose();
         }
 
         [Theory]
-        [InlineData(MarketName, "test")]
-        [InlineData("test", MarketCode)]
+        [InlineData(Constants.MarketName, Constants.Test)]
+        [InlineData(Constants.Test, Constants.MarketCode)]
         public async Task CreateMarket_ShouldNotCreateMarketIfSuchAlreadyExists(string marketName, string marketCode)
         {
             // Arrange
-            await DataService.CreateMarket(MarketName, MarketCode);
+            var (dataService, db) = TestExtensions.DataServiceSetup();
+            await dataService.CreateMarket(Constants.MarketName, Constants.MarketCode);
             var expectedResult = new ApplicationResult<Market>();
             expectedResult.Errors.Add(Messages.Data.MarketExists);
 
             // Act
-            var actualResult = await DataService.CreateMarket(marketName, marketCode);
+            var actualResult = await dataService.CreateMarket(marketName, marketCode);
 
             // Assert
             Assert.NotNull(actualResult);
             Assert.False(actualResult.IsSuccessful());
             Assert.Null(actualResult.Data);
             Assert.Equal(expectedResult.Errors, actualResult.Errors);
+
+            db.Dispose();
         }
 
         [Fact]
         public async Task CreateMarket_ShouldNotCreateMarketIfCodeNotCorrect()
         {
             // Arrange
-            var wrongMarketCode = "XBULL";
+            var (dataService, db) = TestExtensions.DataServiceSetup();
+            var wrongMarketCode = Constants.Test;
             var expectedResult = new ApplicationResult<Market>();
             expectedResult.Errors.Add(Messages.Data.MarketDataIsWrong);
 
             // Act
-            var actualResult = await DataService.CreateMarket(MarketName, wrongMarketCode);
+            var actualResult = await dataService.CreateMarket(Constants.MarketName, wrongMarketCode);
 
-            // Assert
-
+            // Asser
             Assert.NotNull(actualResult);
             Assert.False(actualResult.IsSuccessful());
             Assert.Null(actualResult.Data);
             Assert.Equal(expectedResult.Errors, actualResult.Errors);
+
+            db.Dispose();
         }
     }
 }

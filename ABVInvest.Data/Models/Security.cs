@@ -5,11 +5,12 @@ namespace ABVInvest.Data.Models
 {
     public class Security : BaseEntity<int>
     {
-        private int typeCodeStartIndex = 2;
-        private int typeCodeLenght = 2;
+        private const int TypeCodeStartIndex = 2;
+        private const int TypeCodeLenght = 2;
+
+        public virtual Issuer Issuer { get; set; }
 
         [Required]
-        public virtual Issuer Issuer { get; set; }
         public int IssuerId { get; set; }
 
         public SecuritiesType? SecuritiesType { get; private set; }
@@ -27,7 +28,7 @@ namespace ABVInvest.Data.Models
         {
             if (this.ISIN.StartsWith("BG"))
             {
-                var typeCode = this.ISIN.Substring(this.typeCodeStartIndex, this.typeCodeLenght);
+                var typeCode = this.ISIN.Substring(TypeCodeStartIndex, TypeCodeLenght);
                 if (typeCode == "11")
                 {
                     this.SecuritiesType = (SecuritiesType)1;
