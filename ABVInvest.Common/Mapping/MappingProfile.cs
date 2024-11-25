@@ -21,7 +21,8 @@ namespace ABVInvest.Common.Mapping
                 .ForMember(dest => dest.ProfitPercentage, opt => opt.MapFrom(src => src.ProfitPercentage.ToString("N2", CultureInfo.CreateSpecificCulture(ShortConstants.Common.SvSeCulture))))
                 .ForMember(dest => dest.PortfolioShare, opt => opt.MapFrom(src => src.PortfolioShare.ToString("N2", CultureInfo.CreateSpecificCulture(ShortConstants.Common.SvSeCulture))));
 
-            this.CreateMap<Instrument, SecurityBindingModel>();
+            this.CreateMap<Instrument, SecurityBindingModel>()
+                .ForMember(dest => dest.BfbCode, opt => opt.MapFrom(src => src.NewCode));
         }
     }
 }

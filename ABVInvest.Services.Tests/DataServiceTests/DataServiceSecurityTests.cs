@@ -13,10 +13,10 @@ namespace ABVInvest.Services.Tests.DataServiceTests
         {
             // Arrange
             var (dataService, db) = TestExtensions.DataServiceSetup();
+            var securityInfo = new SecurityBindingModel { Issuer = Constants.IssuerName, ISIN = Constants.ISIN, BfbCode = Constants.BfbCode, Currency = Constants.CurrencyCode };
             var expectedSecuritiesCount = 1;
 
             // Act
-            var securityInfo = new SecurityBindingModel { Issuer = Constants.IssuerName, ISIN = Constants.ISIN, BfbCode = Constants.BfbCode, Currency = Constants.CurrencyCode };
             var actualResult = await dataService.CreateSecurity(securityInfo);
             var actualSecuritiesCount = db.Securities.Count();
 
@@ -117,6 +117,50 @@ namespace ABVInvest.Services.Tests.DataServiceTests
             Assert.False(actualResult.IsSuccessful());
             Assert.Null(actualResult.Data);
             Assert.Equal(expectedResult.Errors, actualResult.Errors);
+
+            db.Dispose();
+        }
+
+        [Fact]
+        public async Task GetOrCreateSecurity_ShouldGetSecurityIfExists()
+        {
+            // Arrange
+            var (dataService, db) = TestExtensions.DataServiceSetup();
+            var securityInfo = new SecurityBindingModel { Issuer = Constants.IssuerName, ISIN = Constants.ISIN, BfbCode = Constants.BfbCode, Currency = Constants.CurrencyCode };
+            await dataService.CreateSecurity(securityInfo);
+
+            var instrument = new Instrument { Issuer = Constants.IssuerName, ISIN = Constants.ISIN, NewCode = Constants.BfbCode, Currency = Constants.CurrencyCode };
+
+            // Act
+            var actualResult = await dataService.GetOrCreateSecurity(instrument);
+
+            // Assert
+            Assert.NotNull(actualResult);
+            Assert.Equal(Constants.ISIN, actualResult.ISIN);
+            Assert.Equal(Constants.BfbCode, actualResult.BfbCode);
+
+            db.Dispose();
+        }
+
+        [Fact]
+        public async Task GetOrCreateSecurity_ShouldCreateSecurityIfSuchDoesNotExist()
+        {
+            // Arrange
+            var (dataService, db) = TestExtensions.DataServiceSetup();
+            var instrument = new Instrument { Issuer = Constants.IssuerName, ISIN = Constants.ISIN, NewCode = Constants.BfbCode, Currency = Constants.CurrencyCode };
+            var expectedSecuritiesCount = 1;
+
+            // Act
+            var actualResult = await dataService.GetOrCreateSecurity(instrument);
+            var actualSecuritiesCount = db.Securities.Count();
+
+            // Assert
+            Assert.NotNull(actualResult);
+            Assert.Equal(Constants.ISIN, actualResult.ISIN);
+            Assert.Equal(Constants.BfbCode, actualResult.BfbCode);
+
+            Assert.Equal(expectedSecuritiesCount, actualSecuritiesCount);
+            Assert.Contains(db.Securities, c => c.ISIN == Constants.ISIN);
 
             db.Dispose();
         }
