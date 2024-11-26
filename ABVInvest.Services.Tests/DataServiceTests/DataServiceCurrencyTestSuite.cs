@@ -1,22 +1,31 @@
 ﻿using ABVInvest.Common;
 using ABVInvest.Common.Constants;
+using ABVInvest.Data;
 using ABVInvest.Data.Models;
+using ABVInvest.Services.Data;
 using Xunit;
 
 namespace ABVInvest.Services.Tests.DataServiceTests
 {
-    public class DataServiceCurrencyTests
+    public class DataServiceCurrencyTestSuite : IDisposable
     {
+        private IDataService DataService;
+        private ApplicationDbContext Db;
+
+        public DataServiceCurrencyTestSuite()
+        {
+            (DataService, Db) = TestExtensions.DataServiceSetup();
+        }
+
         [Fact]
         public async Task CreateCurrency_ShouldCreateCurrency()
         {
-            // Arrange
-            var (dataService, db) = TestExtensions.DataServiceSetup();
+            // Arrange            
             var expectedCurrenciesCount = 1;
 
             // Act
-            var actualResult = await dataService.CreateCurrency(Constants.CurrencyCode);
-            var actualCurrenciesCount = db.Currencies.Count();
+            var actualResult = await DataService.CreateCurrency(Constants.CurrencyCode);
+            var actualCurrenciesCount = Db.Currencies.Count();
 
             // Assert
             Assert.NotNull(actualResult);
@@ -27,22 +36,21 @@ namespace ABVInvest.Services.Tests.DataServiceTests
 
             Assert.Equal(Constants.CurrencyCode, data.Code);
             Assert.Equal(expectedCurrenciesCount, actualCurrenciesCount);
-            Assert.Contains(db.Currencies, c => c.Code == Constants.CurrencyCode);
+            Assert.Contains(Db.Currencies, c => c.Code == Constants.CurrencyCode);
 
-            db.Dispose();
+            Db.Dispose();
         }
 
         [Fact]
         public async Task CreateCurrency_ShouldNotCreateCurrencyIfSuchAlreadyExists()
         {
             // Arrange
-            var (dataService, db) = TestExtensions.DataServiceSetup();
-            await dataService.CreateCurrency(Constants.CurrencyCode);
+            await DataService.CreateCurrency(Constants.CurrencyCode);
             var expectedResult = new ApplicationResult<Currency>();
             expectedResult.Errors.Add(Messages.Data.CurrencyExists);
 
             // Act
-            var actualResult = await dataService.CreateCurrency(Constants.CurrencyCode);
+            var actualResult = await DataService.CreateCurrency(Constants.CurrencyCode);
 
             // Assert
             Assert.NotNull(actualResult);
@@ -50,20 +58,19 @@ namespace ABVInvest.Services.Tests.DataServiceTests
             Assert.Null(actualResult.Data);
             Assert.Equal(expectedResult.Errors, actualResult.Errors);
 
-            db.Dispose();
+            Db.Dispose();
         }
 
         [Fact]
         public async Task CreateCurrency_ShouldNotCreateCurrencyIfCodeNotCorrect()
         {
             // Arrange
-            var (dataService, db) = TestExtensions.DataServiceSetup();
             var wrongCurrencyCode = Constants.Test;
             var expectedResult = new ApplicationResult<Currency>();
             expectedResult.Errors.Add(Messages.Data.CurrencyDataIsWrong);
 
             // Act
-            var actualResult = await dataService.CreateCurrency(wrongCurrencyCode);
+            var actualResult = await DataService.CreateCurrency(wrongCurrencyCode);
 
             // Assert
             Assert.NotNull(actualResult);
@@ -71,45 +78,45 @@ namespace ABVInvest.Services.Tests.DataServiceTests
             Assert.Null(actualResult.Data);
             Assert.Equal(expectedResult.Errors, actualResult.Errors);
 
-            db.Dispose();
+            Db.Dispose();
         }
 
         [Fact]
         public async Task GetOrCreateCurrency_ShouldGetCurrencyIfExists()
         {
             // Arrange
-            var (dataService, db) = TestExtensions.DataServiceSetup();
-            await dataService.CreateCurrency(Constants.CurrencyCode);
+            await DataService.CreateCurrency(Constants.CurrencyCode);
 
             // Act
-            var actualResult = await dataService.GetOrCreateCurrency(Constants.CurrencyCode);
+            var actualResult = await DataService.GetOrCreateCurrency(Constants.CurrencyCode);
 
             // Assert
             Assert.NotNull(actualResult);
             Assert.Equal(Constants.CurrencyCode, actualResult.Code);
 
-            db.Dispose();
+            Db.Dispose();
         }
 
         [Fact]
         public async Task GetOrCreateCurrency_ShouldCreateCurrencyIfSuchDoesNotExist()
         {
             // Arrange
-            var (dataService, db) = TestExtensions.DataServiceSetup();
             var expectedCurrenciesCount = 1;
 
             // Act
-            var actualResult = await dataService.GetOrCreateCurrency(Constants.CurrencyCode);
-            var actualCurrenciesCount = db.Currencies.Count();
+            var actualResult = await DataService.GetOrCreateCurrency(Constants.CurrencyCode);
+            var actualCurrenciesCount = Db.Currencies.Count();
 
             // Assert
             Assert.NotNull(actualResult);
             Assert.Equal(Constants.CurrencyCode, actualResult.Code);
 
             Assert.Equal(expectedCurrenciesCount, actualCurrenciesCount);
-            Assert.Contains(db.Currencies, c => c.Code == Constants.CurrencyCode);
+            Assert.Contains(Db.Currencies, c => c.Code == Constants.CurrencyCode);
 
-            db.Dispose();
+            Db.Dispose();
         }
+
+        public void Dispose() => Db?.Dispose();
     }
 }

@@ -1,22 +1,31 @@
 ﻿using ABVInvest.Common;
 using ABVInvest.Common.Constants;
+using ABVInvest.Data;
 using ABVInvest.Data.Models;
+using ABVInvest.Services.Data;
 using Xunit;
 
 namespace ABVInvest.Services.Tests.DataServiceTests
 {
-    public class DataServiceMarketTests
+    public class DataServiceMarketTestSuite : IDisposable
     {
+        private IDataService DataService;
+        private ApplicationDbContext Db;
+
+        public DataServiceMarketTestSuite()
+        {
+            (DataService, Db) = TestExtensions.DataServiceSetup();
+        }
+
         [Fact]
         public async Task CreateMarket_ShouldCreateMarket()
         {
             // Arrange
-            var (dataService, db) = TestExtensions.DataServiceSetup();
             var expectedMarketsCount = 1;
 
             // Act
-            var actualResult = await dataService.CreateMarket(Constants.MarketName, Constants.MarketCode);
-            var actualMarketsCount = db.Markets.Count();
+            var actualResult = await DataService.CreateMarket(Constants.MarketName, Constants.MarketCode);
+            var actualMarketsCount = Db.Markets.Count();
 
             // Assert
             Assert.NotNull(actualResult);
@@ -29,7 +38,7 @@ namespace ABVInvest.Services.Tests.DataServiceTests
             Assert.Equal(Constants.MarketCode, data.MIC);
             Assert.Equal(expectedMarketsCount, actualMarketsCount);
 
-            db.Dispose();
+            Db.Dispose();
         }
 
         [Theory]
@@ -38,13 +47,12 @@ namespace ABVInvest.Services.Tests.DataServiceTests
         public async Task CreateMarket_ShouldNotCreateMarketIfSuchAlreadyExists(string marketName, string marketCode)
         {
             // Arrange
-            var (dataService, db) = TestExtensions.DataServiceSetup();
-            await dataService.CreateMarket(Constants.MarketName, Constants.MarketCode);
+            await DataService.CreateMarket(Constants.MarketName, Constants.MarketCode);
             var expectedResult = new ApplicationResult<Market>();
             expectedResult.Errors.Add(Messages.Data.MarketExists);
 
             // Act
-            var actualResult = await dataService.CreateMarket(marketName, marketCode);
+            var actualResult = await DataService.CreateMarket(marketName, marketCode);
 
             // Assert
             Assert.NotNull(actualResult);
@@ -52,20 +60,19 @@ namespace ABVInvest.Services.Tests.DataServiceTests
             Assert.Null(actualResult.Data);
             Assert.Equal(expectedResult.Errors, actualResult.Errors);
 
-            db.Dispose();
+            Db.Dispose();
         }
 
         [Fact]
         public async Task CreateMarket_ShouldNotCreateMarketIfCodeNotCorrect()
         {
             // Arrange
-            var (dataService, db) = TestExtensions.DataServiceSetup();
             var wrongMarketCode = Constants.Test;
             var expectedResult = new ApplicationResult<Market>();
             expectedResult.Errors.Add(Messages.Data.MarketDataIsWrong);
 
             // Act
-            var actualResult = await dataService.CreateMarket(Constants.MarketName, wrongMarketCode);
+            var actualResult = await DataService.CreateMarket(Constants.MarketName, wrongMarketCode);
 
             // Asser
             Assert.NotNull(actualResult);
@@ -73,7 +80,9 @@ namespace ABVInvest.Services.Tests.DataServiceTests
             Assert.Null(actualResult.Data);
             Assert.Equal(expectedResult.Errors, actualResult.Errors);
 
-            db.Dispose();
+            Db.Dispose();
         }
+
+        public void Dispose() => Db?.Dispose();
     }
 }

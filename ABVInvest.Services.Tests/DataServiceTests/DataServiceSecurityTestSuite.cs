@@ -1,24 +1,33 @@
 ﻿using ABVInvest.Common;
 using ABVInvest.Common.BindingModels;
 using ABVInvest.Common.Constants;
+using ABVInvest.Data;
 using ABVInvest.Data.Models;
+using ABVInvest.Services.Data;
 using Xunit;
 
 namespace ABVInvest.Services.Tests.DataServiceTests
 {
-    public class DataServiceSecurityTests
+    public class DataServiceSecurityTestSuite : IDisposable
     {
+        private IDataService DataService;
+        private ApplicationDbContext Db;
+
+        public DataServiceSecurityTestSuite()
+        {
+            (DataService, Db) = TestExtensions.DataServiceSetup();
+        }
+
         [Fact]
         public async Task CreateSecurity_ShouldCreateSecurity()
         {
             // Arrange
-            var (dataService, db) = TestExtensions.DataServiceSetup();
             var securityInfo = new SecurityBindingModel { Issuer = Constants.IssuerName, ISIN = Constants.ISIN, BfbCode = Constants.BfbCode, Currency = Constants.CurrencyCode };
             var expectedSecuritiesCount = 1;
 
             // Act
-            var actualResult = await dataService.CreateSecurity(securityInfo);
-            var actualSecuritiesCount = db.Securities.Count();
+            var actualResult = await DataService.CreateSecurity(securityInfo);
+            var actualSecuritiesCount = Db.Securities.Count();
 
             // Assert
             Assert.NotNull(actualResult);
@@ -33,21 +42,20 @@ namespace ABVInvest.Services.Tests.DataServiceTests
             Assert.Equal(Constants.CurrencyCode, data.Currency.Code);
             Assert.Equal(expectedSecuritiesCount, actualSecuritiesCount);
 
-            db.Dispose();
+            Db.Dispose();
         }
 
         [Fact]
         public async Task CreateSecurity_ShouldNotCreateCurrencyIfSuchAlreadyExists()
         {
             // Arrange
-            var (dataService, db) = TestExtensions.DataServiceSetup();
             var securityInfo = new SecurityBindingModel { Issuer = Constants.IssuerName, ISIN = Constants.ISIN, BfbCode = Constants.BfbCode, Currency = Constants.CurrencyCode };
-            await dataService.CreateSecurity(securityInfo);
+            await DataService.CreateSecurity(securityInfo);
             var expectedResult = new ApplicationResult<Security>();
             expectedResult.Errors.Add(Messages.Data.SecurityExists);
 
             // Act
-            var actualResult = await dataService.CreateSecurity(securityInfo);
+            var actualResult = await DataService.CreateSecurity(securityInfo);
 
             // Assert
             Assert.NotNull(actualResult);
@@ -55,47 +63,45 @@ namespace ABVInvest.Services.Tests.DataServiceTests
             Assert.Null(actualResult.Data);
             Assert.Equal(expectedResult.Errors, actualResult.Errors);
 
-            db.Dispose();
+            Db.Dispose();
         }
 
         [Fact]
         public async Task CreateSecurity_ShouldCreateIssuerIfSuchDoesNotExist()
         {
             // Arrange
-            var (dataService, db) = TestExtensions.DataServiceSetup();
             var securityInfo = new SecurityBindingModel { Issuer = Constants.IssuerName, ISIN = Constants.ISIN, BfbCode = Constants.BfbCode, Currency = Constants.CurrencyCode };
 
             // Act
-            var actualResult = await dataService.CreateSecurity(securityInfo);
+            var actualResult = await DataService.CreateSecurity(securityInfo);
 
             // Assert
             Assert.NotNull(actualResult);
             Assert.True(actualResult.IsSuccessful());
             Assert.NotNull(actualResult.Data);
 
-            Assert.Contains(db.Issuers, i => i.Name == Constants.IssuerName);
+            Assert.Contains(Db.Issuers, i => i.Name == Constants.IssuerName);
 
-            db.Dispose();
+            Db.Dispose();
         }
 
         [Fact]
         public async Task CreateSecurity_ShouldCreateCurrencyIfSuchDoesNotExist()
         {
             // Arrange
-            var (dataService, db) = TestExtensions.DataServiceSetup();
             var securityInfo = new SecurityBindingModel { Issuer = Constants.IssuerName, ISIN = Constants.ISIN, BfbCode = Constants.BfbCode, Currency = Constants.CurrencyCode };
 
             // Act
-            var actualResult = await dataService.CreateSecurity(securityInfo);
+            var actualResult = await DataService.CreateSecurity(securityInfo);
 
             // Assert
             Assert.NotNull(actualResult);
             Assert.True(actualResult.IsSuccessful());
             Assert.NotNull(actualResult.Data);
 
-            Assert.Contains(db.Currencies, i => i.Code == Constants.CurrencyCode);
+            Assert.Contains(Db.Currencies, i => i.Code == Constants.CurrencyCode);
 
-            db.Dispose();
+            Db.Dispose();
         }
 
         [Theory]
@@ -104,13 +110,12 @@ namespace ABVInvest.Services.Tests.DataServiceTests
         public async Task CreateSecurity_ShouldNotCreateSrcurityIfISINOrBFBCodeNotCorrect(string isin, string bfbCode)
         {
             // Arrange
-            var (dataService, db) = TestExtensions.DataServiceSetup();
             var securityInfo = new SecurityBindingModel { Issuer = Constants.IssuerName, ISIN = isin, BfbCode = bfbCode, Currency = Constants.CurrencyCode };
             var expectedResult = new ApplicationResult<Security>();
             expectedResult.Errors.Add(Messages.Data.SecurityDataIsWrong);
 
             // Act
-            var actualResult = await dataService.CreateSecurity(securityInfo);
+            var actualResult = await DataService.CreateSecurity(securityInfo);
 
             // Assert
             Assert.NotNull(actualResult);
@@ -118,41 +123,39 @@ namespace ABVInvest.Services.Tests.DataServiceTests
             Assert.Null(actualResult.Data);
             Assert.Equal(expectedResult.Errors, actualResult.Errors);
 
-            db.Dispose();
+            Db.Dispose();
         }
 
         [Fact]
         public async Task GetOrCreateSecurity_ShouldGetSecurityIfExists()
         {
             // Arrange
-            var (dataService, db) = TestExtensions.DataServiceSetup();
             var securityInfo = new SecurityBindingModel { Issuer = Constants.IssuerName, ISIN = Constants.ISIN, BfbCode = Constants.BfbCode, Currency = Constants.CurrencyCode };
-            await dataService.CreateSecurity(securityInfo);
+            await DataService.CreateSecurity(securityInfo);
 
             var instrument = new Instrument { Issuer = Constants.IssuerName, ISIN = Constants.ISIN, NewCode = Constants.BfbCode, Currency = Constants.CurrencyCode };
 
             // Act
-            var actualResult = await dataService.GetOrCreateSecurity(instrument);
+            var actualResult = await DataService.GetOrCreateSecurity(instrument);
 
             // Assert
             Assert.NotNull(actualResult);
             Assert.Equal(Constants.ISIN, actualResult.ISIN);
             Assert.Equal(Constants.BfbCode, actualResult.BfbCode);
 
-            db.Dispose();
+            Db.Dispose();
         }
 
         [Fact]
         public async Task GetOrCreateSecurity_ShouldCreateSecurityIfSuchDoesNotExist()
         {
             // Arrange
-            var (dataService, db) = TestExtensions.DataServiceSetup();
             var instrument = new Instrument { Issuer = Constants.IssuerName, ISIN = Constants.ISIN, NewCode = Constants.BfbCode, Currency = Constants.CurrencyCode };
             var expectedSecuritiesCount = 1;
 
             // Act
-            var actualResult = await dataService.GetOrCreateSecurity(instrument);
-            var actualSecuritiesCount = db.Securities.Count();
+            var actualResult = await DataService.GetOrCreateSecurity(instrument);
+            var actualSecuritiesCount = Db.Securities.Count();
 
             // Assert
             Assert.NotNull(actualResult);
@@ -160,9 +163,11 @@ namespace ABVInvest.Services.Tests.DataServiceTests
             Assert.Equal(Constants.BfbCode, actualResult.BfbCode);
 
             Assert.Equal(expectedSecuritiesCount, actualSecuritiesCount);
-            Assert.Contains(db.Securities, c => c.ISIN == Constants.ISIN);
+            Assert.Contains(Db.Securities, c => c.ISIN == Constants.ISIN);
 
-            db.Dispose();
+            Db.Dispose();
         }
+
+        public void Dispose() => Db?.Dispose();
     }
 }
