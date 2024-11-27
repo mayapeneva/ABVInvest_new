@@ -19,7 +19,7 @@ namespace ABVInvest.Services.Tests.DataServiceTests
         }
 
         [Fact]
-        public async Task CreateSecurity_ShouldCreateSecurity()
+        public async Task CreateSecurityAsync_ShouldCreateSecurity()
         {
             // Arrange
             var securityInfo = new SecurityBindingModel { Issuer = Constants.IssuerName, ISIN = Constants.ISIN, BfbCode = Constants.BfbCode, Currency = Constants.CurrencyCode };
@@ -44,7 +44,7 @@ namespace ABVInvest.Services.Tests.DataServiceTests
         }
 
         [Fact]
-        public async Task CreateSecurity_ShouldNotCreateCurrencyIfSuchAlreadyExists()
+        public async Task CreateSecurityAsync_ShouldNotCreateCurrencyIfSuchAlreadyExists()
         {
             // Arrange
             var securityInfo = new SecurityBindingModel { Issuer = Constants.IssuerName, ISIN = Constants.ISIN, BfbCode = Constants.BfbCode, Currency = Constants.CurrencyCode };
@@ -63,7 +63,7 @@ namespace ABVInvest.Services.Tests.DataServiceTests
         }
 
         [Fact]
-        public async Task CreateSecurity_ShouldCreateIssuerIfSuchDoesNotExist()
+        public async Task CreateSecurityAsync_ShouldCreateIssuerIfSuchDoesNotExist()
         {
             // Arrange
             var securityInfo = new SecurityBindingModel { Issuer = Constants.IssuerName, ISIN = Constants.ISIN, BfbCode = Constants.BfbCode, Currency = Constants.CurrencyCode };
@@ -80,7 +80,7 @@ namespace ABVInvest.Services.Tests.DataServiceTests
         }
 
         [Fact]
-        public async Task CreateSecurity_ShouldCreateCurrencyIfSuchDoesNotExist()
+        public async Task CreateSecurityAsync_ShouldCreateCurrencyIfSuchDoesNotExist()
         {
             // Arrange
             var securityInfo = new SecurityBindingModel { Issuer = Constants.IssuerName, ISIN = Constants.ISIN, BfbCode = Constants.BfbCode, Currency = Constants.CurrencyCode };
@@ -99,7 +99,7 @@ namespace ABVInvest.Services.Tests.DataServiceTests
         [Theory]
         [InlineData(Constants.ISIN, Constants.Test)]
         [InlineData(Constants.Test, Constants.BfbCode)]
-        public async Task CreateSecurity_ShouldNotCreateSrcurityIfISINOrBFBCodeNotCorrect(string isin, string bfbCode)
+        public async Task CreateSecurityAsync_ShouldNotCreateSrcurityIfISINOrBFBCodeNotCorrect(string isin, string bfbCode)
         {
             // Arrange
             var securityInfo = new SecurityBindingModel { Issuer = Constants.IssuerName, ISIN = isin, BfbCode = bfbCode, Currency = Constants.CurrencyCode };
@@ -117,7 +117,7 @@ namespace ABVInvest.Services.Tests.DataServiceTests
         }
 
         [Fact]
-        public async Task GetOrCreateSecurity_ShouldGetSecurityIfExists()
+        public async Task GetOrCreateSecurityAsync_ShouldGetSecurityIfExists()
         {
             // Arrange
             var securityInfo = new SecurityBindingModel { Issuer = Constants.IssuerName, ISIN = Constants.ISIN, BfbCode = Constants.BfbCode, Currency = Constants.CurrencyCode };
@@ -135,7 +135,7 @@ namespace ABVInvest.Services.Tests.DataServiceTests
         }
 
         [Fact]
-        public async Task GetOrCreateSecurity_ShouldCreateSecurityIfSuchDoesNotExist()
+        public async Task GetOrCreateSecurityAsync_ShouldCreateSecurityIfSuchDoesNotExist()
         {
             // Arrange
             var instrument = new Instrument { Issuer = Constants.IssuerName, ISIN = Constants.ISIN, NewCode = Constants.BfbCode, Currency = Constants.CurrencyCode };

@@ -18,7 +18,7 @@ namespace ABVInvest.Services.Tests.DataServiceTests
         }
 
         [Fact]
-        public async Task CreateMarket_ShouldCreateMarket()
+        public async Task CreateMarketAsync_ShouldCreateMarket()
         {
             // Arrange
             var expectedMarketsCount = 1;
@@ -42,7 +42,7 @@ namespace ABVInvest.Services.Tests.DataServiceTests
         [Theory]
         [InlineData(Constants.MarketName, Constants.Test)]
         [InlineData(Constants.Test, Constants.MarketCode)]
-        public async Task CreateMarket_ShouldNotCreateMarketIfSuchAlreadyExists(string marketName, string marketCode)
+        public async Task CreateMarketAsync_ShouldNotCreateMarketIfSuchAlreadyExists(string marketName, string marketCode)
         {
             // Arrange
             await DataService.CreateMarketAsync(Constants.MarketName, Constants.MarketCode);
@@ -60,7 +60,7 @@ namespace ABVInvest.Services.Tests.DataServiceTests
         }
 
         [Fact]
-        public async Task CreateMarket_ShouldNotCreateMarketIfCodeNotCorrect()
+        public async Task CreateMarketAsync_ShouldNotCreateMarketIfCodeNotCorrect()
         {
             // Arrange
             var wrongMarketCode = Constants.Test;

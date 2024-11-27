@@ -18,7 +18,7 @@ namespace ABVInvest.Services.Tests.DataServiceTests
         }
 
         [Fact]
-        public async Task CreateCurrency_ShouldCreateCurrency()
+        public async Task CreateCurrencyAsync_ShouldCreateCurrency()
         {
             // Arrange            
             var expectedCurrenciesCount = 1;
@@ -40,7 +40,7 @@ namespace ABVInvest.Services.Tests.DataServiceTests
         }
 
         [Fact]
-        public async Task CreateCurrency_ShouldNotCreateCurrencyIfSuchAlreadyExists()
+        public async Task CreateCurrencyAsync_ShouldNotCreateCurrencyIfSuchAlreadyExists()
         {
             // Arrange
             await DataService.CreateCurrencyAsync(Constants.CurrencyCode);
@@ -58,7 +58,7 @@ namespace ABVInvest.Services.Tests.DataServiceTests
         }
 
         [Fact]
-        public async Task CreateCurrency_ShouldNotCreateCurrencyIfCodeNotCorrect()
+        public async Task CreateCurrencyAsync_ShouldNotCreateCurrencyIfCodeNotCorrect()
         {
             // Arrange
             var wrongCurrencyCode = Constants.Test;
@@ -76,7 +76,7 @@ namespace ABVInvest.Services.Tests.DataServiceTests
         }
 
         [Fact]
-        public async Task GetOrCreateCurrency_ShouldGetCurrencyIfExists()
+        public async Task GetOrCreateCurrencyAsync_ShouldGetCurrencyIfExists()
         {
             // Arrange
             await DataService.CreateCurrencyAsync(Constants.CurrencyCode);
@@ -90,7 +90,7 @@ namespace ABVInvest.Services.Tests.DataServiceTests
         }
 
         [Fact]
-        public async Task GetOrCreateCurrency_ShouldCreateCurrencyIfSuchDoesNotExist()
+        public async Task GetOrCreateCurrencyAsync_ShouldCreateCurrencyIfSuchDoesNotExist()
         {
             // Arrange
             var expectedCurrenciesCount = 1;
