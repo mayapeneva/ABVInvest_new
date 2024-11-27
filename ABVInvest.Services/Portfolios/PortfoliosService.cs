@@ -35,7 +35,7 @@ namespace ABVInvest.Services.Portfolios
             this.dataService = dataService;
         }
 
-        public async Task<IEnumerable<T>> GetUserDailyPortfolio<T>(ClaimsPrincipal user, DateOnly date)
+        public async Task<IEnumerable<T>> GetUserDailyPortfolioAsync<T>(ClaimsPrincipal user, DateOnly date)
         {
             var dbUser = await userManager.GetUserAsync(user);
             return dbUser?.Portfolio.SingleOrDefault(p => p.Date == date)?
@@ -43,7 +43,7 @@ namespace ABVInvest.Services.Portfolios
                 .Select(this.Mapper.Map<T>) ?? [];
         }
 
-        public async Task<ApplicationResultBase> SeedPortfolios(IEnumerable<PortfolioRowBindingModel> deserializedPortfolios, DateOnly date)
+        public async Task<ApplicationResultBase> SeedPortfoliosAsync(IEnumerable<PortfolioRowBindingModel> deserializedPortfolios, DateOnly date)
         {
             var result = new ApplicationResultBase();
             var changesCounter = 0;
@@ -91,7 +91,7 @@ namespace ABVInvest.Services.Portfolios
                 var dbResult = await this.Db.SaveChangesAsync();
                 if (dbResult > 0)
                 {
-                    await balancesService.CreateBalanceForUser(user, date);
+                    await balancesService.CreateBalanceForUserAsync(user, date);
                     changesCounter += dbResult;
                 }
             }
@@ -113,7 +113,7 @@ namespace ABVInvest.Services.Portfolios
             var securityInfo = portfolioRow.Instrument;
 
             // Get or create security
-            var security = await dataService.GetOrCreateSecurity(securityInfo);
+            var security = await dataService.GetOrCreateSecurityAsync(securityInfo);
             if (security is null)
             {
                 result.Errors.Add(string.Format(Messages.DealsAndPortfolios.SecurityCannotBeCreated, portfolioKey, securityInfo.Issuer, securityInfo.ISIN, securityInfo.NewCode, securityInfo.Currency));
@@ -128,7 +128,7 @@ namespace ABVInvest.Services.Portfolios
             }
 
             // Get or create currency
-            var currency = await dataService.GetOrCreateCurrency(securityInfo.Currency);
+            var currency = await dataService.GetOrCreateCurrencyAsync(securityInfo.Currency);
             if (currency is null)
             {
                 result.Errors.Add(string.Format(Messages.DealsAndPortfolios.CurrencyCannotBeCreated, securityInfo.Currency, portfolioKey, securityInfo.Issuer, securityInfo.ISIN, securityInfo.NewCode));

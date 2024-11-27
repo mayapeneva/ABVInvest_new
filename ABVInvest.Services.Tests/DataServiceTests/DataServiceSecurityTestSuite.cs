@@ -26,7 +26,7 @@ namespace ABVInvest.Services.Tests.DataServiceTests
             var expectedSecuritiesCount = 1;
 
             // Act
-            var actualResult = await DataService.CreateSecurity(securityInfo);
+            var actualResult = await DataService.CreateSecurityAsync(securityInfo);
             var actualSecuritiesCount = Db.Securities.Count();
 
             // Assert
@@ -48,12 +48,12 @@ namespace ABVInvest.Services.Tests.DataServiceTests
         {
             // Arrange
             var securityInfo = new SecurityBindingModel { Issuer = Constants.IssuerName, ISIN = Constants.ISIN, BfbCode = Constants.BfbCode, Currency = Constants.CurrencyCode };
-            await DataService.CreateSecurity(securityInfo);
+            await DataService.CreateSecurityAsync(securityInfo);
             var expectedResult = new ApplicationResult<Security>();
             expectedResult.Errors.Add(Messages.Data.SecurityExists);
 
             // Act
-            var actualResult = await DataService.CreateSecurity(securityInfo);
+            var actualResult = await DataService.CreateSecurityAsync(securityInfo);
 
             // Assert
             Assert.NotNull(actualResult);
@@ -69,7 +69,7 @@ namespace ABVInvest.Services.Tests.DataServiceTests
             var securityInfo = new SecurityBindingModel { Issuer = Constants.IssuerName, ISIN = Constants.ISIN, BfbCode = Constants.BfbCode, Currency = Constants.CurrencyCode };
 
             // Act
-            var actualResult = await DataService.CreateSecurity(securityInfo);
+            var actualResult = await DataService.CreateSecurityAsync(securityInfo);
 
             // Assert
             Assert.NotNull(actualResult);
@@ -86,7 +86,7 @@ namespace ABVInvest.Services.Tests.DataServiceTests
             var securityInfo = new SecurityBindingModel { Issuer = Constants.IssuerName, ISIN = Constants.ISIN, BfbCode = Constants.BfbCode, Currency = Constants.CurrencyCode };
 
             // Act
-            var actualResult = await DataService.CreateSecurity(securityInfo);
+            var actualResult = await DataService.CreateSecurityAsync(securityInfo);
 
             // Assert
             Assert.NotNull(actualResult);
@@ -107,7 +107,7 @@ namespace ABVInvest.Services.Tests.DataServiceTests
             expectedResult.Errors.Add(Messages.Data.SecurityDataIsWrong);
 
             // Act
-            var actualResult = await DataService.CreateSecurity(securityInfo);
+            var actualResult = await DataService.CreateSecurityAsync(securityInfo);
 
             // Assert
             Assert.NotNull(actualResult);
@@ -121,12 +121,12 @@ namespace ABVInvest.Services.Tests.DataServiceTests
         {
             // Arrange
             var securityInfo = new SecurityBindingModel { Issuer = Constants.IssuerName, ISIN = Constants.ISIN, BfbCode = Constants.BfbCode, Currency = Constants.CurrencyCode };
-            await DataService.CreateSecurity(securityInfo);
+            await DataService.CreateSecurityAsync(securityInfo);
 
             var instrument = new Instrument { Issuer = Constants.IssuerName, ISIN = Constants.ISIN, NewCode = Constants.BfbCode, Currency = Constants.CurrencyCode };
 
             // Act
-            var actualResult = await DataService.GetOrCreateSecurity(instrument);
+            var actualResult = await DataService.GetOrCreateSecurityAsync(instrument);
 
             // Assert
             Assert.NotNull(actualResult);
@@ -142,7 +142,7 @@ namespace ABVInvest.Services.Tests.DataServiceTests
             var expectedSecuritiesCount = 1;
 
             // Act
-            var actualResult = await DataService.GetOrCreateSecurity(instrument);
+            var actualResult = await DataService.GetOrCreateSecurityAsync(instrument);
             var actualSecuritiesCount = Db.Securities.Count();
 
             // Assert

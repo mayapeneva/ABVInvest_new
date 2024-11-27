@@ -30,7 +30,7 @@ namespace ABVInvest.Services.Deals
             this.dataService = dataService;
         }
 
-        public async Task<IEnumerable<T>> GetUserDailyDeals<T>(ClaimsPrincipal user, DateOnly date)
+        public async Task<IEnumerable<T>> GetUserDailyDealsAsync<T>(ClaimsPrincipal user, DateOnly date)
         {
             var dbUser = await userManager.GetUserAsync(user);
             return dbUser?.Deals.SingleOrDefault(p => p.Date == date)?
@@ -38,7 +38,7 @@ namespace ABVInvest.Services.Deals
                 .Select(d => this.Mapper.Map<T>(d)) ?? [];
         }
 
-        public async Task<ApplicationResultBase> SeedDeals(IEnumerable<DealRowBindingModel> deserializedDeals, DateOnly date)
+        public async Task<ApplicationResultBase> SeedDealsAsync(IEnumerable<DealRowBindingModel> deserializedDeals, DateOnly date)
         {
             var result = new ApplicationResultBase();
             var changesCounter = 0;
@@ -100,7 +100,7 @@ namespace ABVInvest.Services.Deals
             var securityInfo = dealRow.Instrument;
 
             // Get or create security
-            var security = await dataService.GetOrCreateSecurity(securityInfo);
+            var security = await dataService.GetOrCreateSecurityAsync(securityInfo);
             if (security is null)
             {
                 result.Errors.Add(string.Format(Messages.DealsAndPortfolios.SecurityCannotBeCreated, dealKey, securityInfo.Issuer,
@@ -109,7 +109,7 @@ namespace ABVInvest.Services.Deals
             }
 
             // Get or create currency
-            var currency = await dataService.GetOrCreateCurrency(securityInfo.Currency);
+            var currency = await dataService.GetOrCreateCurrencyAsync(securityInfo.Currency);
             if (currency is null)
             {
                 result.Errors.Add(string.Format(Messages.DealsAndPortfolios.CurrencyCannotBeCreated, securityInfo.Currency, dealKey,

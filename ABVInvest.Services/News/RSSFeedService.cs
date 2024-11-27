@@ -19,7 +19,7 @@ namespace ABVInvest.Services.News
             rssAddresses = [ShortConstants.RSSFeed.InvestorRSSCompanies, ShortConstants.RSSFeed.InvestorRSSMarkets, ShortConstants.RSSFeed.InvestorRSSFinance, ShortConstants.RSSFeed.X3NewsRSS];
         }
 
-        public async Task<IEnumerable<RSSFeedViewModel>> LoadNews()
+        public async Task<IEnumerable<RSSFeedViewModel>> LoadNewsAsync()
         {
             var rssFeedModels = new List<RSSFeedViewModel>();
 

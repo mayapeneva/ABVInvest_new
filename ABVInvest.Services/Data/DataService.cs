@@ -11,7 +11,7 @@ namespace ABVInvest.Services.Data
     public class DataService(ApplicationDbContext db, IMapper mapper)
         : BaseService(db, mapper), IDataService
     {
-        public async Task<Currency?> GetOrCreateCurrency(string currencyCode)
+        public async Task<Currency?> GetOrCreateCurrencyAsync(string currencyCode)
         {
             var currency = this.Db.Currencies.SingleOrDefault(c => c.Code == currencyCode);
             if (currency is not null) return currency;
@@ -20,7 +20,7 @@ namespace ABVInvest.Services.Data
             return currencyResult.IsSuccessful() ? currencyResult.Data : null;
         }
 
-        public Task<ApplicationResult<Currency>> CreateCurrency(string code)
+        public Task<ApplicationResult<Currency>> CreateCurrencyAsync(string code)
         {
             var result = new ApplicationResult<Currency>();
             if (this.Db.Currencies.Any(c => c.Code == code))
@@ -32,7 +32,7 @@ namespace ABVInvest.Services.Data
             return this.InternalCreateCurrency(code);
         }
 
-        public async Task<ApplicationResult<Market>> CreateMarket(string name, string mic)
+        public async Task<ApplicationResult<Market>> CreateMarketAsync(string name, string mic)
         {
             var result = new ApplicationResult<Market>();
             if (this.Db.Markets.Any(m => m.Name == name || m.MIC == mic))
@@ -63,7 +63,7 @@ namespace ABVInvest.Services.Data
             return result;
         }
 
-        public async Task<Security?> GetOrCreateSecurity(Instrument securityInfo)
+        public async Task<Security?> GetOrCreateSecurityAsync(Instrument securityInfo)
         {
             var security = this.Db.Securities.SingleOrDefault(s => s.ISIN == securityInfo.ISIN);
             if (security is not null) return security;
@@ -72,7 +72,7 @@ namespace ABVInvest.Services.Data
             return securityResult.IsSuccessful() ? securityResult.Data : null;
         }
 
-        public Task<ApplicationResult<Security>> CreateSecurity(SecurityBindingModel securityInfo)
+        public Task<ApplicationResult<Security>> CreateSecurityAsync(SecurityBindingModel securityInfo)
         {
             var result = new ApplicationResult<Security>();
             if (this.Db.Securities.Any(s => s.ISIN == securityInfo.ISIN))
@@ -124,7 +124,7 @@ namespace ABVInvest.Services.Data
             var currency = this.Db.Currencies.SingleOrDefault(c => c.Code == securityInfo.Currency);
             if (currency is null)
             {
-                var createCurrencyResult = await this.CreateCurrency(securityInfo.Currency);
+                var createCurrencyResult = await this.CreateCurrencyAsync(securityInfo.Currency);
                 if (!createCurrencyResult.IsSuccessful())
                 {
                     result.Errors = createCurrencyResult.Errors;

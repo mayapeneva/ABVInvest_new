@@ -6,8 +6,8 @@ namespace ABVInvest.Services.Portfolios
 {
     public interface IPortfoliosService
     {
-        Task<IEnumerable<T>> GetUserDailyPortfolio<T>(ClaimsPrincipal user, DateOnly date);
+        Task<IEnumerable<T>> GetUserDailyPortfolioAsync<T>(ClaimsPrincipal user, DateOnly date);
 
-        Task<ApplicationResultBase> SeedPortfolios(IEnumerable<PortfolioRowBindingModel> deserializedPortfolios, DateOnly date);
+        Task<ApplicationResultBase> SeedPortfoliosAsync(IEnumerable<PortfolioRowBindingModel> deserializedPortfolios, DateOnly date);
     }
 }

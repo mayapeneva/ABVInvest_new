@@ -24,7 +24,7 @@ namespace ABVInvest.Services.Tests.DataServiceTests
             var expectedMarketsCount = 1;
 
             // Act
-            var actualResult = await DataService.CreateMarket(Constants.MarketName, Constants.MarketCode);
+            var actualResult = await DataService.CreateMarketAsync(Constants.MarketName, Constants.MarketCode);
             var actualMarketsCount = Db.Markets.Count();
 
             // Assert
@@ -45,12 +45,12 @@ namespace ABVInvest.Services.Tests.DataServiceTests
         public async Task CreateMarket_ShouldNotCreateMarketIfSuchAlreadyExists(string marketName, string marketCode)
         {
             // Arrange
-            await DataService.CreateMarket(Constants.MarketName, Constants.MarketCode);
+            await DataService.CreateMarketAsync(Constants.MarketName, Constants.MarketCode);
             var expectedResult = new ApplicationResult<Market>();
             expectedResult.Errors.Add(Messages.Data.MarketExists);
 
             // Act
-            var actualResult = await DataService.CreateMarket(marketName, marketCode);
+            var actualResult = await DataService.CreateMarketAsync(marketName, marketCode);
 
             // Assert
             Assert.NotNull(actualResult);
@@ -68,7 +68,7 @@ namespace ABVInvest.Services.Tests.DataServiceTests
             expectedResult.Errors.Add(Messages.Data.MarketDataIsWrong);
 
             // Act
-            var actualResult = await DataService.CreateMarket(Constants.MarketName, wrongMarketCode);
+            var actualResult = await DataService.CreateMarketAsync(Constants.MarketName, wrongMarketCode);
 
             // Asser
             Assert.NotNull(actualResult);

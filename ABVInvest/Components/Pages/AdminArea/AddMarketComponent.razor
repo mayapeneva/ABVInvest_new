@@ -30,7 +30,7 @@
     {
         if (Input.Name is not null && Input.MIC is not null)
         {
-            var result = await DataService.CreateMarket(Input.Name, Input.MIC);
+            var result = await DataService.CreateMarketAsync(Input.Name, Input.MIC);
             ErrorMessage = !result.IsSuccessful() ? $"Грешка: {string.Join(", ", result.Errors)}" : string.Format(Messages.Data.MarketAdded, Input.Name);
         }
     }

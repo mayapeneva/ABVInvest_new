@@ -51,7 +51,7 @@
                     var deserializedPortfolios = await UploadsHelper.DeserialiseXmlFile<PortfolioRowBindingModel>(fileName);
                     if (!ModelValidator.IsValid(deserializedPortfolios)) ErrorMessage = Messages.Common.CouldNotUploadInformation;
 
-                    var result = await this.PortfoliosService.SeedPortfolios(deserializedPortfolios, Input.Date.Value);
+                    var result = await this.PortfoliosService.SeedPortfoliosAsync(deserializedPortfolios, Input.Date.Value);
                     ErrorMessage = !result.IsSuccessful() ? ErrorMessage = $"Грешка: {string.Join(", ", result.Errors)}" : Messages.DealsAndPortfolios.UploadingSuccessfull;
                 }
             }

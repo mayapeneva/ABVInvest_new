@@ -45,7 +45,7 @@
                     BfbCode = Input.BfbCode,
                     Currency = Input.Currency
                 };
-            var result = await DataService.CreateSecurity(securityInfo);
+            var result = await DataService.CreateSecurityAsync(securityInfo);
             ErrorMessage = !result.IsSuccessful() ? $"Грешка: {string.Join(", ", result.Errors)}" : string.Format(Messages.Data.SecurityAdded, Input.ISIN);
         }
     }

@@ -26,7 +26,7 @@
     {
         if (Input.Code is not null)
         {
-            var result = await DataService.CreateCurrency(Input.Code);
+            var result = await DataService.CreateCurrencyAsync(Input.Code);
             ErrorMessage = !result.IsSuccessful() ? $"Грешка: {string.Join(", ", result.Errors)}" : string.Format(Messages.Data.CurrencyAdded, Input.Code);
         }
     }

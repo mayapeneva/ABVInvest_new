@@ -51,7 +51,7 @@
                     var deserializedDeals = await UploadsHelper.DeserialiseXmlFile<DealRowBindingModel>(fileName);
                     if (!ModelValidator.IsValid(deserializedDeals)) ErrorMessage = Messages.Common.CouldNotUploadInformation;
 
-                    var result = await this.DealsService.SeedDeals(deserializedDeals, Input.Date.Value);
+                    var result = await this.DealsService.SeedDealsAsync(deserializedDeals, Input.Date.Value);
                     ErrorMessage = !result.IsSuccessful() ? ErrorMessage = $"Грешка: {string.Join(", ", result.Errors)}" : Messages.DealsAndPortfolios.UploadingSuccessfull;
                 }
             }

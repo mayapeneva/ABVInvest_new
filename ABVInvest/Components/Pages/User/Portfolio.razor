@@ -46,7 +46,7 @@
          if (Input.Date != null)
         {
             var authenticationState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
-            var portfolio = await PortfoliosService.GetUserDailyPortfolio<PortfolioViewModel>(authenticationState.User, Input.Date.Value);
+            var portfolio = await PortfoliosService.GetUserDailyPortfolioAsync<PortfolioViewModel>(authenticationState.User, Input.Date.Value);
             if (portfolio is null)
             {
                 // return error

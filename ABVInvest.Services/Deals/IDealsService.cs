@@ -6,8 +6,8 @@ namespace ABVInvest.Services.Deals
 {
     public interface IDealsService
     {
-        Task<IEnumerable<T>> GetUserDailyDeals<T>(ClaimsPrincipal user, DateOnly date);
+        Task<IEnumerable<T>> GetUserDailyDealsAsync<T>(ClaimsPrincipal user, DateOnly date);
 
-        Task<ApplicationResultBase> SeedDeals(IEnumerable<DealRowBindingModel> deserializedDeals, DateOnly date);
+        Task<ApplicationResultBase> SeedDealsAsync(IEnumerable<DealRowBindingModel> deserializedDeals, DateOnly date);
     }
 }

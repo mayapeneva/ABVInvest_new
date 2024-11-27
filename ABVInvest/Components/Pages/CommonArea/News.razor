@@ -26,7 +26,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        RssModels = await RSSFeedParser.LoadNews();
+        RssModels = await RSSFeedParser.LoadNewsAsync();
     }
 
     protected override void OnAfterRender(bool firstRender)

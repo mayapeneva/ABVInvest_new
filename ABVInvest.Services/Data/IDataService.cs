@@ -6,14 +6,14 @@ namespace ABVInvest.Services.Data
 {
     public interface IDataService
     {
-        Task<Currency?> GetOrCreateCurrency(string currencyCode);
+        Task<Currency?> GetOrCreateCurrencyAsync(string currencyCode);
 
-        Task<ApplicationResult<Currency>> CreateCurrency(string code);
+        Task<ApplicationResult<Currency>> CreateCurrencyAsync(string code);
 
-        Task<ApplicationResult<Market>> CreateMarket(string name, string mic);
+        Task<ApplicationResult<Market>> CreateMarketAsync(string name, string mic);
 
-        Task<Security?> GetOrCreateSecurity(Instrument securityInfo);
+        Task<Security?> GetOrCreateSecurityAsync(Instrument securityInfo);
 
-        Task<ApplicationResult<Security>> CreateSecurity(SecurityBindingModel securityInfo);
+        Task<ApplicationResult<Security>> CreateSecurityAsync(SecurityBindingModel securityInfo);
     }
 }

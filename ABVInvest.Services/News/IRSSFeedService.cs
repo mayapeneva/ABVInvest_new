@@ -4,6 +4,6 @@ namespace ABVInvest.Services.News
 {
     public interface IRSSFeedService
     {
-        Task<IEnumerable<RSSFeedViewModel>> LoadNews();
+        Task<IEnumerable<RSSFeedViewModel>> LoadNewsAsync();
     }
 }

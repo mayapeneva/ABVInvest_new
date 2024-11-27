@@ -24,7 +24,7 @@ namespace ABVInvest.Services.Tests.DataServiceTests
             var expectedCurrenciesCount = 1;
 
             // Act
-            var actualResult = await DataService.CreateCurrency(Constants.CurrencyCode);
+            var actualResult = await DataService.CreateCurrencyAsync(Constants.CurrencyCode);
             var actualCurrenciesCount = Db.Currencies.Count();
 
             // Assert
@@ -43,12 +43,12 @@ namespace ABVInvest.Services.Tests.DataServiceTests
         public async Task CreateCurrency_ShouldNotCreateCurrencyIfSuchAlreadyExists()
         {
             // Arrange
-            await DataService.CreateCurrency(Constants.CurrencyCode);
+            await DataService.CreateCurrencyAsync(Constants.CurrencyCode);
             var expectedResult = new ApplicationResult<Currency>();
             expectedResult.Errors.Add(Messages.Data.CurrencyExists);
 
             // Act
-            var actualResult = await DataService.CreateCurrency(Constants.CurrencyCode);
+            var actualResult = await DataService.CreateCurrencyAsync(Constants.CurrencyCode);
 
             // Assert
             Assert.NotNull(actualResult);
@@ -66,7 +66,7 @@ namespace ABVInvest.Services.Tests.DataServiceTests
             expectedResult.Errors.Add(Messages.Data.CurrencyDataIsWrong);
 
             // Act
-            var actualResult = await DataService.CreateCurrency(wrongCurrencyCode);
+            var actualResult = await DataService.CreateCurrencyAsync(wrongCurrencyCode);
 
             // Assert
             Assert.NotNull(actualResult);
@@ -79,10 +79,10 @@ namespace ABVInvest.Services.Tests.DataServiceTests
         public async Task GetOrCreateCurrency_ShouldGetCurrencyIfExists()
         {
             // Arrange
-            await DataService.CreateCurrency(Constants.CurrencyCode);
+            await DataService.CreateCurrencyAsync(Constants.CurrencyCode);
 
             // Act
-            var actualResult = await DataService.GetOrCreateCurrency(Constants.CurrencyCode);
+            var actualResult = await DataService.GetOrCreateCurrencyAsync(Constants.CurrencyCode);
 
             // Assert
             Assert.NotNull(actualResult);
@@ -96,7 +96,7 @@ namespace ABVInvest.Services.Tests.DataServiceTests
             var expectedCurrenciesCount = 1;
 
             // Act
-            var actualResult = await DataService.GetOrCreateCurrency(Constants.CurrencyCode);
+            var actualResult = await DataService.GetOrCreateCurrencyAsync(Constants.CurrencyCode);
             var actualCurrenciesCount = Db.Currencies.Count();
 
             // Assert
