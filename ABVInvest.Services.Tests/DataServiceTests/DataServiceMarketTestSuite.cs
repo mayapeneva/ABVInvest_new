@@ -9,8 +9,8 @@ namespace ABVInvest.Services.Tests.DataServiceTests
 {
     public class DataServiceMarketTestSuite : IDisposable
     {
-        private IDataService DataService;
         private ApplicationDbContext Db;
+        private IDataService DataService;
 
         public DataServiceMarketTestSuite()
         {
@@ -37,8 +37,6 @@ namespace ABVInvest.Services.Tests.DataServiceTests
             Assert.Equal(Constants.MarketName, data.Name);
             Assert.Equal(Constants.MarketCode, data.MIC);
             Assert.Equal(expectedMarketsCount, actualMarketsCount);
-
-            Db.Dispose();
         }
 
         [Theory]
@@ -59,8 +57,6 @@ namespace ABVInvest.Services.Tests.DataServiceTests
             Assert.False(actualResult.IsSuccessful());
             Assert.Null(actualResult.Data);
             Assert.Equal(expectedResult.Errors, actualResult.Errors);
-
-            Db.Dispose();
         }
 
         [Fact]
@@ -79,8 +75,6 @@ namespace ABVInvest.Services.Tests.DataServiceTests
             Assert.False(actualResult.IsSuccessful());
             Assert.Null(actualResult.Data);
             Assert.Equal(expectedResult.Errors, actualResult.Errors);
-
-            Db.Dispose();
         }
 
         public void Dispose() => Db?.Dispose();

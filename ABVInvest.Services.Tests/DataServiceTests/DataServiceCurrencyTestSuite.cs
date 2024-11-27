@@ -9,8 +9,8 @@ namespace ABVInvest.Services.Tests.DataServiceTests
 {
     public class DataServiceCurrencyTestSuite : IDisposable
     {
-        private IDataService DataService;
         private ApplicationDbContext Db;
+        private IDataService DataService;
 
         public DataServiceCurrencyTestSuite()
         {
@@ -37,8 +37,6 @@ namespace ABVInvest.Services.Tests.DataServiceTests
             Assert.Equal(Constants.CurrencyCode, data.Code);
             Assert.Equal(expectedCurrenciesCount, actualCurrenciesCount);
             Assert.Contains(Db.Currencies, c => c.Code == Constants.CurrencyCode);
-
-            Db.Dispose();
         }
 
         [Fact]
@@ -57,8 +55,6 @@ namespace ABVInvest.Services.Tests.DataServiceTests
             Assert.False(actualResult.IsSuccessful());
             Assert.Null(actualResult.Data);
             Assert.Equal(expectedResult.Errors, actualResult.Errors);
-
-            Db.Dispose();
         }
 
         [Fact]
@@ -77,8 +73,6 @@ namespace ABVInvest.Services.Tests.DataServiceTests
             Assert.False(actualResult.IsSuccessful());
             Assert.Null(actualResult.Data);
             Assert.Equal(expectedResult.Errors, actualResult.Errors);
-
-            Db.Dispose();
         }
 
         [Fact]
@@ -93,8 +87,6 @@ namespace ABVInvest.Services.Tests.DataServiceTests
             // Assert
             Assert.NotNull(actualResult);
             Assert.Equal(Constants.CurrencyCode, actualResult.Code);
-
-            Db.Dispose();
         }
 
         [Fact]
@@ -113,8 +105,6 @@ namespace ABVInvest.Services.Tests.DataServiceTests
 
             Assert.Equal(expectedCurrenciesCount, actualCurrenciesCount);
             Assert.Contains(Db.Currencies, c => c.Code == Constants.CurrencyCode);
-
-            Db.Dispose();
         }
 
         public void Dispose() => Db?.Dispose();

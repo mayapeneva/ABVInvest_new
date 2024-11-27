@@ -10,8 +10,8 @@ namespace ABVInvest.Services.Tests.DataServiceTests
 {
     public class DataServiceSecurityTestSuite : IDisposable
     {
-        private IDataService DataService;
         private ApplicationDbContext Db;
+        private IDataService DataService;
 
         public DataServiceSecurityTestSuite()
         {
@@ -41,8 +41,6 @@ namespace ABVInvest.Services.Tests.DataServiceTests
             Assert.Equal(Constants.BfbCode, data.BfbCode);
             Assert.Equal(Constants.CurrencyCode, data.Currency.Code);
             Assert.Equal(expectedSecuritiesCount, actualSecuritiesCount);
-
-            Db.Dispose();
         }
 
         [Fact]
@@ -62,8 +60,6 @@ namespace ABVInvest.Services.Tests.DataServiceTests
             Assert.False(actualResult.IsSuccessful());
             Assert.Null(actualResult.Data);
             Assert.Equal(expectedResult.Errors, actualResult.Errors);
-
-            Db.Dispose();
         }
 
         [Fact]
@@ -81,8 +77,6 @@ namespace ABVInvest.Services.Tests.DataServiceTests
             Assert.NotNull(actualResult.Data);
 
             Assert.Contains(Db.Issuers, i => i.Name == Constants.IssuerName);
-
-            Db.Dispose();
         }
 
         [Fact]
@@ -100,8 +94,6 @@ namespace ABVInvest.Services.Tests.DataServiceTests
             Assert.NotNull(actualResult.Data);
 
             Assert.Contains(Db.Currencies, i => i.Code == Constants.CurrencyCode);
-
-            Db.Dispose();
         }
 
         [Theory]
@@ -122,8 +114,6 @@ namespace ABVInvest.Services.Tests.DataServiceTests
             Assert.False(actualResult.IsSuccessful());
             Assert.Null(actualResult.Data);
             Assert.Equal(expectedResult.Errors, actualResult.Errors);
-
-            Db.Dispose();
         }
 
         [Fact]
@@ -142,8 +132,6 @@ namespace ABVInvest.Services.Tests.DataServiceTests
             Assert.NotNull(actualResult);
             Assert.Equal(Constants.ISIN, actualResult.ISIN);
             Assert.Equal(Constants.BfbCode, actualResult.BfbCode);
-
-            Db.Dispose();
         }
 
         [Fact]
@@ -164,8 +152,6 @@ namespace ABVInvest.Services.Tests.DataServiceTests
 
             Assert.Equal(expectedSecuritiesCount, actualSecuritiesCount);
             Assert.Contains(Db.Securities, c => c.ISIN == Constants.ISIN);
-
-            Db.Dispose();
         }
 
         public void Dispose() => Db?.Dispose();
