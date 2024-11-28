@@ -34,7 +34,7 @@
     [SupplyParameterFromForm]
     private InputModel Input { get; set; } = new();
 
-    public async Task AddSecurityData()
+    private async Task AddSecurityData()
     {
         if (Input.Issuer is not null && Input.ISIN is not null)
         {
@@ -50,7 +50,7 @@
         }
     }
 
-    public async Task ClearDisplayMessage()
+    private async Task ClearDisplayMessage()
     {
         ErrorMessage = string.Empty;
     }

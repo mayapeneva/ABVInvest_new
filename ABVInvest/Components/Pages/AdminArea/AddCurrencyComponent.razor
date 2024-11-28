@@ -22,7 +22,7 @@
     [SupplyParameterFromForm]
     private InputModel Input { get; set; } = new();
 
-    public async Task AddCurrencyData()
+    private async Task AddCurrencyData()
     {
         if (Input.Code is not null)
         {
@@ -31,7 +31,7 @@
         }
     }
 
-    public async Task ClearDisplayMessage()
+    private async Task ClearDisplayMessage()
     {
         ErrorMessage = string.Empty;
     }

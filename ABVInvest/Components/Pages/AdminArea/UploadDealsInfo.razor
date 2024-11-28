@@ -14,16 +14,16 @@
     <div class="col-md-4">
         <h4> Тук можете да качите файлът с клиентските сделки: </h4>
 
-        <EditForm Model="Input" method="post" OnValidSubmit="AddDeals" FormName="addDealsForm">
+        <EditForm Model="Input" method="post" OnValidSubmit="AddDeals" FormName="addDealsForm" enctype="multipart/form-data">
             <DataAnnotationsValidator />
             <div class="form-group">
                 <div class="row p-0 m-0 mb-3">
-                    <DateInput TValue="DateOnly?" @bind-Value="Input.Date" EnableMinMax="true" Min="@ShortConstants.Common.MinDate" Max="@ShortConstants.Common.MaxDate" Placeholder="Изберете дата" />
+                    <DateInput class="form-control" TValue="DateOnly?" @bind-Value="Input.Date" EnableMinMax="true" Min="@ShortConstants.Common.MinDate" Max="@ShortConstants.Common.MaxDate" Placeholder="Изберете дата" />
                     <ValidationMessage For="() => Input.Date" class="text-danger" />
                 </div>
                 <div class="row mb-3 mx-auto">
-                    <InputFile @bind-Value="Input.XMLFile" Placeholder="Клиентски сделки" />
-                    <ValidationMessage For="() => Input.XMLFile" class="text-danger" />
+                    <InputFile class="form-control" placeholder="Клиентски сделки" OnChange="@SetFile" multiple />
+                    <ValidationMessage For="() => Input.XMLFiles" class="text-danger" />
                 </div>
                 <StatusDisplayMessage DisplayMessage="@ErrorMessage" />
                 <Button Type="ButtonType.Submit" Class="add-data-button bg-bg-abvlightgreen bg-abvdarkgreen large-fontsize"> Качи </Button>
@@ -35,24 +35,31 @@
 @code {
     private string? ErrorMessage;
 
-    [SupplyParameterFromForm]
+    [SupplyParameterFromForm(FormName = "addDealsForm")]
     private FileInputModel Input { get; set; } = new();
 
-    public async Task AddDeals()
+    private void SetFile(InputFileChangeEventArgs e)
     {
-        if (Input.Date is not null && Input.XMLFile is not null)
-        {
-            var xmlFile = Input.XMLFile;
-            if (xmlFile.ContentType.EndsWith(ShortConstants.Common.XmlFileExt))
-            {
-                var fileName = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ShortConstants.Common.FileUploadPath) + ShortConstants.Common.XmlFileExt;
-                if (xmlFile.Size > 0)
-                {
-                    var deserializedDeals = await UploadsHelper.DeserialiseXmlFile<DealRowBindingModel>(fileName);
-                    if (!ModelValidator.IsValid(deserializedDeals)) ErrorMessage = Messages.Common.CouldNotUploadInformation;
+        Input.XMLFiles = e.GetMultipleFiles();
+    }
 
-                    var result = await this.DealsService.SeedDealsAsync(deserializedDeals, Input.Date.Value);
-                    ErrorMessage = !result.IsSuccessful() ? ErrorMessage = $"Грешка: {string.Join(", ", result.Errors)}" : Messages.DealsAndPortfolios.UploadingSuccessfull;
+    private async Task AddDeals()
+    {
+        if (Input.Date is not null && Input.XMLFiles is not null)
+        {
+            foreach (var file in Input.XMLFiles)
+            {
+                if (file.ContentType.EndsWith(ShortConstants.Common.XmlFileContentType))
+                {
+                    var fileName = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ShortConstants.Common.FileUploadPath) + ShortConstants.Common.XmlFileExt;
+                    if (file.Size > 0)
+                    {
+                        var deserializedDeals = await UploadsHelper.DeserialiseXmlFile<DealRowBindingModel>(fileName);
+                        if (!ModelValidator.IsValid(deserializedDeals)) ErrorMessage = Messages.Common.CouldNotUploadInformation;
+
+                        var result = await this.DealsService.SeedDealsAsync(deserializedDeals, Input.Date.Value);
+                        ErrorMessage = !result.IsSuccessful() ? ErrorMessage = $"Грешка: {string.Join(", ", result.Errors)}" : Messages.DealsAndPortfolios.UploadingSuccessfull;
+                    }
                 }
             }
         }

@@ -35,7 +35,7 @@
 <Button Type="ButtonType.Link" @onclick="Logout">Изход</Button>
 
 @code {
-    public async Task Logout(){
+    private async Task Logout(){
         await this.SignInManager.SignOutAsync();
     }
 }

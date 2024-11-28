@@ -11,7 +11,6 @@ namespace ABVInvest.Common.BindingModels
         public DateOnly? Date { get; set; }
 
         [Required(ErrorMessage = Messages.Common.RequiredField)]
-        [DataType(DataType.Upload, ErrorMessage = Messages.Common.FileError)]
-        public IBrowserFile? XMLFile { get; set; }
+        public IReadOnlyList<IBrowserFile> XMLFiles { get; set; }
     }
 }
