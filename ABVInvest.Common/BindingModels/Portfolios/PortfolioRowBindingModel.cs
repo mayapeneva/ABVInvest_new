@@ -3,11 +3,10 @@ using System.Xml.Serialization;
 
 namespace ABVInvest.Common.BindingModels.Portfolios
 {
-
     [XmlType("New", IncludeInSchema = true)]
     public struct PortfolioRowBindingModel
     {
-        [XmlElement("ABVClient")]
+        [XmlElement("Client")]
         [Required]
         public AppClient Client { get; set; }
 

@@ -9,7 +9,6 @@ namespace ABVInvest.Data.Models
             this.SecuritiesPerIssuerCollection = [];
         }
 
-        [Required]
         public virtual ApplicationUser ApplicationUser { get; set; }
         public string ApplicationUserId { get; set; }
 

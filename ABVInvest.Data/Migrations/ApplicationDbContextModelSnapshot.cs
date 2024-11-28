@@ -124,7 +124,7 @@ namespace ABVInvest.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Balances");
+                    b.ToTable("Balances", (string)null);
                 });
 
             modelBuilder.Entity("ABVInvest.Data.Models.Currency", b =>
@@ -141,7 +141,7 @@ namespace ABVInvest.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Currencies");
+                    b.ToTable("Currencies", (string)null);
                 });
 
             modelBuilder.Entity("ABVInvest.Data.Models.DailyBalance", b =>
@@ -169,7 +169,7 @@ namespace ABVInvest.Migrations
                     b.HasIndex("BalanceId")
                         .IsUnique();
 
-                    b.ToTable("DailyBalances");
+                    b.ToTable("DailyBalances", (string)null);
                 });
 
             modelBuilder.Entity("ABVInvest.Data.Models.DailyDeals", b =>
@@ -191,7 +191,7 @@ namespace ABVInvest.Migrations
 
                     b.HasIndex("ApplicationUserId");
 
-                    b.ToTable("DailyDeals");
+                    b.ToTable("DailyDeals", (string)null);
                 });
 
             modelBuilder.Entity("ABVInvest.Data.Models.DailySecuritiesPerClient", b =>
@@ -213,7 +213,7 @@ namespace ABVInvest.Migrations
 
                     b.HasIndex("ApplicationUserId");
 
-                    b.ToTable("DailySecuritiesPerClient");
+                    b.ToTable("DailySecuritiesPerClient", (string)null);
                 });
 
             modelBuilder.Entity("ABVInvest.Data.Models.Deal", b =>
@@ -271,7 +271,7 @@ namespace ABVInvest.Migrations
 
                     b.HasIndex("SecurityId");
 
-                    b.ToTable("Deals");
+                    b.ToTable("Deals", (string)null);
                 });
 
             modelBuilder.Entity("ABVInvest.Data.Models.Issuer", b =>
@@ -288,7 +288,7 @@ namespace ABVInvest.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Issuers");
+                    b.ToTable("Issuers", (string)null);
                 });
 
             modelBuilder.Entity("ABVInvest.Data.Models.Market", b =>
@@ -309,7 +309,7 @@ namespace ABVInvest.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Markets");
+                    b.ToTable("Markets", (string)null);
                 });
 
             modelBuilder.Entity("ABVInvest.Data.Models.SecuritiesPerClient", b =>
@@ -361,7 +361,7 @@ namespace ABVInvest.Migrations
 
                     b.HasIndex("SecurityId");
 
-                    b.ToTable("SecuritiesPerClient");
+                    b.ToTable("SecuritiesPerClient", (string)null);
                 });
 
             modelBuilder.Entity("ABVInvest.Data.Models.Security", b =>
@@ -395,7 +395,7 @@ namespace ABVInvest.Migrations
 
                     b.HasIndex("IssuerId");
 
-                    b.ToTable("Securities");
+                    b.ToTable("Securities", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

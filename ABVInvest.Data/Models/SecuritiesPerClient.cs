@@ -1,15 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ABVInvest.Data.Models
 {
     public class SecuritiesPerClient : BaseEntity<int>
     {
-        [Required]
         public virtual DailySecuritiesPerClient DailySecuritiesPerClient { get; set; }
         public int DailySecuritiesPerClientId { get; set; }
 
-        [Required]
         public virtual Security Security { get; set; }
         public int SecurityId { get; set; }
 

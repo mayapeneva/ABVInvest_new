@@ -7,7 +7,7 @@ namespace ABVInvest.Common.BindingModels.Deals
     [XmlType("New", IncludeInSchema = true)]
     public struct DealRowBindingModel
     {
-        [XmlElement("ABVClient")]
+        [XmlElement("Client")]
         [Required]
         public AppClient Client { get; set; }
 
