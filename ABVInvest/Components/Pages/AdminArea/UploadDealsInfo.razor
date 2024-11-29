@@ -25,10 +25,13 @@
                     <InputFile class="form-control" placeholder="Клиентски сделки" OnChange="@SetFile" multiple />
                     <ValidationMessage For="() => Input.XMLFiles" class="text-danger" />
                 </div>
-                <StatusDisplayMessage DisplayMessage="@ErrorMessage" />
                 <Button Type="ButtonType.Submit" Class="add-data-button bg-bg-abvlightgreen bg-abvdarkgreen large-fontsize"> Качи </Button>
             </div>
         </EditForm>
+    </div>
+
+    <div class="error-messages">
+        <StatusDisplayMessage DisplayMessage="@ErrorMessage" />
     </div>
 </div>
 
@@ -51,10 +54,10 @@
             {
                 if (file.ContentType.EndsWith(ShortConstants.Common.XmlFileContentType))
                 {
-                    var fileName = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ShortConstants.Common.FileUploadPath) + ShortConstants.Common.XmlFileExt;
+                    var fileName = Path.Combine(Directory.GetCurrentDirectory(), ShortConstants.Common.FileUploadFolder, ShortConstants.Common.UploadedFile);
                     if (file.Size > 0)
                     {
-                        var deserializedDeals = await UploadsHelper.DeserialiseXmlFile<DealRowBindingModel>(fileName);
+                        var deserializedDeals = await UploadsHelper.DeserialiseXmlFile<DealRowBindingModel>(fileName, file);
                         if (!ModelValidator.IsValid(deserializedDeals)) ErrorMessage = Messages.Common.CouldNotUploadInformation;
 
                         var result = await this.DealsService.SeedDealsAsync(deserializedDeals, Input.Date.Value);

@@ -10,10 +10,13 @@
                 <InputText @bind-Value="Input.Code" Placeholder="Валутен код" @oninput="ClearDisplayMessage" />
                 <ValidationMessage For="() => Input.Code" class="text-danger" />
             </div>
-            <StatusDisplayMessage DisplayMessage="@ErrorMessage" />
             <Button Type="ButtonType.Submit" Class="add-data-button bg-bg-abvlightgreen bg-abvdarkgreen large-fontsize"> Добави </Button>
         </div>
     </EditForm>
+</div>
+
+<div class="error-messages">
+    <StatusDisplayMessage DisplayMessage="@ErrorMessage" />
 </div>
 
 @code {

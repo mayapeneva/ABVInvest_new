@@ -14,10 +14,13 @@
                 <InputText @bind-Value="Input.MIC" Placeholder="Идентификационен код на пазара (MIC)" @oninput="ClearDisplayMessage" />
                 <ValidationMessage For="() => Input.MIC" class="text-danger" />
             </div>
-            <StatusDisplayMessage DisplayMessage="@ErrorMessage" />
             <Button Type="ButtonType.Submit" Class="add-data-button bg-bg-abvlightgreen bg-abvdarkgreen large-fontsize"> Добави </Button>
         </div>
     </EditForm>
+</div>
+
+<div class="error-messages">
+    <StatusDisplayMessage DisplayMessage="@ErrorMessage" />
 </div>
 
 @code {

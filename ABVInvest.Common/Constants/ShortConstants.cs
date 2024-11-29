@@ -6,12 +6,12 @@
         {
             public const string DateTimeParseFormat = "dd/MM/yyyy";
             public const string Error = "Грешка";
-            public const string FileUploadPath = "UploadedFiles";
+            public const string FileUploadFolder = "wwwroot/uploadedfiles";
             public static readonly DateOnly MaxDate = DateOnly.FromDateTime(DateTime.UtcNow);
             public static readonly DateOnly MinDate = new DateOnly(2016, 01, 01);
             public const string SvSeCulture = "sv-SE";
+            public const string UploadedFile = "UploadedFile.xml";
             public const string XmlFileContentType = "xml";
-            public const string XmlFileExt = ".xml";
             public const string XmlRootAttr = "WebData";
         }
 
