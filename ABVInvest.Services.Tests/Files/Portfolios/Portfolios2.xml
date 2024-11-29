@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<WebData>
+  <New>
+    <Client>
+      <ClientID>00002</ClientID>
+      <CDNumber>0000000002</CDNumber>
+      <Name>ЗАГОРА ФИНИНВЕСТ АД</Name>
+      <PortfolioID />
+      <PortfolioName />
+    </Client>
+    <Instrument>
+      <ActiveID>Капиталови ФИ</ActiveID>
+      <ShareID>6630</ShareID>
+      <ISIN>BG1100001921</ISIN>
+      <StockCode>5CP</StockCode>
+      <NewCode>5CP</NewCode>
+      <Issuer>Тексим Банк АД-София</Issuer>
+      <Currency>BGN</Currency>
+      <MaturityDate />
+    </Instrument>
+    <AccountData>
+      <Quantity>8 283.00</Quantity>
+      <OpenPrice>2.6905</OpenPrice>
+      <MarketPrice>2.7800</MarketPrice>
+      <MarketDate>10.12.2020</MarketDate>
+      <MarketValue>23 026.74</MarketValue>
+      <Result>740.98</Result>
+      <ResultBGN>740.98</ResultBGN>
+    </AccountData>
+    <Other>
+      <YieldPercent>3.325</YieldPercent>
+      <RelativePart>0.343</RelativePart>
+    </Other>
+  </New>
+  <New>
+    <Client>
+      <ClientID>00002</ClientID>
+      <CDNumber>0000000002</CDNumber>
+      <Name>ЗАГОРА ФИНИНВЕСТ АД</Name>
+      <PortfolioID />
+      <PortfolioName />
+    </Client>
+    <Instrument>
+      <ActiveID>Капиталови ФИ</ActiveID>
+      <ShareID>6775</ShareID>
+      <ISIN>BG1100099065</ISIN>
+      <StockCode>HREIT</StockCode>
+      <NewCode>5H4</NewCode>
+      <Issuer>Болкан енд Сий Пропъртис АДСИЦ</Issuer>
+      <Currency>BGN</Currency>
+      <MaturityDate />
+    </Instrument>
+    <AccountData>
+      <Quantity>240.00</Quantity>
+      <OpenPrice>14.0110</OpenPrice>
+      <MarketPrice>15.7000</MarketPrice>
+      <MarketDate>11.12.2020</MarketDate>
+      <MarketValue>3 768.00</MarketValue>
+      <Result>405.36</Result>
+      <ResultBGN>405.36</ResultBGN>
+    </AccountData>
+    <Other>
+      <YieldPercent>12.055</YieldPercent>
+      <RelativePart>0.056</RelativePart>
+    </Other>
+  </New>
+</WebData>

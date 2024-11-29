@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<WebData>
+  <New>
+    <Client>
+      <ClientID>00001</ClientID>
+      <CDNumber>0000000001</CDNumber>
+      <Name>АДАРА АД</Name>
+      <PortfolioID />
+      <PortfolioName />
+    </Client>
+    <Instrument>
+      <ActiveID>Дългови ФИ</ActiveID>
+      <ShareID>7263</ShareID>
+      <ISIN>BG2100019137</ISIN>
+      <StockCode>4CFB</StockCode>
+      <NewCode>4CFB</NewCode>
+      <Issuer>ТБ Централна кооперативна банка АД</Issuer>
+      <Currency>EUR7O7</Currency>
+      <MaturityDate>10.12.2023</MaturityDate>
+    </Instrument>
+    <AccountData>
+      <Quantity>146.00</Quantity>
+      <OpenPrice>1 033.0516</OpenPrice>
+      <MarketPrice>1 022.0000</MarketPrice>
+      <MarketDate>14.11.2020</MarketDate>
+      <MarketValue>149 255.20</MarketValue>
+      <Result>-1570.34006000002</Result>
+      <ResultBGN>-3071.31819954984</ResultBGN>
+    </AccountData>
+    <Other>
+      <YieldPercent>- 1.041</YieldPercent>
+      <RelativePart>51.129</RelativePart>
+    </Other>
+  </New>
+</WebData>

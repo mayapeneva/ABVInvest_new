@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<WebData>
+  <New>
+    <Client>
+      <ClientID>00001</ClientID>
+      <CDNumber>0000000001</CDNumber>
+      <Name>АДАРА АД</Name>
+      <PortfolioID />
+      <PortfolioName />
+    </Client>
+    <Instrument>
+      <ActiveID>Капиталови ФИ</ActiveID>
+      <ShareID>884</ShareID>
+      <ISIN>BG1100026985</ISIN>
+      <StockCode>GAMZA</StockCode>
+      <NewCode>6S4</NewCode>
+      <Issuer>Северкооп-Гъмза Холдинг АД</Issuer>
+      <Currency>BGN</Currency>
+      <MaturityDate />
+    </Instrument>
+    <AccountData>
+      <Quantity>2 720.00</Quantity>
+      <OpenPrice>4.0182</OpenPrice>
+      <MarketPrice>4.2000</MarketPrice>
+      <MarketDate>12.12.2020</MarketDate>
+      <MarketValue>11 424.00</MarketValue>
+      <Result>494.450000000001</Result>
+      <ResultBGN>494.450000000001</ResultBGN>
+    </AccountData>
+    <Other>
+      <YieldPercent>4.524</YieldPercent>
+      <RelativePart>0.049</RelativePart>
+    </Other>
+  </New>
+  <New>
+    <Client>
+      <ClientID>00003</ClientID>
+      <CDNumber>0000000003</CDNumber>
+      <Name>ГАМА ФИНАНС ЕООД</Name>
+      <PortfolioID />
+      <PortfolioName />
+    </Client>
+    <Instrument>
+      <ActiveID>Капиталови ФИ</ActiveID>
+      <ShareID>1234</ShareID>
+      <ISIN>BG1100014973</ISIN>
+      <StockCode>CCB</StockCode>
+      <NewCode>4CF</NewCode>
+      <Issuer>ТБ Централна кооперативна банка АД</Issuer>
+      <Currency>BGN</Currency>
+      <MaturityDate />
+    </Instrument>
+    <AccountData>
+      <Quantity>5 000.00</Quantity>
+      <OpenPrice>1.6907</OpenPrice>
+      <MarketPrice>1.4300</MarketPrice>
+      <MarketDate>12.12.2020</MarketDate>
+      <MarketValue>7 150.00</MarketValue>
+      <Result>-1303.33</Result>
+      <ResultBGN>-1303.33</ResultBGN>
+    </AccountData>
+    <Other>
+      <YieldPercent>- 15.418</YieldPercent>
+      <RelativePart>0.407</RelativePart>
+    </Other>
+  </New>
+</WebData>

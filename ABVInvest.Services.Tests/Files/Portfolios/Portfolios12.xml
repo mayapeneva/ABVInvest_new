@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<WebData>
+  <New>
+    <Client>
+      <ClientID>00003</ClientID>
+      <CDNumber>0000000003</CDNumber>
+      <Name>ГАМА ФИНАНС ЕООД</Name>
+      <PortfolioID />
+      <PortfolioName />
+    </Client>
+    <Instrument>
+      <ActiveID>Капиталови ФИ</ActiveID>
+      <ShareID>1041</ShareID>
+      <ISIN>BG1100104980</ISIN>
+      <StockCode>HZAG</StockCode>
+      <NewCode>5Z2</NewCode>
+      <Issuer>Зенит инвестмънт холдинг АД</Issuer>
+      <Currency>BGN</Currency>
+      <MaturityDate />
+    </Instrument>
+    <AccountData>
+      <Quantity>11 940,00</Quantity>
+      <OpenPrice>5.2357</OpenPrice>
+      <MarketPrice>6.0000</MarketPrice>
+      <MarketDate>03.12.2020</MarketDate>
+      <MarketValue>71 640.00</MarketValue>
+      <Result>9126.22nfu</Result>
+      <ResultBGN>9126.22</ResultBGN>
+    </AccountData>
+    <Other>
+      <YieldPercent>14.599</YieldPercent>
+      <RelativePart>4.082</RelativePart>
+    </Other>
+  </New>
+</WebData>

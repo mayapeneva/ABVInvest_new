@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<WebData>
+  <New>
+    <Client>
+      <ClientID>00001</ClientID>
+      <CDNumber>0000000001</CDNumber>
+      <Name>АДАРА АД</Name>
+      <PortfolioID />
+      <PortfolioName />
+    </Client>
+    <Instrument>
+      <ActiveID>Капиталови ФИ</ActiveID>
+      <ShareID>7351</ShareID>
+      <ISIN>IM00BYQLTS50</ISIN>
+      <StockCode>BSP</StockCode>
+      <NewCode />
+      <Issuer>Black Sea Property Plc</Issuer>
+      <Currency>EUR</Currency>
+      <MaturityDate />
+    </Instrument>
+    <AccountData>
+      <Quantity>6 600 000.00</Quantity>
+      <OpenPrice>0.0150</OpenPrice>
+      <MarketPrice>0.0140</MarketPrice>
+      <MarketDate>30.11.2020</MarketDate>
+      <MarketValue>92 400.00</MarketValue>
+      <Result>-6671.58</Result>
+      <ResultBGN>-13048.4763114</ResultBGN>
+    </AccountData>
+    <Other>
+      <YieldPercent>- 6.734</YieldPercent>
+      <RelativePart>0.395</RelativePart>
+    </Other>
+  </New>
+</WebData>

@@ -60,23 +60,20 @@ namespace ABVInvest.Services.Portfolios
                     continue;
                 }
 
-                // Create new DailySecuritiesEntity
-                var dbPortfolio = new DailySecuritiesPerClient
-                {
-                    Date = date,
-                    SecuritiesPerIssuerCollection = []
-                };
-
                 // Check if there is a DailySecuritiesEntity created for this User and date already
-                if (this.Db.DailySecuritiesPerClient.Any(ds => ds.ApplicationUserId == user.Id && ds.Date == date))
-                {
-                    dbPortfolio = this.Db.DailySecuritiesPerClient.Single(ds => ds.ApplicationUserId == user.Id && ds.Date == date);
-                }
+                var hasDailuSecuritiesForTheDate = this.Db.DailySecuritiesPerClient.Any(ds => ds.ApplicationUserId == user.Id && ds.Date == date);
+                var dbPortfolio = hasDailuSecuritiesForTheDate
+                    ? this.Db.DailySecuritiesPerClient.Single(ds => ds.ApplicationUserId == user.Id && ds.Date == date)
+                    : new DailySecuritiesPerClient
+                    {
+                        Date = date,
+                        SecuritiesPerIssuerCollection = []
+                    };
 
                 // Create all SecuritiesPerClient for this User
                 foreach (var portfolioRow in portfolio)
                 {
-                    var portfolioResult = await this.CreatePortfolioRowForUser(date, user.FullName, portfolioRow, portfolio.Key, dbPortfolio);
+                    var portfolioResult = await this.CreatePortfolioRowForUser(date, user, portfolioRow, portfolio.Key, dbPortfolio);
                     if (!portfolioResult.IsSuccessful()) portfolioResult.Errors.ToList().ForEach(result.Errors.Add);
                 }
 
@@ -87,7 +84,8 @@ namespace ABVInvest.Services.Portfolios
                     continue;
                 }
 
-                user.Portfolio.Add(dbPortfolio);
+                if (!hasDailuSecuritiesForTheDate) user.Portfolio.Add(dbPortfolio);
+
                 var dbResult = await this.Db.SaveChangesAsync();
                 if (dbResult > 0)
                 {
@@ -102,13 +100,13 @@ namespace ABVInvest.Services.Portfolios
             return result;
         }
 
-        private async Task<ApplicationResultBase> CreatePortfolioRowForUser(DateOnly date, string? userName, PortfolioRowBindingModel portfolioRow,
+        private async Task<ApplicationResultBase> CreatePortfolioRowForUser(DateOnly date, ApplicationUser user, PortfolioRowBindingModel portfolioRow,
             string portfolioKey, DailySecuritiesPerClient dbPortfolio)
         {
             var result = new ApplicationResultBase();
 
             // Fill in user's FullName if empty
-            if (string.IsNullOrWhiteSpace(userName)) userName = portfolioRow.Client.Name;
+            if (string.IsNullOrWhiteSpace(user.FullName)) user.FullName = portfolioRow.Client.Name;
 
             var securityInfo = portfolioRow.Instrument;
 

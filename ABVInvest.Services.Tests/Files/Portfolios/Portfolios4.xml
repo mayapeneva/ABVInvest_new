@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<WebData>
+  <New>
+    <Client>
+      <ClientID>00001</ClientID>
+      <CDNumber>0000000001</CDNumber>
+      <Name>АДАРА АД</Name>
+      <PortfolioID />
+      <PortfolioName />
+    </Client>
+    <Instrument>
+      <ActiveID>Капиталови ФИ</ActiveID>
+      <ShareID>885</ShareID>
+      <ISIN>BG1100019980</ISIN>
+      <StockCode>IHLBL</StockCode>
+      <NewCode>4ID</NewCode>
+      <Issuer>Индустриален холдинг България АД</Issuer>
+      <Currency>BGN</Currency>
+      <MaturityDate />
+    </Instrument>
+    <AccountData>
+      <Quantity>2 300.00</Quantity>
+      <OpenPrice>1.0102</OpenPrice>
+      <MarketPrice>1.0100</MarketPrice>
+      <MarketDate>11.12.2020</MarketDate>
+      <MarketValue>2 323.00</MarketValue>
+      <Result>-0.389999999999873</Result>
+      <ResultBGN>-0.389999999999873</ResultBGN>
+    </AccountData>
+    <Other>
+      <YieldPercent>- 0.017</YieldPercent>
+      <RelativePart>0.010</RelativePart>
+    </Other>
+  </New>
+</WebData>

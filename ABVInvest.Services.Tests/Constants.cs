@@ -6,6 +6,8 @@ namespace ABVInvest.Services.Tests
 
         public const string CurrencyCode = "USD";
 
+        public const string FileName = "../../../Files/Portfolios/Portfolios{0}.xml";
+
         public const string ISIN = "BG1100008983";
 
         public const string IssuerName = "БФБ";
@@ -15,5 +17,9 @@ namespace ABVInvest.Services.Tests
         public const string MarketName = "БФБ";
 
         public const string Test = "test";
+
+        public const string UserNameOne = "0000000001";
+
+        public const string UserNameTwo = "0000000003";
     }
 }

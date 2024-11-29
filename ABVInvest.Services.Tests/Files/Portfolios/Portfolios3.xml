@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<WebData>
+  <New>
+    <Client>
+      <ClientID>00008</ClientID>
+      <CDNumber>0000000008</CDNumber>
+      <Name>ИНДЪСТРИ ДИВЕЛЪПМЪНТ ХОЛДИНГ АД</Name>
+      <PortfolioID />
+      <PortfolioName />
+    </Client>
+    <Instrument>
+      <ActiveID>Капиталови ФИ</ActiveID>
+      <ShareID>7352</ShareID>
+      <ISIN>BG9000009167</ISIN>
+      <StockCode />
+      <NewCode />
+      <Issuer>ДФ С-Микс</Issuer>
+      <Currency>BGN</Currency>
+      <MaturityDate />
+    </Instrument>
+    <AccountData>
+      <Quantity>505.51</Quantity>
+      <OpenPrice>11.1711</OpenPrice>
+      <MarketPrice>11.2465</MarketPrice>
+      <MarketDate>30.11.2020</MarketDate>
+      <MarketValue>5 685.17</MarketValue>
+      <Result>38.1164810999999</Result>
+      <ResultBGN>38.1164810999999</ResultBGN>
+    </AccountData>
+    <Other>
+      <YieldPercent>0.675</YieldPercent>
+      <RelativePart>0.029</RelativePart>
+    </Other>
+  </New>
+  <New>
+    <Client>
+      <ClientID>00008</ClientID>
+      <CDNumber>0000000008</CDNumber>
+      <Name>ИНДЪСТРИ ДИВЕЛЪПМЪНТ ХОЛДИНГ АД</Name>
+      <PortfolioID />
+      <PortfolioName />
+    </Client>
+    <Instrument>
+      <ActiveID>Капиталови ФИ</ActiveID>
+      <ShareID>7355</ShareID>
+      <ISIN>BG1100076063</ISIN>
+      <StockCode />
+      <NewCode />
+      <Issuer>СТРАТЕГИЯ АСЕТ МЕНИДЖМЪНТ АД</Issuer>
+      <Currency>BGN</Currency>
+      <MaturityDate />
+    </Instrument>
+    <AccountData>
+      <Quantity>245 000.00</Quantity>
+      <OpenPrice>8.0008</OpenPrice>
+      <MarketPrice>0.0000</MarketPrice>
+      <MarketDate />
+      <MarketValue>0.00</MarketValue>
+      <Result>-1960196</Result>
+      <ResultBGN>-1960196</ResultBGN>
+    </AccountData>
+    <Other>
+      <YieldPercent>- 100.000</YieldPercent>
+      <RelativePart>0.000</RelativePart>
+      <RelativePart>0.000</RelativePart>
+    </Other>
+  </New>
+</WebData>

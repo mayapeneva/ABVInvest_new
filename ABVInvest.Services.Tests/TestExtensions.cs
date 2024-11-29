@@ -1,3 +1,5 @@
+using ABVInvest.Common.BindingModels.Portfolios;
+using ABVInvest.Common.Constants;
 using ABVInvest.Common.Mapping;
 using ABVInvest.Data;
 using ABVInvest.Data.Models;
@@ -9,6 +11,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Moq;
 using System.Security.Claims;
+using System.Xml.Serialization;
 
 namespace ABVInvest.Services.Tests
 {
@@ -60,6 +63,15 @@ namespace ABVInvest.Services.Tests
 
             var portfoliosService = new PortfoliosService(db, userManager.Object, balancesService, dataService, mapper);
             return new Tuple<IPortfoliosService, ApplicationDbContext>(portfoliosService, db);
+        }
+
+        public static async Task<IEnumerable<PortfolioRowBindingModel>> DeserialisePortfolios(string fileName)
+        {
+            var xmlFileContentString = File.ReadAllText(fileName);
+            var serializer = new XmlSerializer(typeof(PortfolioRowBindingModel[]), new XmlRootAttribute(ShortConstants.Common.XmlRootAttr));
+            var deserializedPortfolios = serializer.Deserialize(new StringReader(xmlFileContentString)) as PortfolioRowBindingModel[];
+
+            return deserializedPortfolios ?? [];
         }
 
         private static ApplicationDbContext GetDb()

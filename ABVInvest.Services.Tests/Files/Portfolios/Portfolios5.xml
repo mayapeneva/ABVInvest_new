@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<WebData>
+  <New>
+    <Client>
+      <ClientID>00003</ClientID>
+      <CDNumber>0000000003</CDNumber>
+      <Name>ГАМА ФИНАНС ЕООД</Name>
+      <PortfolioID />
+      <PortfolioName />
+    </Client>
+    <Instrument>
+      <ActiveID>Капиталови ФИ</ActiveID>
+      <ShareID>6108</ShareID>
+      <ISIN>BG1100019048KKK</ISIN>
+      <StockCode>IBG</StockCode>
+      <NewCode>4IN</NewCode>
+      <Issuer>Инвестор БГ</Issuer>
+      <Currency>BGN</Currency>
+      <MaturityDate />
+    </Instrument>
+    <AccountData>
+      <Quantity>72.00</Quantity>
+      <OpenPrice>14.0833</OpenPrice>
+      <MarketPrice>14.5000</MarketPrice>
+      <MarketDate>07.12.2020</MarketDate>
+      <MarketValue>1 044.00</MarketValue>
+      <Result>30</Result>
+      <ResultBGN>30</ResultBGN>
+    </AccountData>
+    <Other>
+      <YieldPercent>2.959</YieldPercent>
+      <RelativePart>0.059</RelativePart>
+    </Other>
+  </New>
+</WebData>
