@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<WebData>
+<New>
+    <Client>
+      <ClientID>00001</ClientID>
+      <CDNumber>0000000001</CDNumber>
+      <Name>КОМПАНИЯ АД</Name>
+      <PortfolioID />
+      <PortfolioName />
+    </Client>
+    <Instrument>
+      <ActiveID>Капиталови ФИ</ActiveID>
+      <ShareID>7442</ShareID>
+      <ISIN>BG4000011180</ISIN>
+      <StockCode>4HS1</StockCode>
+      <NewCode>4HS1</NewCode>
+      <Issuer>Холдинг Света София АД</Issuer>
+      <Currency>BGN</Currency>
+      <MaturityDate />
+    </Instrument>
+    <AccountData>
+      <Quantity>1 212 499.00</Quantity>
+      <OpenPrice>0.0000</OpenPrice>
+      <MarketPrice>0.0010</MarketPrice>
+      <MarketDate>30.11.2023</MarketDate>
+      <MarketValue>1 212.50</MarketValue>
+      <Result>1212.499</Result>
+      <ResultBGN>1212.499</ResultBGN>
+    </AccountData>
+    <Other>
+      <YieldPercent>0.000</YieldPercent>
+      <RelativePart>0.005</RelativePart>
+    </Other>
+  </New>
+  <New>
+    <Client>
+      <ClientID>00001</ClientID>
+      <CDNumber>0000000001</CDNumber>
+      <Name>КОМПАНИЯ АД</Name>
+      <PortfolioID />
+      <PortfolioName />
+    </Client>
+    <Instrument>
+      <ActiveID>Капиталови ФИ</ActiveID>
+      <ShareID>884</ShareID>
+      <ISIN>BG1100026985</ISIN>
+      <StockCode>GAMZA</StockCode>
+      <NewCode>6S4</NewCode>
+      <Issuer>Северкооп-Гъмза Холдинг АД</Issuer>
+      <Currency>BGN</Currency>
+      <MaturityDate />
+    </Instrument> 
+    <AccountData>
+      <Quantity>2 720.00</Quantity>
+      <OpenPrice>4.0182</OpenPrice>
+      <MarketPrice>4.2000</MarketPrice>
+      <MarketDate>12.12.2023</MarketDate>
+      <MarketValue>11 424.00</MarketValue>
+      <Result>494.450000000001</Result>
+      <ResultBGN>494.450000000001</ResultBGN>
+    </AccountData>
+    <Other>
+      <YieldPercent>4.524</YieldPercent>
+      <RelativePart>0.049</RelativePart>
+    </Other>
+  </New>
+  <New>
+    <Client>
+      <ClientID>00001</ClientID>
+      <CDNumber>0000000001</CDNumber>
+      <Name>КОМПАНИЯ АД</Name>
+      <PortfolioID />
+      <PortfolioName />
+    </Client>
+    <Instrument>
+      <ActiveID>Капиталови ФИ</ActiveID>
+      <ShareID>885</ShareID>
+      <ISIN>BG1100019980</ISIN>
+      <StockCode>IHLBL</StockCode>
+      <NewCode>4ID</NewCode>
+      <Issuer>Индустриален холдинг България АД</Issuer>
+      <Currency>BGN</Currency>
+      <MaturityDate />
+    </Instrument>
+    <AccountData>
+      <Quantity>2 300.00</Quantity>
+      <OpenPrice>1.0102</OpenPrice>
+      <MarketPrice>1.0100</MarketPrice>
+      <MarketDate>11.12.2023</MarketDate>
+      <MarketValue>2 323.00</MarketValue>
+      <Result>-0.389999999999873</Result>
+      <ResultBGN>-0.389999999999873</ResultBGN>
+    </AccountData>
+    <Other>
+      <YieldPercent>- 0.017</YieldPercent>
+      <RelativePart>0.010</RelativePart>
+    </Other>
+  </New>
+</WebData>

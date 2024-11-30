@@ -6,7 +6,7 @@
         {
             public const string CouldNotUploadInformation = "Файлът, който качихте е празен или информацията в него е с неправилен формат.";
             public const string DateError = "Моля, въведете дата с правилен формат.";
-            public const string FileError = "Моля, изберете файл с правилен формат.";
+            public const string FileError = "Моля, изберете файл с правилен XML формат.";
             public const string NoBalance = "Няма налична информация за баланса Ви към тази дата. Моля, изберете дата след 01/01/2016г. и не по-късна от {0}г.";
             public const string RequiredField = "Полето е задължително";
         }

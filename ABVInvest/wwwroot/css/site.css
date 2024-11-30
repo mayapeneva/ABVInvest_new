@@ -176,7 +176,7 @@ input {
     width: fit-content;
 }
 
-.error-messages {
+.status-message {
     margin-top: 40px !important;
 }
 

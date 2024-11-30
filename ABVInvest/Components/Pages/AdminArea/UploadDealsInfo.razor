@@ -30,7 +30,7 @@
         </EditForm>
     </div>
 
-    <div class="error-messages">
+    <div class="status-message">
         <StatusDisplayMessage DisplayMessage="@ErrorMessage" />
     </div>
 </div>
@@ -58,10 +58,13 @@
                     if (file.Size > 0)
                     {
                         var deserializedDeals = await UploadsHelper.DeserialiseXmlFile<DealRowBindingModel>(fileName, file);
-                        if (!ModelValidator.IsValid(deserializedDeals)) ErrorMessage = Messages.Common.CouldNotUploadInformation;
-
-                        var result = await this.DealsService.SeedDealsAsync(deserializedDeals, Input.Date.Value);
-                        ErrorMessage = !result.IsSuccessful() ? ErrorMessage = $"Грешка: {string.Join(", ", result.Errors)}" : Messages.DealsAndPortfolios.UploadingSuccessfull;
+                        if (deserializedDeals.Count() == 0 || !ModelValidator.IsValid(deserializedDeals))
+                            ErrorMessage = Messages.Common.CouldNotUploadInformation;
+                        else
+                        {
+                            var result = await this.DealsService.SeedDealsAsync(deserializedDeals, Input.Date.Value);
+                            ErrorMessage = !result.IsSuccessful() ? ErrorMessage = $"Грешка: {string.Join(", ", result.Errors)}" : Messages.DealsAndPortfolios.UploadingSuccessfull;
+                        }
                     }
                 }
             }
