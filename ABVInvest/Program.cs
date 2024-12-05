@@ -7,6 +7,7 @@ using ABVInvest.Data.Models;
 using ABVInvest.Seeders;
 using ABVInvest.Services.Balances;
 using ABVInvest.Services.Data;
+using ABVInvest.Services.Deals;
 using ABVInvest.Services.News;
 using ABVInvest.Services.Portfolios;
 using AutoMapper;
@@ -64,6 +65,7 @@ builder.Services.AddScoped<IDeserialiser, Deserialiser>();
 builder.Services.AddScoped<IPortfoliosService, PortfoliosService>();
 builder.Services.AddScoped<IBalancesService, BalancesService>();
 builder.Services.AddScoped<IDataService, DataService>();
+builder.Services.AddScoped<IDealsService, DealsService>();
 
 var app = builder.Build();
 

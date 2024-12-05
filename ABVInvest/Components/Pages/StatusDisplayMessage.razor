@@ -1,12 +1,17 @@
-﻿@if (!string.IsNullOrWhiteSpace(DisplayMessage))
+﻿@if (DisplayMessages?.Count() > 0)
 {
-    var statusMessageClass = DisplayMessage.StartsWith("Грешка") ? "danger" : "success";
+    var statusMessageClass = Success ? "success" : "danger";
     <div class="display-message alert alert-@statusMessageClass mb-3" role="alert">
-        @DisplayMessage
+        @foreach (var message in DisplayMessages)
+        {
+            <p class="message-line">@message</p>
+        }
     </div>
 }
 
 @code {
     [Parameter]
-    public string? DisplayMessage { get; set; }
+    public IEnumerable<string> DisplayMessages { get; set; } = [];
+    [Parameter]
+    public bool Success { get; set; }
 }

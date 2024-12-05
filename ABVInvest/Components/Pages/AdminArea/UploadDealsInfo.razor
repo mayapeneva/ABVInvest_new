@@ -31,12 +31,13 @@
     </div>
 
     <div class="status-message">
-        <StatusDisplayMessage DisplayMessage="@ErrorMessage" />
+        <StatusDisplayMessage DisplayMessages="@ErrorMessages" Success="@Success" />
     </div>
 </div>
 
 @code {
-    private string? ErrorMessage;
+    private IEnumerable<string>? ErrorMessages;
+    private bool Success;
 
     [SupplyParameterFromForm(FormName = "addDealsForm")]
     private FileInputModel Input { get; set; } = new();
@@ -59,11 +60,20 @@
                     {
                         var deserializedDeals = await UploadsHelper.DeserialiseXmlFile<DealRowBindingModel>(fileName, file);
                         if (deserializedDeals.Count() == 0 || !ModelValidator.IsValid(deserializedDeals))
-                            ErrorMessage = Messages.Common.CouldNotUploadInformation;
+                            ErrorMessages = [Messages.Common.CouldNotUploadInformation];
                         else
                         {
                             var result = await this.DealsService.SeedDealsAsync(deserializedDeals, Input.Date.Value);
-                            ErrorMessage = !result.IsSuccessful() ? ErrorMessage = $"Грешка: {string.Join(", ", result.Errors)}" : Messages.DealsAndPortfolios.UploadingSuccessfull;
+                            if (!result.IsSuccessful())
+                            {
+                                Success = false;
+                                ErrorMessages = result.Errors;
+                            }
+                            else
+                            {
+                                Success = true;
+                                ErrorMessages = [Messages.DealsAndPortfolios.UploadingSuccessfull];
+                            }
                         }
                     }
                 }

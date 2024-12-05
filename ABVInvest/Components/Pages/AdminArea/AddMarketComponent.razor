@@ -20,11 +20,12 @@
 </div>
 
 <div class="status-message">
-    <StatusDisplayMessage DisplayMessage="@ErrorMessage" />
+    <StatusDisplayMessage DisplayMessages="@ErrorMessages" Success="@Success" />
 </div>
 
 @code {
-    private string? ErrorMessage;
+    private IEnumerable<string>? ErrorMessages;
+    private bool Success;
 
     [SupplyParameterFromForm]
     private InputModel Input { get; set; } = new();
@@ -34,13 +35,23 @@
         if (Input.Name is not null && Input.MIC is not null)
         {
             var result = await DataService.CreateMarketAsync(Input.Name, Input.MIC);
-            ErrorMessage = !result.IsSuccessful() ? $"Грешка: {string.Join(", ", result.Errors)}" : string.Format(Messages.Data.MarketAdded, Input.Name);
+            if (!result.IsSuccessful())
+            {
+                Success = false;
+                ErrorMessages = result.Errors;
+            }
+            else
+            {
+                Success = true;
+                ErrorMessages = [string.Format(Messages.Data.MarketAdded, Input.Name)];
+            }
         }
     }
 
     private async Task ClearDisplayMessage()
     {
-        ErrorMessage = string.Empty;
+        Success = false;
+        ErrorMessages = [];
     }
 
     private sealed class InputModel

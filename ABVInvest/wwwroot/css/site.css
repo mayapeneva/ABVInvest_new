@@ -180,6 +180,10 @@ input {
     margin-top: 40px !important;
 }
 
+.message-line {
+    margin-bottom: 0 !important;
+}
+
 /* Font-sizes*/
 .large-fontsize {
     font-size: 20px !important;

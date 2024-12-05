@@ -28,11 +28,12 @@
 </div>
 
 <div class="status-message">
-    <StatusDisplayMessage DisplayMessage="@ErrorMessage" />
+    <StatusDisplayMessage DisplayMessages="@ErrorMessages" Success="@Success" />
 </div>
 
 @code {
-    private string? ErrorMessage;
+    private IEnumerable<string>? ErrorMessages;
+    private bool Success;
 
     [SupplyParameterFromForm]
     private InputModel Input { get; set; } = new();
@@ -49,13 +50,23 @@
                     Currency = Input.Currency
                 };
             var result = await DataService.CreateSecurityAsync(securityInfo);
-            ErrorMessage = !result.IsSuccessful() ? $"Грешка: {string.Join(", ", result.Errors)}" : string.Format(Messages.Data.SecurityAdded, Input.ISIN);
+            if (!result.IsSuccessful())
+            {
+                Success = false;
+                ErrorMessages = result.Errors;
+            }
+            else
+            {
+                Success = true;
+                ErrorMessages = [string.Format(Messages.Data.SecurityAdded, Input.ISIN)];
+            }
         }
     }
 
     private async Task ClearDisplayMessage()
     {
-        ErrorMessage = string.Empty;
+        Success = false;
+        ErrorMessages = [];
     }
 
     private sealed class InputModel
