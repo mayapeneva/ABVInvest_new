@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<WebData>
+  <New>
+    <Client>
+      <ClientID>00003</ClientID>
+      <CDNumber>0000000003</CDNumber>
+      <ClientName>ГАМА ФИНАНС ЕООД</ClientName>
+      <PortfolioID />
+      <PortfolioName />
+    </Client>
+    <Instrument>
+      <ShareID>6226</ShareID>
+      <ISIN>BG1100036984</ISIN>
+      <StockCode>HVAR</StockCode>
+      <NewCode>5V2</NewCode>
+      <Issuer>Холдинг Варна AД</Issuer>
+      <Currency>BGN</Currency>
+      <MaturityDate />
+      <ISOData>Капиталови инструменти</ISOData>
+    </Instrument>
+    <DealData>
+      <DealID>34468</DealID>
+      <DealDate>17.12.2020 17:00:28</DealDate>
+      <Operation>BUY</Operation>
+      <DeliveryDate>19.12.2020</DeliveryDate>
+      <StockExchangeMIC>XBUL</StockExchangeMIC>
+      <ShareCount>50.000000nfu</ShareCount>
+      <SinglePrice>38.000000</SinglePrice>
+      <Coupon>0.000000</Coupon>
+      <DealAmountInShareCurrency>1900.00</DealAmountInShareCurrency>
+      <PaymentCurrency>BGN</PaymentCurrency>
+      <DealAmountInPaymentCurrency>1900.00</DealAmountInPaymentCurrency>
+      <CommissionInPaymentCurrency>5.70</CommissionInPaymentCurrency>
+    </DealData>
+  </New>
+</WebData>

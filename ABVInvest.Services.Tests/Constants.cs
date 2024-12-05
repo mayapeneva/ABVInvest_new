@@ -6,7 +6,9 @@ namespace ABVInvest.Services.Tests
 
         public const string CurrencyCode = "USD";
 
-        public const string FileName = "../../../Files/Portfolios/Portfolios{0}.xml";
+        public const string FileNameDeals = "../../../Files/Deals/Deals{0}.xml";
+
+        public const string FileNamePortfolios = "../../../Files/Portfolios/Portfolios{0}.xml";
 
         public const string ISIN = "BG1100008983";
 

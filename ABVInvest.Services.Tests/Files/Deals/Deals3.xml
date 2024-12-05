@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<WebData>
+  <New>
+    <Client>
+      <ClientID>00001</ClientID>
+      <CDNumber>0000000001</CDNumber>
+      <ClientName>АДАРА АД</ClientName>
+      <PortfolioID />
+      <PortfolioName />
+    </Client>
+    <Instrument>
+      <ShareID>6664</ShareID>
+      <ISIN>BG1100041067</ISIN>
+      <StockCode>SBPF</StockCode>
+      <NewCode>6SB</NewCode>
+      <Issuer>Супер Боровец Пропърти Фонд АДСИЦ</Issuer>
+      <Currency>BGN</Currency>
+      <MaturityDate />
+      <ISOData>Капиталови инструменти, Акции, обикновени, Voting, Free, Fully paid, Registered</ISOData>
+    </Instrument>
+    <DealData>
+      <DealID>34462</DealID>
+      <DealDate>17.12.2020 11:11:28</DealDate>
+      <Operation>BUY</Operation>
+      <DeliveryDate>19.12.2020</DeliveryDate>
+      <StockExchangeMIC>XBUL</StockExchangeMIC>
+      <ShareCount>300.000000</ShareCount>
+      <SinglePrice>2.040000</SinglePrice>
+      <Coupon>0.000000</Coupon>
+      <DealAmountInShareCurrency>612.00</DealAmountInShareCurrency>
+      <PaymentCurrency>BGN</PaymentCurrency>
+      <DealAmountInPaymentCurrency>612.00</DealAmountInPaymentCurrency>
+      <CommissionInPaymentCurrency>3.00</CommissionInPaymentCurrency>
+    </DealData>
+  </New>
+</WebData>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<WebData>
+  <New>
+    <Client>
+      <ClientID>00003</ClientID>
+      <CDNumber>0000000003</CDNumber>
+      <ClientName>ГАМА ФИНАНС ЕООД</ClientName>
+      <PortfolioID />
+      <PortfolioName />
+    </Client>
+    <Instrument>
+      <ShareID>904</ShareID>
+      <ISIN>BG1100008983</ISIN>
+      <StockCode>HSOF</StockCode>
+      <NewCode>4HS</NewCode>
+      <Issuer>Холдинг Света София АД</Issuer>
+      <Currency>BGN</Currency>
+      <MaturityDate />
+      <ISOData>Капиталови инструменти, Акции, обикновени, Voting, Free, Fully paid, Registered</ISOData>
+    </Instrument>
+    <DealData>
+      <DealID>34440</DealID>
+      <DealDate>14.12.2020 13:32:00</DealDate>
+      <Operation>BUY</Operation>
+      <DeliveryDate>14.12.2020</DeliveryDate>
+      <StockExchangeMIC>PPIITT</StockExchangeMIC>
+      <ShareCount>227000.000000</ShareCount>
+      <SinglePrice>2.210000</SinglePrice>
+      <Coupon>0.000000</Coupon>
+      <DealAmountInShareCurrency>501670.00</DealAmountInShareCurrency>
+      <PaymentCurrency>BGN</PaymentCurrency>
+      <DealAmountInPaymentCurrency>501670.00</DealAmountInPaymentCurrency>
+      <CommissionInPaymentCurrency>100.00</CommissionInPaymentCurrency>
+    </DealData>
+  </New>
+</WebData>

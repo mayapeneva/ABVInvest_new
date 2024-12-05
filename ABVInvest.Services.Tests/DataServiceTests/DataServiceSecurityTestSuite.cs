@@ -15,7 +15,7 @@ namespace ABVInvest.Services.Tests.DataServiceTests
 
         public DataServiceSecurityTestSuite()
         {
-            (DataService, Db) = TestExtensions.DataServiceSetup();
+            (DataService, Db) = TestHelper.DataServiceSetup();
         }
 
         [Fact]

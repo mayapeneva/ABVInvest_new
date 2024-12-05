@@ -14,7 +14,7 @@ namespace ABVInvest.Services.Tests.DataServiceTests
 
         public DataServiceCurrencyTestSuite()
         {
-            (DataService, Db) = TestExtensions.DataServiceSetup();
+            (DataService, Db) = TestHelper.DataServiceSetup();
         }
 
         [Fact]

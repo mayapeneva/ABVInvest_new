@@ -14,7 +14,7 @@ namespace ABVInvest.Services.Tests.DataServiceTests
 
         public DataServiceMarketTestSuite()
         {
-            (DataService, Db) = TestExtensions.DataServiceSetup();
+            (DataService, Db) = TestHelper.DataServiceSetup();
         }
 
         [Fact]

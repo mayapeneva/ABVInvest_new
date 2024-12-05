@@ -17,9 +17,9 @@ namespace ABVInvest.Services.Tests.PortfoliosServiceTests
 
         public PortfoliosServiceGetTests()
         {
-            MoqUser = TestExtensions.UserSetupForPortfoliosTests();
+            MoqUser = TestHelper.UserSetupForPortfoliosTests();
             Principal = new ClaimsPrincipal();
-            (PortfoliosService, Db) = TestExtensions.PortfoliosServiceSetup(Principal, MoqUser);
+            (PortfoliosService, Db) = TestHelper.PortfoliosServiceSetup(Principal, MoqUser);
         }
 
         [Fact]
@@ -29,7 +29,7 @@ namespace ABVInvest.Services.Tests.PortfoliosServiceTests
             var expectedTotalMarketPrice = MoqUser.Object.Portfolio.Select(p => p.SecuritiesPerIssuerCollection.Sum(s => s.TotalMarketPrice));
 
             // Act
-            var actualResult = await PortfoliosService.GetUserDailyPortfolioAsync<PortfolioTestModel>(Principal, TestExtensions.PortfoliosDate);
+            var actualResult = await PortfoliosService.GetUserDailyPortfolioAsync<PortfolioTestModel>(Principal, TestHelper.PortfoliosDate);
             var actualTotalMarketPrice = actualResult.Select(p => p.TotalMarketPrice);
 
             // Assert
@@ -59,7 +59,7 @@ namespace ABVInvest.Services.Tests.PortfoliosServiceTests
             var user = new ClaimsPrincipal();
 
             // Act
-            var actualResult = await PortfoliosService.GetUserDailyPortfolioAsync<PortfolioTestModel>(user, TestExtensions.PortfoliosDate);
+            var actualResult = await PortfoliosService.GetUserDailyPortfolioAsync<PortfolioTestModel>(user, TestHelper.PortfoliosDate);
 
             // Assert
             Assert.NotNull(actualResult);

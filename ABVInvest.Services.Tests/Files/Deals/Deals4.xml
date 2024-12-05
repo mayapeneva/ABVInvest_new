@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<WebData>
+  <New>
+    <Client>
+      <ClientID>00003</ClientID>
+      <CDNumber>0000000003</CDNumber>
+      <ClientName>ГАМА ФИНАНС ЕООД</ClientName>
+      <PortfolioID />
+      <PortfolioName />
+    </Client>
+    <Instrument>
+      <ShareID>7112</ShareID>
+      <ISIN>BG1100010104KKK</ISIN>
+      <StockCode>1VX</StockCode>
+      <NewCode>1VX</NewCode>
+      <Issuer>Велграф Асет Мениджмънт АД-София</Issuer>
+      <Currency>BGN</Currency>
+      <MaturityDate />
+      <ISOData>Капиталови инструменти</ISOData>
+    </Instrument>
+    <DealData>
+      <DealID>34461</DealID>
+      <DealDate>17.12.2020 10:42:14</DealDate>
+      <Operation>SELL</Operation>
+      <DeliveryDate>19.12.2020</DeliveryDate>
+      <StockExchangeMIC>XBUL</StockExchangeMIC>
+      <ShareCount>200.000000</ShareCount>
+      <SinglePrice>3.800000</SinglePrice>
+      <Coupon>0.000000</Coupon>
+      <DealAmountInShareCurrency>760.00</DealAmountInShareCurrency>
+      <PaymentCurrency>BGN</PaymentCurrency>
+      <DealAmountInPaymentCurrency>760.00</DealAmountInPaymentCurrency>
+      <CommissionInPaymentCurrency>3.00</CommissionInPaymentCurrency>
+    </DealData>
+  </New>
+</WebData>

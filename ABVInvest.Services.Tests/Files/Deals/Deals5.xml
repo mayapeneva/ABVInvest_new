@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<WebData>
+  <New>
+    <Client>
+      <ClientID>00001</ClientID>
+      <CDNumber>0000000001</CDNumber>
+      <ClientName>АДАРА АД</ClientName>
+      <PortfolioID />
+      <PortfolioName />
+    </Client>
+    <Instrument>
+      <ShareID>6936</ShareID>
+      <ISIN>BG1100008082</ISIN>
+      <StockCode>BIOA</StockCode>
+      <NewCode>4OE</NewCode>
+      <Issuer>Биоиасис АД</Issuer>
+      <Currency>EUR</Currency>
+      <MaturityDate />
+      <ISOData>Капиталови инструменти</ISOData>
+    </Instrument>
+    <DealData>
+      <DealID>34452</DealID>
+      <DealDate>17.12.2020 14:07:06</DealDate>
+      <Operation>BUY</Operation>
+      <DeliveryDate>19.12.2020</DeliveryDate>
+      <StockExchangeMIC>XBUL</StockExchangeMIC>
+      <ShareCount>809447.000000</ShareCount>
+      <SinglePrice>0.239670</SinglePrice>
+      <Coupon>0.000000</Coupon>
+      <DealAmountInShareCurrency>194000.00</DealAmountInShareCurrency>
+      <PaymentCurrency>BGN</PaymentCurrency>
+      <DealAmountInPaymentCurrency>194000.00</DealAmountInPaymentCurrency>
+      <CommissionInPaymentCurrency>200.00</CommissionInPaymentCurrency>
+    </DealData>
+  </New>
+</WebData>

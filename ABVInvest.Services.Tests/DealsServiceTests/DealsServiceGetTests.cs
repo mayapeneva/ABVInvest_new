@@ -17,9 +17,9 @@ namespace ABVInvest.Services.Tests.DealsServiceTests
 
         public DealsServiceGetTests()
         {
-            MoqUser = TestExtensions.UserSetupForDealsTests();
+            MoqUser = TestHelper.UserSetupForDealsTests();
             Principal = new ClaimsPrincipal();
-            (DealsService, Db) = TestExtensions.DealsServiceSetup(Principal, MoqUser);
+            (DealsService, Db) = TestHelper.DealsServiceSetup(Principal, MoqUser);
         }
 
         [Fact]
@@ -29,7 +29,7 @@ namespace ABVInvest.Services.Tests.DealsServiceTests
             var expectedTotalPrice = MoqUser.Object.Deals.Select(dd => dd.Deals.Sum(d => d.TotalPrice));
 
             // Act
-            var actualResult = await DealsService.GetUserDailyDealsAsync<DealTestModel>(Principal, TestExtensions.DealsDate);
+            var actualResult = await DealsService.GetUserDailyDealsAsync<DealTestModel>(Principal, TestHelper.DealsDate);
             var actualTotalPrice = actualResult.Select(d => d.TotalPrice);
 
             // Assert
@@ -59,7 +59,7 @@ namespace ABVInvest.Services.Tests.DealsServiceTests
             var user = new ClaimsPrincipal();
 
             // Act
-            var actualResult = await DealsService.GetUserDailyDealsAsync<DealTestModel>(user, TestExtensions.DealsDate);
+            var actualResult = await DealsService.GetUserDailyDealsAsync<DealTestModel>(user, TestHelper.DealsDate);
 
             // Assert
             Assert.NotNull(actualResult);

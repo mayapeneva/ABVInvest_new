@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<WebData>
+  <New>
+    <Client>
+      <ClientID>00002</ClientID>
+      <CDNumber>0000000002</CDNumber>
+      <ClientName>ЗАГОРА ФИНИНВЕСТ АД</ClientName>
+      <PortfolioID />
+      <PortfolioName />
+    </Client>
+    <Instrument>
+      <ShareID>853</ShareID>
+      <ISIN>BG11SLSTAT17</ISIN>
+      <StockCode>SUN</StockCode>
+      <NewCode>3JO</NewCode>
+      <Issuer>Слънце Стара Загора - Табак АД</Issuer>
+      <Currency>BGN</Currency>
+      <MaturityDate />
+      <ISOData>Капиталови инструменти, Акции, обикновени, Voting, Free, Fully paid, Registered</ISOData>
+    </Instrument>
+    <DealData>
+      <DealID>34459</DealID>
+      <DealDate>17.12.2020 10:10:25</DealDate>
+      <Operation>BUY</Operation>
+      <DeliveryDate>19.12.2020</DeliveryDate>
+      <StockExchangeMIC>XBUL</StockExchangeMIC>
+      <ShareCount>50.000000</ShareCount>
+      <SinglePrice>8.200000</SinglePrice>
+      <Coupon>0.000000</Coupon>
+      <DealAmountInShareCurrency>410.00</DealAmountInShareCurrency>
+      <PaymentCurrency>BGN</PaymentCurrency>
+      <DealAmountInPaymentCurrency>410.00</DealAmountInPaymentCurrency>
+      <CommissionInPaymentCurrency>3.00</CommissionInPaymentCurrency>
+    </DealData>
+  </New>
+</WebData>

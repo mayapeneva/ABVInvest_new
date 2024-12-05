@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<WebData>
+  <New>
+    <Client>
+      <ClientID>00001</ClientID>
+      <CDNumber>0000000001</CDNumber>
+      <ClientName>АДАРА АД</ClientName>
+      <PortfolioID />
+      <PortfolioName />
+    </Client>
+    <Instrument>
+      <ShareID>6630</ShareID>
+      <ISIN>BG1100001921</ISIN>
+      <StockCode>5CP</StockCode>
+      <NewCode>5CP</NewCode>
+      <Issuer>Тексим Банк АД-София</Issuer>
+      <Currency>BGN</Currency>
+      <MaturityDate />
+      <ISOData>Капиталови инструменти, Акции, обикновени</ISOData>
+    </Instrument>
+    <DealData>
+      <DealID>34444</DealID>
+      <DealDate>12.12.2020 14:41:00</DealDate>
+      <Operation>SELL</Operation>
+      <DeliveryDate>14.20.2020</DeliveryDate>
+      <StockExchangeMIC>XBUL</StockExchangeMIC>
+      <ShareCount>290000.000000</ShareCount>
+      <SinglePrice>1.807000</SinglePrice>
+      <Coupon>0.000000</Coupon>
+      <DealAmountInShareCurrency>524030.00</DealAmountInShareCurrency>
+      <PaymentCurrency>BGN</PaymentCurrency>
+      <DealAmountInPaymentCurrency>524030.00</DealAmountInPaymentCurrency>
+      <CommissionInPaymentCurrency>100.00</CommissionInPaymentCurrency>
+    </DealData>
+  </New>
+</WebData>

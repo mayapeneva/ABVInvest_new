@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<WebData>
+  <New>
+    <Client>
+      <ClientID>00001</ClientID>
+      <CDNumber>0000000001</CDNumber>
+      <ClientName>АДАРА АД</ClientName>
+      <PortfolioID />
+      <PortfolioName />
+    </Client>
+    <Instrument>
+      <ShareID>6373</ShareID>
+      <ISIN>BG1100003059</ISIN>
+      <StockCode>AKTIV</StockCode>
+      <NewCode>5AX</NewCode>
+      <Issuer>Актив Пропъртис АДСИЦ</Issuer>
+      <Currency>BGN</Currency>
+      <MaturityDate />
+      <ISOData>Капиталови инструменти, Акции, обикновени, Voting, Free, Fully paid, Registered</ISOData>
+    </Instrument>
+    <DealData>
+      <DealID>34463</DealID>
+      <DealDate>17.12.2020 14:29:24</DealDate>
+      <Operation>BUY</Operation>
+      <DeliveryDate>19.12.2020</DeliveryDate>
+      <StockExchangeMIC>XBUL</StockExchangeMIC>
+      <ShareCount>100.000000</ShareCount>
+      <SinglePrice>7.500000</SinglePrice>
+      <Coupon>0.000000</Coupon>
+      <DealAmountInShareCurrency>750.00</DealAmountInShareCurrency>
+      <PaymentCurrency>BGN</PaymentCurrency>
+      <DealAmountInPaymentCurrency>750.00</DealAmountInPaymentCurrency>
+      <CommissionInPaymentCurrency>3.00</CommissionInPaymentCurrency>
+    </DealData>
+  </New>
+  <New>
+    <Client>
+      <ClientID>00003</ClientID>
+      <CDNumber>0000000003</CDNumber>
+      <ClientName>ГАМА ФИНАНС ЕООД</ClientName>
+      <PortfolioID />
+      <PortfolioName />
+    </Client>
+    <Instrument>
+      <ShareID>6775</ShareID>
+      <ISIN>BG1100099065</ISIN>
+      <StockCode>HREIT</StockCode>
+      <NewCode>5H4</NewCode>
+      <Issuer>Болкан енд Сий Пропъртис АДСИЦ</Issuer>
+      <Currency>BGN</Currency>
+      <MaturityDate />
+      <ISOData>Капиталови инструменти</ISOData>
+    </Instrument>
+    <DealData>
+      <DealID>34460</DealID>
+      <DealDate>17.12.2020 10:22:15</DealDate>
+      <Operation>SELL</Operation>
+      <DeliveryDate>19.12.2020</DeliveryDate>
+      <StockExchangeMIC>XBUL</StockExchangeMIC>
+      <ShareCount>100.000000</ShareCount>
+      <SinglePrice>16.000000</SinglePrice>
+      <Coupon>0.000000</Coupon>
+      <DealAmountInShareCurrency>1600.00</DealAmountInShareCurrency>
+      <PaymentCurrency>BGN</PaymentCurrency>
+      <DealAmountInPaymentCurrency>1600.00</DealAmountInPaymentCurrency>
+      <CommissionInPaymentCurrency>4.80</CommissionInPaymentCurrency>
+    </DealData>
+  </New>
+</WebData>

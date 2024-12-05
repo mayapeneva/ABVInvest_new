@@ -1,6 +1,5 @@
 ﻿using ABVInvest.Common.Constants;
 using ABVInvest.Data;
-using ABVInvest.Data.Models;
 using ABVInvest.Services.Portfolios;
 using System.Security.Claims;
 using Xunit;
@@ -14,12 +13,12 @@ namespace ABVInvest.Services.Tests.PortfoliosServiceTests
 
         public PortfoliosServiceSeedTests()
         {
-            var moqUser = TestExtensions.UserSetupForPortfoliosTests();
+            var moqUser = TestHelper.UserSetupForPortfoliosTests();
             var principal = new ClaimsPrincipal();
-            (PortfoliosService, Db) = TestExtensions.PortfoliosServiceSetup(principal, moqUser);
+            (PortfoliosService, Db) = TestHelper.PortfoliosServiceSetup(principal, moqUser);
 
-            if (!Db.ApplicationUsers.Any(u => u.UserName == Constants.UserNameOne)) this.SeedUser(Constants.UserNameOne);
-            if (!Db.ApplicationUsers.Any(u => u.UserName == Constants.UserNameTwo)) this.SeedUser(Constants.UserNameTwo);
+            if (!Db.ApplicationUsers.Any(u => u.UserName == Constants.UserNameOne)) Db.SeedUser(Constants.UserNameOne);
+            if (!Db.ApplicationUsers.Any(u => u.UserName == Constants.UserNameTwo)) Db.SeedUser(Constants.UserNameTwo);
         }
 
         [Fact]
@@ -27,7 +26,7 @@ namespace ABVInvest.Services.Tests.PortfoliosServiceTests
         {
             // Arrange
             var date = DateOnly.FromDateTime(new DateTime(2020, 12, 01));
-            var deserialisedPortfolios = await TestExtensions.DeserialisePortfolios(string.Format(Constants.FileName, string.Empty));
+            var deserialisedPortfolios = await TestHelper.DeserialisePortfolios(string.Format(Constants.FileNamePortfolios, string.Empty));
             var expectedBooleanResult = true;
 
             // Act
@@ -52,8 +51,8 @@ namespace ABVInvest.Services.Tests.PortfoliosServiceTests
         {
             // Arrange
             var date = DateOnly.FromDateTime(new DateTime(2020, 12, 02));
-            var deserialisedPortfolios = await TestExtensions.DeserialisePortfolios(string.Format(Constants.FileName, "2"));
             var userName = "0000000002";
+            var deserialisedPortfolios = await TestHelper.DeserialisePortfolios(string.Format(Constants.FileNamePortfolios, "2"));
 
             // Act
             var actualResult = await PortfoliosService.SeedPortfoliosAsync(deserialisedPortfolios, date);
@@ -66,11 +65,12 @@ namespace ABVInvest.Services.Tests.PortfoliosServiceTests
         }
 
         [Fact]
-        public async Task SeedPortfoliosAsync_ShouldNotCreateSecondProtfolioForUserWithSameDate()
+        public async Task SeedPortfoliosAsync_ShouldNotCreateSecondProtfolioForUserForTheSameDate()
         {
             // Arange
             var date = DateOnly.FromDateTime(new DateTime(2020, 12, 03));
-            var deserialisedPortfolios = await TestExtensions.DeserialisePortfolios(string.Format(Constants.FileName, string.Empty));
+            var deserialisedPortfolios = await TestHelper.DeserialisePortfolios(string.Format(Constants.FileNamePortfolios, string.Empty));
+
             var firstResult = await PortfoliosService.SeedPortfoliosAsync(deserialisedPortfolios, date);
             Assert.True(firstResult.IsSuccessful());
 
@@ -92,11 +92,10 @@ namespace ABVInvest.Services.Tests.PortfoliosServiceTests
         {
             // Arange
             var userName = "0000000008";
-            this.SeedUser(userName);
-            var deserialisedPortfolios = await TestExtensions.DeserialisePortfolios(string.Format(Constants.FileName, "3"));
-
+            Db.SeedUser(userName);
             var date = DateOnly.FromDateTime(new DateTime(2020, 12, 04));
             var expectedUserFullName = "ИНДЪСТРИ ДИВЕЛЪПМЪНТ ХОЛДИНГ АД";
+            var deserialisedPortfolios = await TestHelper.DeserialisePortfolios(string.Format(Constants.FileNamePortfolios, "3"));
 
             // Act
             var actualResult = await PortfoliosService.SeedPortfoliosAsync(deserialisedPortfolios, date);
@@ -111,9 +110,9 @@ namespace ABVInvest.Services.Tests.PortfoliosServiceTests
         public async Task SeedPortfoliosAsync_ShouldCreateSecurityIfItDoesNotExist()
         {
             // Arange
-            var deserialisedPortfolios = await TestExtensions.DeserialisePortfolios(string.Format(Constants.FileName, "4"));
             var date = DateOnly.FromDateTime(new DateTime(2020, 12, 05));
             var securityISIN = "BG1100019980";
+            var deserialisedPortfolios = await TestHelper.DeserialisePortfolios(string.Format(Constants.FileNamePortfolios, "4"));
 
             // Act
             var actualResult = await PortfoliosService.SeedPortfoliosAsync(deserialisedPortfolios, date);
@@ -128,8 +127,8 @@ namespace ABVInvest.Services.Tests.PortfoliosServiceTests
         public async Task SeedPortfoliosAsync_ShouldNotCreateEntryIfSecurityHasWrongISIN()
         {
             // Arange
-            var deserialisedPortfolios = await TestExtensions.DeserialisePortfolios(string.Format(Constants.FileName, "5"));
             var date = DateOnly.FromDateTime(new DateTime(2020, 12, 06));
+            var deserialisedPortfolios = await TestHelper.DeserialisePortfolios(string.Format(Constants.FileNamePortfolios, "5"));
             var expectedErrorsCount = 2;
 
             // Act
@@ -148,7 +147,7 @@ namespace ABVInvest.Services.Tests.PortfoliosServiceTests
             // Arange
             var date = DateOnly.FromDateTime(new DateTime(2020, 12, 07));
             var securityISIN = "BG1100026985";
-            var deserialisedPortfolios = await TestExtensions.DeserialisePortfolios(string.Format(Constants.FileName, string.Empty));
+            var deserialisedPortfolios = await TestHelper.DeserialisePortfolios(string.Format(Constants.FileNamePortfolios, string.Empty));
             var expectedSecurityEntryCount = 1;
 
             // Act
@@ -166,7 +165,7 @@ namespace ABVInvest.Services.Tests.PortfoliosServiceTests
             // Arange
             var date = DateOnly.FromDateTime(new DateTime(2020, 12, 08));
             var currencyCode = "EUR";
-            var deserialisedPortfolios = await TestExtensions.DeserialisePortfolios(string.Format(Constants.FileName, "6"));
+            var deserialisedPortfolios = await TestHelper.DeserialisePortfolios(string.Format(Constants.FileNamePortfolios, "6"));
 
             var initialCurrencies = Db.Currencies;
             Assert.DoesNotContain(initialCurrencies, c => c.Code == currencyCode);
@@ -185,7 +184,7 @@ namespace ABVInvest.Services.Tests.PortfoliosServiceTests
         {
             // Arange
             var date = DateOnly.FromDateTime(new DateTime(2020, 12, 09));
-            var deserialisedPortfolios = await TestExtensions.DeserialisePortfolios(string.Format(Constants.FileName, "7"));
+            var deserialisedPortfolios = await TestHelper.DeserialisePortfolios(string.Format(Constants.FileNamePortfolios, "7"));
             var expectedErrorsCount = 2;
 
             // Act
@@ -203,7 +202,7 @@ namespace ABVInvest.Services.Tests.PortfoliosServiceTests
         {
             // Arange
             var date = DateOnly.FromDateTime(new DateTime(2020, 12, 10));
-            var deserialisedPortfolios = await TestExtensions.DeserialisePortfolios(string.Format(Constants.FileName, "8"));
+            var deserialisedPortfolios = await TestHelper.DeserialisePortfolios(string.Format(Constants.FileNamePortfolios, "8"));
             var expectedErrorsCount = 2;
 
             // Act
@@ -221,7 +220,7 @@ namespace ABVInvest.Services.Tests.PortfoliosServiceTests
         {
             // Arange
             var date = DateOnly.FromDateTime(new DateTime(2020, 12, 11));
-            var deserialisedPortfolios = await TestExtensions.DeserialisePortfolios(string.Format(Constants.FileName, "9"));
+            var deserialisedPortfolios = await TestHelper.DeserialisePortfolios(string.Format(Constants.FileNamePortfolios, "9"));
             var expectedErrorsCount = 2;
 
             // Act
@@ -239,7 +238,7 @@ namespace ABVInvest.Services.Tests.PortfoliosServiceTests
         {
             // Arange
             var date = DateOnly.FromDateTime(new DateTime(2020, 12, 12));
-            var deserialisedPortfolios = await TestExtensions.DeserialisePortfolios(string.Format(Constants.FileName, "10"));
+            var deserialisedPortfolios = await TestHelper.DeserialisePortfolios(string.Format(Constants.FileNamePortfolios, "10"));
             var expectedErrorsCount = 2;
 
             // Act
@@ -257,7 +256,7 @@ namespace ABVInvest.Services.Tests.PortfoliosServiceTests
         {
             // Arange
             var date = DateOnly.FromDateTime(new DateTime(2020, 12, 13));
-            var deserialisedPortfolios = await TestExtensions.DeserialisePortfolios(string.Format(Constants.FileName, "11"));
+            var deserialisedPortfolios = await TestHelper.DeserialisePortfolios(string.Format(Constants.FileNamePortfolios, "11"));
             var expectedErrorsCount = 2;
 
             // Act
@@ -275,7 +274,7 @@ namespace ABVInvest.Services.Tests.PortfoliosServiceTests
         {
             // Arange
             var date = DateOnly.FromDateTime(new DateTime(2020, 12, 14));
-            var deserialisedPortfolios = await TestExtensions.DeserialisePortfolios(string.Format(Constants.FileName, "12"));
+            var deserialisedPortfolios = await TestHelper.DeserialisePortfolios(string.Format(Constants.FileNamePortfolios, "12"));
             var expectedErrorsCount = 2;
 
             // Act
@@ -292,12 +291,12 @@ namespace ABVInvest.Services.Tests.PortfoliosServiceTests
         public async Task SeedPortfoliosAsync_ShouldNotCreateEntryIfResultBGNCoultNotBeParsed()
         {
             // Arange
-            var deserialisedPortfolios = await TestExtensions.DeserialisePortfolios(string.Format(Constants.FileName, "13"));
+            var deserialisedPortfolios = await TestHelper.DeserialisePortfolios(string.Format(Constants.FileNamePortfolios, "13"));
             var expectedErrorsCount = 2;
 
             // Act
-            var actualResult = await PortfoliosService.SeedPortfoliosAsync(deserialisedPortfolios, TestExtensions.PortfoliosDate);
-            var dailyPortfolio = Db.ApplicationUsers.SingleOrDefault(u => u.UserName == Constants.UserNameTwo)?.Portfolio.SingleOrDefault(p => p.Date == TestExtensions.PortfoliosDate);
+            var actualResult = await PortfoliosService.SeedPortfoliosAsync(deserialisedPortfolios, TestHelper.PortfoliosDate);
+            var dailyPortfolio = Db.ApplicationUsers.SingleOrDefault(u => u.UserName == Constants.UserNameTwo)?.Portfolio.SingleOrDefault(p => p.Date == TestHelper.PortfoliosDate);
 
             // Assert
             Assert.False(actualResult?.IsSuccessful());
@@ -310,7 +309,7 @@ namespace ABVInvest.Services.Tests.PortfoliosServiceTests
         {
             // Arange
             var date = DateOnly.FromDateTime(new DateTime(2020, 12, 16));
-            var deserialisedPortfolios = await TestExtensions.DeserialisePortfolios(string.Format(Constants.FileName, "14"));
+            var deserialisedPortfolios = await TestHelper.DeserialisePortfolios(string.Format(Constants.FileNamePortfolios, "14"));
             var expectedErrorsCount = 2;
 
             // Act
@@ -328,7 +327,7 @@ namespace ABVInvest.Services.Tests.PortfoliosServiceTests
         {
             // Arange
             var date = DateOnly.FromDateTime(new DateTime(2020, 12, 17));
-            var deserialisedPortfolios = await TestExtensions.DeserialisePortfolios(string.Format(Constants.FileName, "15"));
+            var deserialisedPortfolios = await TestHelper.DeserialisePortfolios(string.Format(Constants.FileNamePortfolios, "15"));
             var expectedErrorsCount = 2;
 
             // Act
@@ -342,15 +341,5 @@ namespace ABVInvest.Services.Tests.PortfoliosServiceTests
         }
 
         public void Dispose() => Db?.Dispose();
-
-        private void SeedUser(string userName)
-        {
-            Db.ApplicationUsers.Add(new ApplicationUser
-            {
-                UserName = userName
-            });
-
-            Db.SaveChanges();
-        }
     }
 }

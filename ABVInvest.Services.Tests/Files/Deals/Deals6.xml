@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<WebData>
+  <New>
+    <Client>
+      <ClientID>00001</ClientID>
+      <CDNumber>0000000001</CDNumber>
+      <ClientName>АДАРА АД</ClientName>
+      <PortfolioID />
+      <PortfolioName />
+    </Client>
+    <Instrument>
+      <ShareID>7338</ShareID>
+      <ISIN>BG9000008169</ISIN>
+      <StockCode>CODA</StockCode>
+      <NewCode>CODA</NewCode>
+      <Issuer>НДФ Конкорд Фонд-7 Саут</Issuer>
+      <Currency>BGN707</Currency>
+      <MaturityDate />
+      <ISOData>Предприятия за колект. инвест., КИС, Closed-end, Income funds, Mixed, Units (all investors)</ISOData>
+    </Instrument>
+    <DealData>
+      <DealID>34455</DealID>
+      <DealDate>17.12.2020 15:56:40</DealDate>
+      <Operation>SELL</Operation>
+      <DeliveryDate>18.12.2020</DeliveryDate>
+      <StockExchangeMIC>XBUL</StockExchangeMIC>
+      <ShareCount>49500.000000</ShareCount>
+      <SinglePrice>7.480000</SinglePrice>
+      <Coupon>0.000000</Coupon>
+      <DealAmountInShareCurrency>370260.00</DealAmountInShareCurrency>
+      <PaymentCurrency>EUR7O7</PaymentCurrency>
+      <DealAmountInPaymentCurrency>370260.00</DealAmountInPaymentCurrency>
+      <CommissionInPaymentCurrency>100.00</CommissionInPaymentCurrency>
+    </DealData>
+  </New>
+</WebData>
