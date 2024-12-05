@@ -9,7 +9,6 @@ namespace ABVInvest.Data.Models
             this.Deals = [];
         }
 
-        [Required]
         public virtual ApplicationUser ApplicationUser { get; set; }
         public string ApplicationUserId { get; set; }
 

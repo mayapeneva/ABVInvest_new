@@ -1,12 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using ABVInvest.Data.Models.Enums;
 using System.ComponentModel.DataAnnotations;
-using ABVInvest.Data.Models.Enums;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ABVInvest.Data.Models
 {
     public class Deal : BaseEntity<int>
     {
-        [Required]
         public virtual DailyDeals DailyDeals { get; set; }
         public int DailyDealsId { get; set; }
 

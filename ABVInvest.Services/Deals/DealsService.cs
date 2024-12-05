@@ -227,12 +227,12 @@ namespace ABVInvest.Services.Deals
             {
                 DealType = dealType,
                 Security = security,
-                Quantity = quantity,
-                Price = price,
-                Coupon = coupon,
-                TotalPrice = totalPrice,
-                TotalPriceInBGN = totalPriceInBGN,
-                Fee = fee,
+                Quantity = Math.Round(quantity, 2),
+                Price = Math.Round(price, 4),
+                Coupon = Math.Round(coupon, 4),
+                TotalPrice = Math.Round(totalPrice, 4),
+                TotalPriceInBGN = Math.Round(totalPriceInBGN, 4),
+                Fee = Math.Round(fee, 4),
                 Currency = currency,
                 Settlement = DateOnly.FromDateTime(settlement),
                 Market = market

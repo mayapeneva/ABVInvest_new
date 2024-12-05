@@ -1,0 +1,12 @@
+﻿<div class="back-to-page">
+    <a href="@Page" class="back-to-page-link bg-abvmiddlegreen">
+        <Icon Name="IconName.ArrowLeft" />
+        &nbsp;
+        Обратно
+    </a>
+</div>
+
+@code {
+    [Parameter]
+    public string Page { get; set; } = "/";
+}
