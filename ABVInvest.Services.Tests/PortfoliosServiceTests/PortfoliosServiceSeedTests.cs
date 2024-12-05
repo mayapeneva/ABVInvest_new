@@ -7,14 +7,14 @@ using Xunit;
 
 namespace ABVInvest.Services.Tests.PortfoliosServiceTests
 {
-    public class PortfoliosServiceSeedTests
+    public class PortfoliosServiceSeedTests : IDisposable
     {
         private readonly ApplicationDbContext Db;
         private readonly IPortfoliosService PortfoliosService;
 
         public PortfoliosServiceSeedTests()
         {
-            var moqUser = TestExtensions.UserSetup();
+            var moqUser = TestExtensions.UserSetupForPortfoliosTests();
             var principal = new ClaimsPrincipal();
             (PortfoliosService, Db) = TestExtensions.PortfoliosServiceSetup(principal, moqUser);
 
@@ -292,13 +292,12 @@ namespace ABVInvest.Services.Tests.PortfoliosServiceTests
         public async Task SeedPortfoliosAsync_ShouldNotCreateEntryIfResultBGNCoultNotBeParsed()
         {
             // Arange
-            var date = DateOnly.FromDateTime(new DateTime(2020, 12, 15));
             var deserialisedPortfolios = await TestExtensions.DeserialisePortfolios(string.Format(Constants.FileName, "13"));
             var expectedErrorsCount = 2;
 
             // Act
-            var actualResult = await PortfoliosService.SeedPortfoliosAsync(deserialisedPortfolios, date);
-            var dailyPortfolio = Db.ApplicationUsers.SingleOrDefault(u => u.UserName == Constants.UserNameTwo)?.Portfolio.SingleOrDefault(p => p.Date == date);
+            var actualResult = await PortfoliosService.SeedPortfoliosAsync(deserialisedPortfolios, TestExtensions.PortfoliosDate);
+            var dailyPortfolio = Db.ApplicationUsers.SingleOrDefault(u => u.UserName == Constants.UserNameTwo)?.Portfolio.SingleOrDefault(p => p.Date == TestExtensions.PortfoliosDate);
 
             // Assert
             Assert.False(actualResult?.IsSuccessful());

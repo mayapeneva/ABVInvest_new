@@ -35,7 +35,7 @@ namespace ABVInvest.Services.Deals
             var dbUser = await userManager.GetUserAsync(user);
             return dbUser?.Deals.SingleOrDefault(p => p.Date == date)?
                 .Deals?
-                .Select(d => this.Mapper.Map<T>(d)) ?? [];
+                .Select(this.Mapper.Map<T>) ?? [];
         }
 
         public async Task<ApplicationResultBase> SeedDealsAsync(IEnumerable<DealRowBindingModel> deserializedDeals, DateOnly date)

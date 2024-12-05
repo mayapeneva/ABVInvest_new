@@ -8,31 +8,31 @@ using Xunit;
 
 namespace ABVInvest.Services.Tests.PortfoliosServiceTests
 {
-    public class PortfoliosServiceGetTests
+    public class PortfoliosServiceGetTests : IDisposable
     {
         private readonly ApplicationDbContext Db;
         private readonly IPortfoliosService PortfoliosService;
-        private readonly Mock<ApplicationUser> moqUser;
-        private readonly ClaimsPrincipal principal;
+        private readonly Mock<ApplicationUser> MoqUser;
+        private readonly ClaimsPrincipal Principal;
 
         public PortfoliosServiceGetTests()
         {
-            moqUser = TestExtensions.UserSetup();
-            principal = new ClaimsPrincipal();
-            (PortfoliosService, Db) = TestExtensions.PortfoliosServiceSetup(principal, moqUser);
+            MoqUser = TestExtensions.UserSetupForPortfoliosTests();
+            Principal = new ClaimsPrincipal();
+            (PortfoliosService, Db) = TestExtensions.PortfoliosServiceSetup(Principal, MoqUser);
         }
 
         [Fact]
         public async Task GetUserDailyPortfolioAsync_ShouldReturnDailyPortfolioWithCorrectTotalMarketPrice()
         {
             // Arange
-            var expectedTotalMarketPrice = moqUser.Object.Portfolio.Select(p => p.SecuritiesPerIssuerCollection.Sum(s => s.TotalMarketPrice));
+            var expectedTotalMarketPrice = MoqUser.Object.Portfolio.Select(p => p.SecuritiesPerIssuerCollection.Sum(s => s.TotalMarketPrice));
 
             // Act
-            var actualResult = await PortfoliosService.GetUserDailyPortfolioAsync<PortfolioTestModel>(principal, TestExtensions.Date);
+            var actualResult = await PortfoliosService.GetUserDailyPortfolioAsync<PortfolioTestModel>(Principal, TestExtensions.PortfoliosDate);
             var actualTotalMarketPrice = actualResult.Select(p => p.TotalMarketPrice);
 
-            // AssertAssert.NotNull(actualResult);
+            // Assert
             Assert.NotNull(actualResult);
             Assert.NotEmpty(actualResult);
             Assert.Equal(expectedTotalMarketPrice, actualTotalMarketPrice);
@@ -45,7 +45,7 @@ namespace ABVInvest.Services.Tests.PortfoliosServiceTests
             var date = DateOnly.FromDateTime(new DateTime(2020, 12, 27));
 
             // Act
-            var actualResult = await PortfoliosService.GetUserDailyPortfolioAsync<PortfolioTestModel>(principal, date);
+            var actualResult = await PortfoliosService.GetUserDailyPortfolioAsync<PortfolioTestModel>(Principal, date);
 
             // Assert
             Assert.NotNull(actualResult);
@@ -59,7 +59,7 @@ namespace ABVInvest.Services.Tests.PortfoliosServiceTests
             var user = new ClaimsPrincipal();
 
             // Act
-            var actualResult = await PortfoliosService.GetUserDailyPortfolioAsync<PortfolioTestModel>(user, TestExtensions.Date);
+            var actualResult = await PortfoliosService.GetUserDailyPortfolioAsync<PortfolioTestModel>(user, TestExtensions.PortfoliosDate);
 
             // Assert
             Assert.NotNull(actualResult);

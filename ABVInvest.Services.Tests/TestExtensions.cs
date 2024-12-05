@@ -3,8 +3,10 @@ using ABVInvest.Common.Constants;
 using ABVInvest.Common.Mapping;
 using ABVInvest.Data;
 using ABVInvest.Data.Models;
+using ABVInvest.Data.Models.Enums;
 using ABVInvest.Services.Balances;
 using ABVInvest.Services.Data;
+using ABVInvest.Services.Deals;
 using ABVInvest.Services.Portfolios;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
@@ -17,7 +19,8 @@ namespace ABVInvest.Services.Tests
 {
     public class TestExtensions
     {
-        public static DateOnly Date { get; set; } = DateOnly.FromDateTime(new DateTime(2020, 12, 15));
+        public static DateOnly PortfoliosDate { get; set; } = DateOnly.FromDateTime(new DateTime(2020, 12, 15));
+        public static DateOnly DealsDate { get; set; } = DateOnly.FromDateTime(new DateTime(2020, 12, 16));
 
         public static Tuple<IDataService, ApplicationDbContext> DataServiceSetup()
         {
@@ -26,12 +29,12 @@ namespace ABVInvest.Services.Tests
             return new Tuple<IDataService, ApplicationDbContext>(new DataService(db, mapper), db);
         }
 
-        public static Mock<ApplicationUser> UserSetup()
+        public static Mock<ApplicationUser> UserSetupForPortfoliosTests()
         {
             var moqUser = new Mock<ApplicationUser>();
             moqUser.Setup(u => u.Portfolio).Returns([ new DailySecuritiesPerClient
             {
-                Date = Date,
+                Date = PortfoliosDate,
                 SecuritiesPerIssuerCollection = [ new SecuritiesPerClient
                     {
                         Quantity = 100,
@@ -42,6 +45,28 @@ namespace ABVInvest.Services.Tests
                         ProfitInBGN = 10000,
                         ProfitPercentage = 100,
                         PortfolioShare = 10
+                    }
+                ]
+            }]);
+
+            return moqUser;
+        }
+
+        public static Mock<ApplicationUser> UserSetupForDealsTests()
+        {
+            var moqUser = new Mock<ApplicationUser>();
+            moqUser.Setup(u => u.Deals).Returns([ new DailyDeals
+            {
+                Date = DealsDate,
+                Deals = [ new Deal
+                    {
+                        DealType = DealType.Купува,
+                        Quantity = 100,
+                        Price = 100,
+                        Coupon = 0,
+                        TotalPrice = 10000,
+                        Fee = 90,
+                        Settlement = DateOnly.FromDateTime(new DateTime(2020, 12, 18))
                     }
                 ]
             }]);
@@ -72,6 +97,21 @@ namespace ABVInvest.Services.Tests
             var deserializedPortfolios = serializer.Deserialize(new StringReader(xmlFileContentString)) as PortfolioRowBindingModel[];
 
             return deserializedPortfolios ?? [];
+        }
+
+        public static Tuple<IDealsService, ApplicationDbContext> DealsServiceSetup(ClaimsPrincipal principal, Mock<ApplicationUser> moqUser)
+        {
+            var db = GetDb();
+            var mapper = GetMapper();
+
+            var dataService = new DataService(db, mapper);
+
+            var mockUserStore = new Mock<IUserStore<ApplicationUser>>();
+            var userManager = new Mock<UserManager<ApplicationUser>>(mockUserStore.Object, null, null, null, null, null, null, null, null);
+            userManager.Setup(um => um.GetUserAsync(principal)).Returns(Task.FromResult(moqUser?.Object));
+
+            var dealsService = new DealsService(db, userManager.Object, dataService, mapper);
+            return new Tuple<IDealsService, ApplicationDbContext>(dealsService, db);
         }
 
         private static ApplicationDbContext GetDb()
