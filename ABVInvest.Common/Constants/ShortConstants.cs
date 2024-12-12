@@ -4,7 +4,7 @@
     {
         public static class Common
         {
-            public const string DateTimeParseFormat = "dd/MM/yyyy";
+            public const string DateTimeParseFormat = "dd-MM-yyyy";
             public const string Error = "Грешка";
             public const string FileUploadFolder = "wwwroot/uploadedfiles";
             public static readonly DateOnly MaxDate = DateOnly.FromDateTime(DateTime.UtcNow);

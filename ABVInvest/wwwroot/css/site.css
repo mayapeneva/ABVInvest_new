@@ -15,7 +15,7 @@ body {
 
 .body-content {
     color: var(--darkgreen-color);
-    margin-top: 50px;
+    margin: 50px;
 }
 
 /* Navbar*/
@@ -163,7 +163,29 @@ input {
     padding: 7px 10px;
 }
 
-/*Other*/
+/*Deals and Portfolios*/
+.portfolio-table-container {
+    margin: 50px;
+}
+
+.portfolio-table {
+    max-width: 100%;
+    width: 90%;
+}
+
+.export-button {
+    margin-bottom: 20px !important;
+}
+
+.portfolio-table tbody > tr:nth-child(even) > td {
+    color: var(--darkgreen-color);
+}
+
+.portfolio-table tbody > tr:nth-child(odd) > td {
+    color: var(--middlegreen-color);
+}
+
+/*Common*/
 .date-button {
     margin-top: 40px;
 }

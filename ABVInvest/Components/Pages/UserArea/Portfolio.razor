@@ -1,0 +1,209 @@
+@page "/UserArea/Portfolio"
+
+@rendermode InteractiveServer
+
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject IPortfoliosService PortfoliosService
+
+<section>
+    @if (!PortfolioModels.Any())
+    {
+        <div class="container">
+            <h2 class="bg-abvmiddlegreen"> Портфолио </h2>
+            <hr />
+            <EditForm Model="Input" method="post" OnValidSubmit="ShowPortfolio" FormName="portfolioForm">
+                <DataAnnotationsValidator />
+                <ValidationSummary class="text-danger" role="alert" />
+                <div class="form-group">
+                    <div class="col-md-5 mb-3">
+                        <label class="col-form-label"> За да да получите информация за портфолиото си, моля изберете дата след @ShortConstants.Common.MinDate.ToString(ShortConstants.Common.DateTimeParseFormat) и не по-късна от @ShortConstants.Common.MaxDate.ToString(ShortConstants.Common.DateTimeParseFormat): </label>
+                    </div>
+                    <div class="col-md-2 mb-3">
+                        <DateInput class="form-control" TValue="DateOnly?" @bind-Value="Input.Date" EnableMinMax="true" Min="@ShortConstants.Common.MinDate" Max="@ShortConstants.Common.MaxDate" Placeholder="Изберете дата" />
+                        <ValidationMessage For="() => Input.Date" class="text-danger" />
+                    </div>
+                    <Button Type="ButtonType.Submit" Class="date-button bg-bg-abvlightgreen bg-abvdarkgreen large-fontsize"> Избери </Button>
+                </div>
+            </EditForm>
+        </div>
+    }
+    else
+    {
+        <div class="portfolio-table-container">
+            <form asp-controller="Portfolios" asp-action="CreatePdf" method="post" class="export-button">
+                <input type="hidden" name="date" value="@PortfolioModels.First().DailySecuritiesPerClientDate" />
+                <button type="submit" class="btn bg-bg-abvdarkgreen bg-abvlightgreen">Експорт в PDF</button>
+            </form>
+
+            <Grid @ref="grid"
+                  TItem="PortfolioViewModel"
+                  Class="table table-hover table-bordered table-striped text-nowrap portfolio-table"
+                  DataProvider="PortfolioDataProvider"
+                  FixedHeader="true"
+                  Height="600"
+                  Responsive="true"
+                  Unit="Unit.Px">
+
+                <GridColumns>
+                    <GridColumn TItem="PortfolioViewModel" HeaderText="Емитент" PropertyName="SecurityIssuerName" HeaderTextAlignment="Alignment.Center" TextAlignment="Alignment.Center">
+                        @context.SecurityIssuerName
+                    </GridColumn>
+                    <GridColumn TItem="PortfolioViewModel" HeaderText="БФБ Код" PropertyName="SecurityBfbCode">
+                        @context.SecurityBfbCode
+                    </GridColumn>
+                    <GridColumn TItem="PortfolioViewModel" HeaderText="ISIN" PropertyName="SecurityIsin">
+                        @context.SecurityIsin
+                    </GridColumn>
+                    <GridColumn TItem="PortfolioViewModel" HeaderText="Наличност" PropertyName="Quantity">
+                        @context.Quantity
+                    </GridColumn>
+                    <GridColumn TItem="PortfolioViewModel" HeaderText="Валута" PropertyName="CurrencyCode">
+                        @context.CurrencyCode
+                    </GridColumn>
+                    <GridColumn TItem="PortfolioViewModel" HeaderText="Средна цена" PropertyName="AveragePriceBuy">
+                        @context.AveragePriceBuy
+                    </GridColumn>
+                    <GridColumn TItem="PortfolioViewModel" HeaderText="Стойност на придобиване" PropertyName="TotalPriceBuy">
+                        @context.TotalPriceBuy
+                    </GridColumn>
+                    <GridColumn TItem="PortfolioViewModel" HeaderText="Пазарна цена" PropertyName="MarketPrice">
+                        @context.MarketPrice
+                    </GridColumn>
+                    <GridColumn TItem="PortfolioViewModel" HeaderText="Пазарна стойност" PropertyName="TotalMarketPrice">
+                        @context.TotalMarketPrice
+                    </GridColumn>
+                    <GridColumn TItem="PortfolioViewModel" HeaderText="Доходност" PropertyName="ProfitPercentage">
+                        @context.ProfitPercentage
+                    </GridColumn>
+                    <GridColumn TItem="PortfolioViewModel" HeaderText="Доходност(%)" PropertyName="ProfitPercentage">
+                        @context.ProfitPercentage
+                    </GridColumn>
+                    <GridColumn TItem="PortfolioViewModel" HeaderText="Тегло в портфейла(%)" PropertyName="PortfolioShare">
+                        @context.PortfolioShare
+                    </GridColumn>
+                </GridColumns>
+            </Grid>
+        </div>
+
+        @* <table class="table table-hover table-responsive">
+            <caption class="bg-abvmiddlegreen large-fontsize">Списък с ценни книжа към дата @PortfolioModels.First().DailySecuritiesPerClientDate</caption>
+            <thead class="bg-abvdarkgreen bg-bg-abvlightgreen">
+                <tr>
+                    <th class="text-center" scope="col">Емитент</th>
+                    <th class="text-center" scope="col">БФБ Код</th>
+                    <th class="text-center" scope="col">ISIN</th>
+                    <th class="text-center" scope="col">Наличност</th>
+                    <th class="text-center" scope="col">Валута</th>
+                    <th class="text-center" scope="col">Средна цена</th>
+                    <th class="text-center" scope="col">Стойност на придобиване</th>
+                    <th class="text-center" scope="col">Пазарна цена</th>
+                    <th class="text-center" scope="col">Пазарна стойност</th>
+                    <th class="text-center" scope="col">Доходност</th>
+                    <th class="text-center" scope="col">Доходност(%)</th>
+                    <th class="text-center" scope="col">Тегло в портфейла(%)</th>
+                </tr>
+            </thead>
+            <tbody class="bg-abvdarkgreen">
+                @foreach (var security in PortfolioModels)
+                {
+                    var profit = security.Profit.ToString("N2", CultureInfo.CreateSpecificCulture("sv-SE"));
+            <tr>
+            <td class="text-left">@Html.DisplayFor(model => security.SecurityIssuerName)</td>
+            <td class="text-left">@Html.DisplayFor(model => security.SecurityBfbCode)</td>
+            <td class="text-left">@Html.DisplayFor(model => security.SecurityIsin)</td>
+            <td class="text-right align-text-bottom">@Html.DisplayFor(model => security.Quantity)</td>
+            <td class="text-right align-text-bottom">@Html.DisplayFor(model => security.CurrencyCode)</td>
+            <td class="text-right align-text-bottom" type="number">@Html.DisplayFor(model => security.AveragePriceBuy)</td>
+            <td class="text-right align-text-bottom">@Html.DisplayFor(model => security.TotalPriceBuy)</td>
+            <td class="text-right align-text-bottom">@Html.DisplayFor(model => security.MarketPrice)</td>
+            <td class="text-right align-text-bottom">@Html.DisplayFor(model => security.TotalMarketPrice)</td>
+            @if (security.Profit > 0)
+            {
+            <td class="text-right bg-abvmiddlegreen">
+            @profit<br />
+            <span class="fas fa-plus"></span>
+            </td>
+            <td class="text-right bg-abvmiddlegreen">
+            @Html.DisplayFor(model => security.ProfitPercentage)%<br />
+            <span class="fas fa-plus"></span>
+            </td>
+            }
+            else if (security.Profit < 0)
+            {
+            <td class="text-right bg-abvred">
+            @profit<br />
+            <span class="fas fa-minus"></span>
+            </td>
+            <td class="text-right bg-abvred">
+            @Html.DisplayFor(model => security.ProfitPercentage)%<br />
+            <span class="fas fa-minus"></span>
+            </td>
+            }
+            else
+            {
+            <td class="text-right">
+            @Html.DisplayFor(model => security.Profit)<br />
+            <span class="fas fa-equals"></span>
+            </td>
+            <td class="text-right">
+            @Html.DisplayFor(model => security.ProfitPercentage)%<br />
+            <span class="fas fa-equals"></span>
+            </td>
+            }
+
+            <td class="text-right align-text-bottom">@Html.DisplayFor(model => security.PortfolioShare)%</td>
+            </tr>
+                }
+            </tbody>
+        </table> *@
+    }
+
+    <div class="status-message">
+        <StatusDisplayMessage DisplayMessages="@ErrorMessages" Success="@Success" />
+    </div>
+
+    <BackToPage />
+</section>
+
+@code {
+    private IEnumerable<string>? ErrorMessages;
+    private bool Success;
+
+    [SupplyParameterFromForm]
+    private InputModel Input { get; set; } = new();
+
+    BlazorBootstrap.Grid<PortfolioViewModel> grid = default!;
+    private IEnumerable<PortfolioViewModel> PortfolioModels = new List<PortfolioViewModel>();
+
+    private async Task ShowPortfolio()
+    {
+        if (Input.Date is not null)
+        {
+            var authenticationState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+            var portfolio = await PortfoliosService.GetUserDailyPortfolioAsync<PortfolioViewModel>(authenticationState.User, Input.Date.Value);
+            if (portfolio != null && portfolio.Count() > 0)
+                PortfolioModels = portfolio!;
+            else
+            {
+                Success = false;
+                ErrorMessages = [Messages.DealsAndPortfolios.NoPortfolio];
+            }
+        }
+    }
+
+    private async Task<GridDataProviderResult<PortfolioViewModel>> PortfolioDataProvider(GridDataProviderRequest<PortfolioViewModel> request)
+    {
+        return await Task.FromResult(request.ApplyTo(PortfolioModels));
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+    }
+
+    private sealed class InputModel
+    {
+        [DataType(DataType.Date)]
+        public DateOnly? Date;
+    }
+}
