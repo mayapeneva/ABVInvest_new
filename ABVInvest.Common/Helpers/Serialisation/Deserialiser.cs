@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Components.Forms;
 using System.Xml.Serialization;
 
-namespace ABVInvest.Common.Helpers
+namespace ABVInvest.Common.Helpers.Serialisation
 {
     public class Deserialiser : IDeserialiser
     {

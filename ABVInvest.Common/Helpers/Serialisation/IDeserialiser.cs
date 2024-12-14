@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components.Forms;
 
-namespace ABVInvest.Common.Helpers
+namespace ABVInvest.Common.Helpers.Serialisation
 {
     public interface IDeserialiser
     {

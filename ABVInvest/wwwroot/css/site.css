@@ -197,8 +197,9 @@ input {
     margin-top: 40px;
 }
 
-.button-float-right {
+.nav-link-pdf {
     float: right;
+    margin-top: 40px;
 }
 
 .add-data-button {

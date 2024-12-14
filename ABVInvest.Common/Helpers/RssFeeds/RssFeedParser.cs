@@ -3,25 +3,25 @@ using ABVInvest.Common.ViewModels;
 using System.ServiceModel.Syndication;
 using System.Xml;
 
-namespace ABVInvest.Services.News
+namespace ABVInvest.Common.Helpers.RssFeeds
 {
-    public class RSSFeedService : IRSSFeedService
+    public class RssFeedParser : IRssFeedParser
     {
         private readonly DateTime twoWeeksBackDate;
         private readonly ICollection<string> rssAddresses;
         private readonly HttpClient httpClient;
 
-        public RSSFeedService(IHttpClientFactory clientFactory)
+        public RssFeedParser(IHttpClientFactory clientFactory)
         {
             httpClient = clientFactory.CreateClient();
 
             twoWeeksBackDate = DateTime.UtcNow.Subtract(new TimeSpan(14, 0, 0, 0));
-            rssAddresses = [ShortConstants.RSSFeed.InvestorRSSCompanies, ShortConstants.RSSFeed.InvestorRSSMarkets, ShortConstants.RSSFeed.InvestorRSSFinance, ShortConstants.RSSFeed.X3NewsRSS];
+            rssAddresses = [ShortConstants.RssFeed.InvestorRssCompanies, ShortConstants.RssFeed.InvestorRssMarkets, ShortConstants.RssFeed.InvestorRssFinance, ShortConstants.RssFeed.X3NewsRss];
         }
 
-        public async Task<IEnumerable<RSSFeedViewModel>> LoadNewsAsync()
+        public async Task<IEnumerable<RssFeedViewModel>> LoadNewsAsync()
         {
-            var rssFeedModels = new List<RSSFeedViewModel>();
+            var rssFeedModels = new List<RssFeedViewModel>();
 
             foreach (var rss in rssAddresses)
             {
@@ -40,7 +40,7 @@ namespace ABVInvest.Services.News
                         var publishDate = item.PublishDate.UtcDateTime;
                         if (publishDate > twoWeeksBackDate)
                         {
-                            rssFeedModels.Add(new RSSFeedViewModel
+                            rssFeedModels.Add(new RssFeedViewModel
                             {
                                 Title = item.Title?.Text,
                                 Uri = item.Links[0]?.Uri?.ToString()!,
@@ -50,7 +50,7 @@ namespace ABVInvest.Services.News
                         }
                     }
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     // TODO: log the exception
                 }

@@ -1,4 +1,6 @@
-using ABVInvest.Common.Helpers;
+using ABVInvest.Common.Helpers.PdfGeneration;
+using ABVInvest.Common.Helpers.RssFeeds;
+using ABVInvest.Common.Helpers.Serialisation;
 using ABVInvest.Common.Mapping;
 using ABVInvest.Components;
 using ABVInvest.Components.Account;
@@ -8,7 +10,6 @@ using ABVInvest.Seeders;
 using ABVInvest.Services.Balances;
 using ABVInvest.Services.Data;
 using ABVInvest.Services.Deals;
-using ABVInvest.Services.News;
 using ABVInvest.Services.Portfolios;
 using AutoMapper;
 using Microsoft.AspNetCore.Components.Authorization;
@@ -60,8 +61,9 @@ builder.Services.AddSingleton(mapper);
 
 
 builder.Services.AddHttpClient();
-builder.Services.AddScoped<IRSSFeedService, RSSFeedService>();
+builder.Services.AddScoped<IRssFeedParser, RssFeedParser>();
 builder.Services.AddScoped<IDeserialiser, Deserialiser>();
+builder.Services.AddScoped<IPdfGenerator, PdfGenerator>();
 
 builder.Services.AddScoped<IPortfoliosService, PortfoliosService>();
 builder.Services.AddScoped<IBalancesService, BalancesService>();

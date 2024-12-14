@@ -2,7 +2,7 @@
 
 @rendermode InteractiveServer
 
-@inject IRSSFeedService RSSFeedParser
+@inject IRssFeedParser RssFeedParser
 @inject NavigationManager NavigationManager;
 
 <div class="container">
@@ -22,11 +22,11 @@
 </div>
 
 @code {
-    private IEnumerable<RSSFeedViewModel> RssModels = new List<RSSFeedViewModel>();
+    private IEnumerable<RssFeedViewModel> RssModels = new List<RssFeedViewModel>();
 
     protected override async Task OnInitializedAsync()
     {
-        RssModels = await RSSFeedParser.LoadNewsAsync();
+        RssModels = await RssFeedParser.LoadNewsAsync();
     }
 
     protected override void OnAfterRender(bool firstRender)

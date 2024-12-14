@@ -1,6 +1,6 @@
 ﻿namespace ABVInvest.Common.ViewModels
 {
-    public class RSSFeedViewModel
+    public class RssFeedViewModel
     {
         public string? Title { get; set; }
 
