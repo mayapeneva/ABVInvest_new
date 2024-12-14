@@ -1,4 +1,3 @@
-using ABVInvest.Common.Helpers.PdfGeneration;
 using ABVInvest.Common.Helpers.RssFeeds;
 using ABVInvest.Common.Helpers.Serialisation;
 using ABVInvest.Common.Mapping;
@@ -63,7 +62,6 @@ builder.Services.AddSingleton(mapper);
 builder.Services.AddHttpClient();
 builder.Services.AddScoped<IRssFeedParser, RssFeedParser>();
 builder.Services.AddScoped<IDeserialiser, Deserialiser>();
-builder.Services.AddScoped<IPdfGenerator, PdfGenerator>();
 
 builder.Services.AddScoped<IPortfoliosService, PortfoliosService>();
 builder.Services.AddScoped<IBalancesService, BalancesService>();
