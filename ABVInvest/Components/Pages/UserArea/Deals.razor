@@ -1,0 +1,139 @@
+﻿@page "/UserArea/Deals"
+
+@rendermode InteractiveServer
+
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject IDealsService DealsService
+
+<section>
+    @if (!DealsModels.Any())
+    {
+        <div class="container">
+            <h2 class="bg-abvmiddlegreen"> Сделки </h2>
+            <hr />
+            <EditForm Model="Input" method="post" OnValidSubmit="ShowDeals" FormName="dealsForm">
+                <DataAnnotationsValidator />
+                <ValidationSummary class="text-danger" role="alert" />
+                <div class="form-group">
+                    <div class="col-md-5 mb-3">
+                        <label class="col-form-label"> За да да получите информация за сделките, сключени за ваша сметка, моля изберете дата след @ShortConstants.Common.MinDate.ToString(ShortConstants.Common.DateTimeParseFormat) и не по-късна от @ShortConstants.Common.MaxDate.ToString(ShortConstants.Common.DateTimeParseFormat): </label>
+                    </div>
+                    <div class="col-md-2 mb-3">
+                        <DateInput class="form-control" TValue="DateOnly?" @bind-Value="Input.Date" EnableMinMax="true" Min="@ShortConstants.Common.MinDate" Max="@ShortConstants.Common.MaxDate" Placeholder="Изберете дата" />
+                        <ValidationMessage For="() => Input.Date" class="text-danger" />
+                    </div>
+                    <Button Type="ButtonType.Submit" Class="button-top-margin bg-bg-abvlightgreen bg-abvdarkgreen large-fontsize"> Избери </Button>
+                </div>
+            </EditForm>
+        </div>
+    }
+    else
+    {
+        <div class="deals-table-container">
+            <h2 class="bg-abvmiddlegreen"> Списък със сделки на ценни книжа @DealsModels.First().DailyDealsDate </h2>
+            <hr />
+
+            <Grid @ref="grid"
+                  TItem="DealViewModel"
+                  Class="table table-hover table-bordered table-striped text-nowrap deals-table"
+                  HeaderRowCssClass="bg-abvmiddlegreen !important"
+                  DataProvider="DealsDataProvider"
+                  FixedHeader="true"
+                  Height="600"
+                  Responsive="true"
+                  Unit="Unit.Px">
+
+                <GridColumns>
+                    <GridColumn TItem="DealViewModel" HeaderText="Тип на сделката" PropertyName="DealType">
+                        @context.DealType
+                    </GridColumn>
+                    <GridColumn TItem="DealViewModel" HeaderText="БФБ Код" PropertyName="SecurityBfbCode">
+                        @context.SecurityBfbCode
+                    </GridColumn>
+                    <GridColumn TItem="DealViewModel" HeaderText="Емитент" PropertyName="SecurityIssuerName">
+                        @context.SecurityIssuerName
+                    </GridColumn>
+                    <GridColumn TItem="DealViewModel" HeaderText="Количество" PropertyName="Quantity">
+                        @context.Quantity
+                    </GridColumn>
+                    <GridColumn TItem="DealViewModel" HeaderText="Цена" PropertyName="Price">
+                        @context.Price
+                    </GridColumn>
+                    <GridColumn TItem="DealViewModel" HeaderText="Купон" PropertyName="Coupon">
+                        @context.Coupon
+                    </GridColumn>
+                    <GridColumn TItem="DealViewModel" HeaderText="Стойност" PropertyName="TotalPrice">
+                        @context.TotalPrice
+                    </GridColumn>
+                    <GridColumn TItem="DealViewModel" HeaderText="Комисионна" PropertyName="Fee">
+                        @context.Fee
+                    </GridColumn>
+                    <GridColumn TItem="DealViewModel" HeaderText="Валута" PropertyName="CurrencyCode">
+                        @context.CurrencyCode
+                    </GridColumn>
+                    <GridColumn TItem="DealViewModel" HeaderText="Сетълмент" PropertyName="Settlement">
+                        @context.Settlement
+                    </GridColumn>
+                    <GridColumn TItem="DealViewModel" HeaderText="Пазар" PropertyName="MarketName">
+                        @context.MarketName
+                    </GridColumn>
+                </GridColumns>
+            </Grid>
+        </div>
+    }
+
+    <div class="container">
+        <div class="status-message">
+            <StatusDisplayMessage DisplayMessages="@ErrorMessages" Success="@Success" />
+        </div>
+    </div>
+
+    <BackToPage />
+</section>
+
+@code {
+    private IEnumerable<string>? ErrorMessages;
+    private bool Success;
+
+    [SupplyParameterFromForm]
+    private InputModel Input { get; set; } = new();
+
+    BlazorBootstrap.Grid<DealViewModel> grid = default!;
+    private IEnumerable<DealViewModel> DealsModels = new List<DealViewModel>();
+
+    private async Task ShowDeals()
+    {
+        if (Input.Date is not null)
+        {
+            var authenticationState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+            var deals = await DealsService.GetUserDailyDealsAsync<DealViewModel>(authenticationState.User, Input.Date.Value);
+            if (deals != null && deals.Count() > 0)
+            {
+                DealsModels = deals!;
+                ErrorMessages = [];
+            }
+            else
+            {
+                Success = false;
+                ErrorMessages = [Messages.DealsAndPortfolios.NoDeals];
+            }
+        }
+    }
+
+    private async Task<GridDataProviderResult<DealViewModel>> DealsDataProvider(GridDataProviderRequest<DealViewModel> request)
+    {
+        return await Task.FromResult(request.ApplyTo(DealsModels));
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+    }
+
+    private sealed class InputModel
+    {
+        [DataType(DataType.Date)]
+        public DateOnly? Date;
+    }
+}
+

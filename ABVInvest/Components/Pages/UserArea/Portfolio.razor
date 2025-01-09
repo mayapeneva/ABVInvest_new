@@ -111,7 +111,10 @@
             var authenticationState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
             var portfolio = await PortfoliosService.GetUserDailyPortfolioAsync<PortfolioViewModel>(authenticationState.User, Input.Date.Value);
             if (portfolio != null && portfolio.Count() > 0)
+            {
                 PortfolioModels = portfolio!;
+                ErrorMessages = [];
+            }
             else
             {
                 Success = false;

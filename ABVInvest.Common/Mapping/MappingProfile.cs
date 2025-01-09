@@ -22,6 +22,16 @@ namespace ABVInvest.Common.Mapping
                 .ForMember(dest => dest.ProfitPercentage, opt => opt.MapFrom(src => src.ProfitPercentage.ToString("N2", CultureInfo.CreateSpecificCulture(ShortConstants.Common.SvSeCulture))))
                 .ForMember(dest => dest.PortfolioShare, opt => opt.MapFrom(src => src.PortfolioShare.ToString("N2", CultureInfo.CreateSpecificCulture(ShortConstants.Common.SvSeCulture))));
 
+            this.CreateMap<Deal, DealViewModel>()
+                .ForMember(dest => dest.DealType, opt => opt.MapFrom(src => src.DealType.ToString()))
+                .ForMember(dest => dest.DailyDealsDate, opt => opt.MapFrom(src => src.DailyDeals.Date.ToString(ShortConstants.Common.DateTimeParseFormat)))
+                .ForMember(dest => dest.Quantity, opt => opt.MapFrom(src => src.Quantity.ToString("N", CultureInfo.CreateSpecificCulture(ShortConstants.Common.SvSeCulture))))
+                .ForMember(dest => dest.Price, opt => opt.MapFrom(src => src.Price.ToString("N3", CultureInfo.CreateSpecificCulture(ShortConstants.Common.SvSeCulture))))
+                .ForMember(dest => dest.Coupon, opt => opt.MapFrom(src => src.Coupon.ToString("N3", CultureInfo.CreateSpecificCulture(ShortConstants.Common.SvSeCulture))))
+                .ForMember(dest => dest.TotalPrice, opt => opt.MapFrom(src => src.TotalPrice.ToString("N2", CultureInfo.CreateSpecificCulture(ShortConstants.Common.SvSeCulture))))
+                .ForMember(dest => dest.Fee, opt => opt.MapFrom(src => src.Fee.ToString("N2", CultureInfo.CreateSpecificCulture(ShortConstants.Common.SvSeCulture))))
+                .ForMember(dest => dest.Settlement, opt => opt.MapFrom(src => src.Settlement.ToString(ShortConstants.Common.DateTimeParseFormat)));
+
             this.CreateMap<SecuritiesPerClient, PortfolioTestModel>();
 
             this.CreateMap<Instrument, SecurityBindingModel>()
