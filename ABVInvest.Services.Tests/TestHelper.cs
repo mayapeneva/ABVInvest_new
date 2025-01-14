@@ -22,6 +22,7 @@ namespace ABVInvest.Services.Tests
     {
         public static DateOnly PortfoliosDate { get; set; } = DateOnly.FromDateTime(new DateTime(2020, 12, 15));
         public static DateOnly DealsDate { get; set; } = DateOnly.FromDateTime(new DateTime(2020, 12, 16));
+        public static DateOnly BalancesDate { get; set; } = DateOnly.FromDateTime(new DateTime(2020, 12, 20));
 
         public static Tuple<IDataService, ApplicationDbContext> DataServiceSetup()
         {
@@ -68,6 +69,30 @@ namespace ABVInvest.Services.Tests
                         TotalPrice = 10000,
                         Fee = 90,
                         Settlement = DateOnly.FromDateTime(new DateTime(2020, 12, 18))
+                    }
+                ]
+            }]);
+
+            return moqUser;
+        }
+
+        public static Mock<ApplicationUser> UserSetupForBalancesTests()
+        {
+            var moqUser = new Mock<ApplicationUser>();
+            moqUser.Setup(u => u.Balances).Returns([]);
+            moqUser.Setup(u => u.Portfolio).Returns([ new DailySecuritiesPerClient
+            {
+                Date = BalancesDate,
+                SecuritiesPerIssuerCollection = [ new SecuritiesPerClient
+                    {
+                        Quantity = 100,
+                        AveragePriceBuy = 100,
+                        MarketPrice = 200,
+                        TotalMarketPrice = 20000,
+                        Profit = 10000,
+                        ProfitInBGN = 10000,
+                        ProfitPercentage = 100,
+                        PortfolioShare = 10
                     }
                 ]
             }]);
@@ -122,6 +147,15 @@ namespace ABVInvest.Services.Tests
             var deserializedDeals = serializer.Deserialize(new StringReader(xmlFileContentString)) as DealRowBindingModel[];
 
             return deserializedDeals ?? [];
+        }
+
+        public static Tuple<IBalancesService, ApplicationDbContext> BalancesServiceSetup()
+        {
+            var db = GetDb();
+            var mapper = GetMapper();
+            var balancesService = new BalancesService(db, mapper);
+
+            return new Tuple<IBalancesService, ApplicationDbContext>(balancesService, db);
         }
 
         private static ApplicationDbContext GetDb()

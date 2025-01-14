@@ -38,6 +38,8 @@ namespace ABVInvest.Common.Mapping
                 .ForMember(dest => dest.BfbCode, opt => opt.MapFrom(src => src.NewCode));
 
             this.CreateMap<Deal, DealTestModel>();
+
+            this.CreateMap<Balance, BalanceTestModel>();
         }
     }
 }

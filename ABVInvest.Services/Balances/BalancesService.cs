@@ -9,7 +9,7 @@ namespace ABVInvest.Services.Balances
     public class BalancesService(ApplicationDbContext db, IMapper mapper)
         : BaseService(db, mapper), IBalancesService
     {
-        public ApplicationResult<T> GetUserDailyBalanceAsync<T>(ApplicationUser user, DateOnly date)
+        public ApplicationResult<T> GetUserDailyBalance<T>(ApplicationUser user, DateOnly date)
         {
             var result = new ApplicationResult<T>();
 
@@ -24,9 +24,9 @@ namespace ABVInvest.Services.Balances
             return result;
         }
 
-        public async Task<ApplicationResult<DailyBalance>> CreateBalanceForUserAsync(ApplicationUser user, DateOnly date)
+        public async Task<ApplicationResultBase> CreateBalanceForUserAsync(ApplicationUser user, DateOnly date)
         {
-            var result = new ApplicationResult<DailyBalance>();
+            var result = new ApplicationResultBase();
 
             var hasUserABalanceForTheDate = user.Balances.Any(b => b.Date == date);
             var dailyBalance =
@@ -51,7 +51,6 @@ namespace ABVInvest.Services.Balances
                 return result;
             }
 
-            result.Data = dailyBalance;
             return result;
         }
     }
