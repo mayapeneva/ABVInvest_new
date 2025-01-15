@@ -3,6 +3,7 @@ using ABVInvest.Data;
 using ABVInvest.Data.Models;
 using ABVInvest.Services.Balances;
 using Moq;
+using System.Security.Claims;
 using Xunit;
 
 namespace ABVInvest.Services.Tests.BalancesServiceTests
@@ -13,15 +14,17 @@ namespace ABVInvest.Services.Tests.BalancesServiceTests
         private readonly IBalancesService BalanacesService;
 
         private readonly Mock<ApplicationUser> MoqUser;
+        private readonly ClaimsPrincipal Principal;
 
         public BalancesServiceTests()
         {
             MoqUser = TestHelper.UserSetupForBalancesTests();
-            (BalanacesService, Db) = TestHelper.BalancesServiceSetup();
+            Principal = new ClaimsPrincipal();
+            (BalanacesService, Db) = TestHelper.BalancesServiceSetup(Principal, MoqUser);
         }
 
         [Fact]
-        public async Task CreateBalanceForUser_ShouldNotCreateSecondDailyBalanceForUserForSameDate()
+        public async Task CreateBalanceForUserAsync_ShouldNotCreateSecondDailyBalanceForUserForSameDate()
         {
             // Arrange
             var firstResult = await BalanacesService.CreateBalanceForUserAsync(MoqUser.Object, TestHelper.BalancesDate);
@@ -40,7 +43,7 @@ namespace ABVInvest.Services.Tests.BalancesServiceTests
         }
 
         [Fact]
-        public async Task CreateBalanceForUser_ShouldCreateDailyBalanceForUser()
+        public async Task CreateBalanceForUserAsync_ShouldCreateDailyBalanceForUser()
         {
             // Arrange
             var expectedUserBalancesCount = 1;
@@ -56,7 +59,7 @@ namespace ABVInvest.Services.Tests.BalancesServiceTests
         }
 
         [Fact]
-        public async Task CreateBalanceForUser_ShouldCreateBalanceForUser()
+        public async Task CreateBalanceForUserAsync_ShouldCreateBalanceForUser()
         {
             // Act
             var actualResult = await BalanacesService.CreateBalanceForUserAsync(MoqUser.Object, TestHelper.BalancesDate);
@@ -67,7 +70,7 @@ namespace ABVInvest.Services.Tests.BalancesServiceTests
         }
 
         [Fact]
-        public async Task CreateBalanceForUser_ShouldReturnBalanceWithCorrectVirtualProfit()
+        public async Task CreateBalanceForUserAsync_ShouldReturnBalanceWithCorrectVirtualProfit()
         {
             // Arrange
             var expectedVirtualProfit = 10000;
@@ -83,7 +86,7 @@ namespace ABVInvest.Services.Tests.BalancesServiceTests
         }
 
         [Fact]
-        public async Task CreateBalanceForUser_ShouldReturnBalanceWithCorrectVirtualProfitPercentage()
+        public async Task CreateBalanceForUserAsync_ShouldReturnBalanceWithCorrectVirtualProfitPercentage()
         {
             // Arrange
             var expectedVirtualProfitPercentage = 100;
@@ -99,24 +102,24 @@ namespace ABVInvest.Services.Tests.BalancesServiceTests
         }
 
         [Fact]
-        public async Task GetUserDailyBalance_ShouldReturnBalance()
+        public async Task GetUserDailyBalanceAsync_ShouldReturnBalance()
         {
             // Arrange
-            var actualResult = await BalanacesService.CreateBalanceForUserAsync(MoqUser.Object, TestHelper.BalancesDate);
+            var createResult = await BalanacesService.CreateBalanceForUserAsync(MoqUser.Object, TestHelper.BalancesDate);
 
             // Act
-            var actualUserBalance = BalanacesService.GetUserDailyBalance<BalanceTestModel>(MoqUser.Object, TestHelper.BalancesDate);
+            var actualUserBalance = await BalanacesService.GetUserDailyBalanceAsync<BalanceTestModel>(Principal, TestHelper.BalancesDate);
 
             // Assert
-            Assert.True(actualResult.IsSuccessful());
+            Assert.True(createResult.IsSuccessful());
             Assert.NotNull(actualUserBalance);
         }
 
         [Fact]
-        public async Task GetUserDailyBalance_ShouldReturnBalanceWithCorrectProfitFigures()
+        public async Task GetUserDailyBalanceAsync_ShouldReturnBalanceWithCorrectProfitFigures()
         {
             // Arrange
-            var actualResult = await BalanacesService.CreateBalanceForUserAsync(MoqUser.Object, TestHelper.BalancesDate);
+            var createResult = await BalanacesService.CreateBalanceForUserAsync(MoqUser.Object, TestHelper.BalancesDate);
             var expectedUserBalance = new BalanceTestModel
             {
                 VirtualProfit = 10000,
@@ -124,22 +127,36 @@ namespace ABVInvest.Services.Tests.BalancesServiceTests
             };
 
             // Act
-            var actualUserBalance = BalanacesService.GetUserDailyBalance<BalanceTestModel>(MoqUser.Object, TestHelper.BalancesDate);
+            var actualUserBalance = await BalanacesService.GetUserDailyBalanceAsync<BalanceTestModel>(Principal, TestHelper.BalancesDate);
 
             // Assert
-            Assert.True(actualResult.IsSuccessful());
-            Assert.Equal(expectedUserBalance.VirtualProfit, actualUserBalance.Data?.VirtualProfit);
-            Assert.Equal(expectedUserBalance.VirtualProfitPercentage, actualUserBalance.Data?.VirtualProfitPercentage);
+            Assert.True(createResult.IsSuccessful());
+            Assert.NotNull(actualUserBalance);
+            Assert.Equal(expectedUserBalance.VirtualProfit, actualUserBalance?.VirtualProfit);
+            Assert.Equal(expectedUserBalance.VirtualProfitPercentage, actualUserBalance?.VirtualProfitPercentage);
         }
 
         [Fact]
-        public void GetUserDailyBalance_ShouldNotReturnBalanceIfSuchDoesNotExist()
+        public async Task GetUserDailyBalanceAsync_ShouldNotReturnBalanceIfSuchDoesNotExist()
         {
             // Act
-            var actualUserBalance = BalanacesService.GetUserDailyBalance<BalanceTestModel>(MoqUser.Object, TestHelper.BalancesDate);
+            var actualUserBalance = await BalanacesService.GetUserDailyBalanceAsync<BalanceTestModel>(Principal, TestHelper.BalancesDate);
 
             // Assert
-            Assert.False(actualUserBalance.IsSuccessful());
+            Assert.Null(actualUserBalance);
+        }
+
+        [Fact]
+        public async Task GetUserDailyBalanceAsync_ShouldReturnEmptyCollectionIfThereIsNoSuchUser()
+        {
+            // Arange
+            var user = new ClaimsPrincipal();
+
+            // Act
+            var actualUserBalance = await BalanacesService.GetUserDailyBalanceAsync<BalanceTestModel>(user, TestHelper.BalancesDate);
+
+            // Assert
+            Assert.Null(actualUserBalance);
         }
 
         public void Dispose() => Db?.Dispose();

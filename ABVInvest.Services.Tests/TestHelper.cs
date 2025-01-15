@@ -104,13 +104,12 @@ namespace ABVInvest.Services.Tests
         {
             var db = GetDb();
             var mapper = GetMapper();
-
             var dataService = new DataService(db, mapper);
-            var balancesService = new BalancesService(db, mapper);
 
             var mockUserStore = new Mock<IUserStore<ApplicationUser>>();
             var userManager = new Mock<UserManager<ApplicationUser>>(mockUserStore.Object, null, null, null, null, null, null, null, null);
             userManager.Setup(um => um.GetUserAsync(principal)).Returns(Task.FromResult(moqUser?.Object));
+            var balancesService = new BalancesService(db, userManager.Object, mapper);
 
             var portfoliosService = new PortfoliosService(db, userManager.Object, balancesService, dataService, mapper);
             return new Tuple<IPortfoliosService, ApplicationDbContext>(portfoliosService, db);
@@ -149,11 +148,15 @@ namespace ABVInvest.Services.Tests
             return deserializedDeals ?? [];
         }
 
-        public static Tuple<IBalancesService, ApplicationDbContext> BalancesServiceSetup()
+        public static Tuple<IBalancesService, ApplicationDbContext> BalancesServiceSetup(ClaimsPrincipal principal, Mock<ApplicationUser> moqUser)
         {
             var db = GetDb();
             var mapper = GetMapper();
-            var balancesService = new BalancesService(db, mapper);
+
+            var mockUserStore = new Mock<IUserStore<ApplicationUser>>();
+            var userManager = new Mock<UserManager<ApplicationUser>>(mockUserStore.Object, null, null, null, null, null, null, null, null);
+            userManager.Setup(um => um.GetUserAsync(principal)).Returns(Task.FromResult(moqUser?.Object));
+            var balancesService = new BalancesService(db, userManager.Object, mapper);
 
             return new Tuple<IBalancesService, ApplicationDbContext>(balancesService, db);
         }

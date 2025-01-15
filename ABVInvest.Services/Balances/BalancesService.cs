@@ -1,27 +1,29 @@
 ﻿using ABVInvest.Common;
-using ABVInvest.Common.Constants;
 using ABVInvest.Data;
 using ABVInvest.Data.Models;
 using AutoMapper;
+using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
 
 namespace ABVInvest.Services.Balances
 {
-    public class BalancesService(ApplicationDbContext db, IMapper mapper)
-        : BaseService(db, mapper), IBalancesService
+    public class BalancesService : BaseService, IBalancesService
     {
-        public ApplicationResult<T> GetUserDailyBalance<T>(ApplicationUser user, DateOnly date)
+        private readonly UserManager<ApplicationUser> userManager;
+
+        public BalancesService(ApplicationDbContext db,
+            UserManager<ApplicationUser> userManager,
+            IMapper mapper)
+            : base(db, mapper)
         {
-            var result = new ApplicationResult<T>();
+            ArgumentNullException.ThrowIfNull(userManager);
+            this.userManager = userManager;
+        }
 
-            var dailyBalance = user.Balances.SingleOrDefault(b => b.Date == date);
-            if (dailyBalance is null)
-            {
-                result.Errors.Add(string.Format(Messages.Common.NoBalance, DateTime.UtcNow.ToString(ShortConstants.Common.DateTimeParseFormat)));
-                return result;
-            }
-
-            result.Data = this.Mapper.Map<T>(dailyBalance.Balance);
-            return result;
+        public async Task<T> GetUserDailyBalanceAsync<T>(ClaimsPrincipal user, DateOnly date)
+        {
+            var dbUser = await userManager.GetUserAsync(user);
+            return this.Mapper.Map<T>(dbUser?.Balances.SingleOrDefault(b => b.Date == date)?.Balance);
         }
 
         public async Task<ApplicationResultBase> CreateBalanceForUserAsync(ApplicationUser user, DateOnly date)
