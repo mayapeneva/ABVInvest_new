@@ -128,11 +128,6 @@
         return await Task.FromResult(request.ApplyTo(PortfolioModels));
     }
 
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await base.OnAfterRenderAsync(firstRender);
-    }
-
     private sealed class InputModel
     {
         [DataType(DataType.Date)]

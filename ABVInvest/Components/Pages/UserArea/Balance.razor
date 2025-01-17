@@ -1,0 +1,116 @@
+﻿@page "/UserArea/Balance"
+
+@rendermode InteractiveServer
+
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject IBalancesService BalancesService
+
+<section>
+    @if (!BalanceModel.Any())
+    {
+        <div class="container">
+            <h2 class="bg-abvmiddlegreen"> Баланс </h2>
+            <hr />
+
+            <EditForm Model="Input" method="post" OnValidSubmit="ShowBalance" FormName="balanceForm">
+                <DataAnnotationsValidator />
+                <ValidationSummary class="text-danger" role="alert" />
+                <div class="form-group">
+                    <div class="col-md-5 mb-3">
+                        <label class="col-form-label"> За да да получите информация за баланса си, моля изберете дата след @ShortConstants.Common.MinDate.ToString(ShortConstants.Common.DateTimeParseFormat) и не по-късна от @ShortConstants.Common.MaxDate.ToString(ShortConstants.Common.DateTimeParseFormat): </label>
+                    </div>
+                    <div class="col-md-2 mb-3">
+                        <DateInput class="form-control" TValue="DateOnly?" @bind-Value="Input.Date" EnableMinMax="true" Min="@ShortConstants.Common.MinDate" Max="@ShortConstants.Common.MaxDate" Placeholder="Изберете дата" />
+                        <ValidationMessage For="() => Input.Date" class="text-danger" />
+                    </div>
+                    <Button Type="ButtonType.Submit" Class="button-top-margin bg-bg-abvlightgreen bg-abvdarkgreen large-fontsize"> Избери </Button>
+                </div>
+            </EditForm>
+        </div>
+    }
+    else
+    {
+        <div class="balance-table-container">
+            <h2 class="bg-abvmiddlegreen"> Баланс към дата @Input.Date?.ToString(ShortConstants.Common.DateTimeParseFormat) </h2>
+            <hr />
+
+            <Grid @ref="grid"
+            TItem="BalanceViewModel"
+            Class="table table-hover table-bordered table-striped text-nowrap balance-table"
+            HeaderRowCssClass="bg-abvmiddlegreen !important"
+            DataProvider="BalanceDataProvider"
+            Unit="Unit.Px">
+                <GridColumns>
+                    <GridColumn TItem="BalanceViewModel" HeaderText="Валута" PropertyName="CurrencyCode">
+                        @context.CurrencyCode
+                    </GridColumn>
+                    <GridColumn TItem="BalanceViewModel" HeaderText="Пари в брой" PropertyName="Cash">
+                        @context.Cash
+                    </GridColumn>
+                    <GridColumn TItem="BalanceViewModel" HeaderText="Стойност на придобиване на ценните книжа" PropertyName="AllSecuritiesTotalPriceBuy">
+                        @context.AllSecuritiesTotalPriceBuy
+                    </GridColumn>
+                    <GridColumn TItem="BalanceViewModel" HeaderText="Пазарна стойност на ценните книжа" PropertyName="AllSecuritiesTotalMarketPrice">
+                        @context.AllSecuritiesTotalMarketPrice
+                    </GridColumn>
+                    <GridColumn TItem="BalanceViewModel" HeaderText="Обща доходност" PropertyName="VirtualProfit">
+                        @context.VirtualProfit
+                    </GridColumn>
+                    <GridColumn TItem="BalanceViewModel" HeaderText="Обща доходност(%)" PropertyName="VirtualProfitPercentage%">
+                        @context.VirtualProfitPercentage%
+                    </GridColumn>
+                </GridColumns>
+            </Grid>
+        </div>
+    }
+
+    <div class="container">
+        <div class="status-message">
+            <StatusDisplayMessage DisplayMessages="@ErrorMessages" Success="@Success" />
+        </div>
+    </div>
+
+    <BackToPage />
+</section>
+
+@code {
+    private IEnumerable<string>? ErrorMessages;
+    private bool Success;
+
+    [SupplyParameterFromForm]
+    private InputModel Input { get; set; } = new();
+
+    BlazorBootstrap.Grid<BalanceViewModel> grid = default!;
+    private IEnumerable<BalanceViewModel> BalanceModel = new List<BalanceViewModel>();
+
+    private async Task ShowBalance()
+    {
+        if (Input.Date is not null)
+        {
+            var authenticationState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+            var balance = await BalancesService.GetUserDailyBalanceAsync<BalanceViewModel>(authenticationState.User, Input.Date.Value);
+            if (balance is not null)
+            {
+                BalanceModel = [balance];
+                ErrorMessages = [];
+            }
+            else
+            {
+                Success = false;
+                ErrorMessages = [string.Format(Messages.Common.NoBalance, DateTime.UtcNow.ToString(ShortConstants.Common.DateTimeParseFormat))];
+            }
+        }
+    }
+
+    private async Task<GridDataProviderResult<BalanceViewModel>> BalanceDataProvider(GridDataProviderRequest<BalanceViewModel> request)
+    {
+        return await Task.FromResult(request.ApplyTo(BalanceModel));
+    }
+
+    private sealed class InputModel
+    {
+        [DataType(DataType.Date)]
+        public DateOnly? Date;
+    }
+}
+

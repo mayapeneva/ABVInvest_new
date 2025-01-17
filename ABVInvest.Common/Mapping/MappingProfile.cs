@@ -40,6 +40,18 @@ namespace ABVInvest.Common.Mapping
             this.CreateMap<Deal, DealTestModel>();
 
             this.CreateMap<Balance, BalanceTestModel>();
+
+            this.CreateMap<Balance, BalanceViewModel>()
+                .ForMember(dest => dest.Cash,
+                    opt => opt.MapFrom(src => src.Cash.ToString("N2", CultureInfo.CreateSpecificCulture(ShortConstants.Common.SvSeCulture))))
+                .ForMember(dest => dest.AllSecuritiesTotalPriceBuy,
+                    opt => opt.MapFrom(src => src.AllSecuritiesTotalPriceBuy.ToString("N3", CultureInfo.CreateSpecificCulture(ShortConstants.Common.SvSeCulture))))
+                .ForMember(dest => dest.AllSecuritiesTotalMarketPrice,
+                    opt => opt.MapFrom(src => src.AllSecuritiesTotalMarketPrice.ToString("N3", CultureInfo.CreateSpecificCulture(ShortConstants.Common.SvSeCulture))))
+                .ForMember(dest => dest.VirtualProfit,
+                    opt => opt.MapFrom(src => src.VirtualProfit.ToString("N2", CultureInfo.CreateSpecificCulture(ShortConstants.Common.SvSeCulture))))
+                .ForMember(dest => dest.VirtualProfitPercentage,
+                    opt => opt.MapFrom(src => src.VirtualProfitPercentage.ToString("N2", CultureInfo.CreateSpecificCulture(ShortConstants.Common.SvSeCulture))));
         }
     }
 }
