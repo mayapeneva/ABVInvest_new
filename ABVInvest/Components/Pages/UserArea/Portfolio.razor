@@ -29,62 +29,7 @@
     }
     else
     {
-        <div class="portfolio-table-container">
-            <h2 class="bg-abvmiddlegreen"> Списък с ценни книжа към дата @PortfolioModels.First().DailySecuritiesPerClientDate </h2>
-            <hr />
-
-            <Grid @ref="grid"
-                  TItem="PortfolioViewModel"
-                  Class="table table-hover table-bordered table-striped text-nowrap portfolio-table"
-                  HeaderRowCssClass="bg-abvmiddlegreen !important"
-                  DataProvider="PortfolioDataProvider"
-                  FixedHeader="true"
-                  Height="600"
-                  Responsive="true"
-                  Unit="Unit.Px">
-
-                <GridColumns>
-                    <GridColumn TItem="PortfolioViewModel" HeaderText="Емитент" PropertyName="SecurityIssuerName">
-                        @context.SecurityIssuerName
-                    </GridColumn>
-                    <GridColumn TItem="PortfolioViewModel" HeaderText="БФБ Код" PropertyName="SecurityBfbCode">
-                        @context.SecurityBfbCode
-                    </GridColumn>
-                    <GridColumn TItem="PortfolioViewModel" HeaderText="ISIN" PropertyName="SecurityIsin">
-                        @context.SecurityIsin
-                    </GridColumn>
-                    <GridColumn TItem="PortfolioViewModel" HeaderText="Наличност" PropertyName="Quantity">
-                        @context.Quantity
-                    </GridColumn>
-                    <GridColumn TItem="PortfolioViewModel" HeaderText="Валута" PropertyName="CurrencyCode">
-                        @context.CurrencyCode
-                    </GridColumn>
-                    <GridColumn TItem="PortfolioViewModel" HeaderText="Средна цена" PropertyName="AveragePriceBuy">
-                        @context.AveragePriceBuy
-                    </GridColumn>
-                    <GridColumn TItem="PortfolioViewModel" HeaderText="Стойност на придобиване" PropertyName="TotalPriceBuy">
-                        @context.TotalPriceBuy
-                    </GridColumn>
-                    <GridColumn TItem="PortfolioViewModel" HeaderText="Пазарна цена" PropertyName="MarketPrice">
-                        @context.MarketPrice
-                    </GridColumn>
-                    <GridColumn TItem="PortfolioViewModel" HeaderText="Пазарна стойност" PropertyName="TotalMarketPrice">
-                        @context.TotalMarketPrice
-                    </GridColumn>
-                    <GridColumn TItem="PortfolioViewModel" HeaderText="Доходност" PropertyName="ProfitPercentage"
-                                ColumnClass="@(x => x.Profit >= 0 ? "profit-positive" : "profit-negative")">
-                        @context.ProfitPercentage
-                    </GridColumn>
-                    <GridColumn TItem="PortfolioViewModel" HeaderText="Доходност (%)" PropertyName="ProfitPercentage"
-                                ColumnClass="@(x => x.Profit >= 0 ? "profit-positive" : "profit-negative")">
-                        @context.ProfitPercentage
-                    </GridColumn>
-                    <GridColumn TItem="PortfolioViewModel" HeaderText="Тегло в портфейла (%)" PropertyName="PortfolioShare">
-                        @context.PortfolioShare
-                    </GridColumn>
-                </GridColumns>
-            </Grid>
-        </div>
+        <PortfoliosGrid PortfolioModels="@PortfolioModels" Date="@Input.Date"></PortfoliosGrid>
     }
 
     <div class="status-message">
@@ -101,7 +46,6 @@
     [SupplyParameterFromForm]
     private InputModel Input { get; set; } = new();
 
-    BlazorBootstrap.Grid<PortfolioViewModel> grid = default!;
     private IEnumerable<PortfolioViewModel> PortfolioModels = new List<PortfolioViewModel>();
 
     private async Task ShowPortfolio()
@@ -121,11 +65,6 @@
                 ErrorMessages = [Messages.DealsAndPortfolios.NoPortfolio];
             }
         }
-    }
-
-    private async Task<GridDataProviderResult<PortfolioViewModel>> PortfolioDataProvider(GridDataProviderRequest<PortfolioViewModel> request)
-    {
-        return await Task.FromResult(request.ApplyTo(PortfolioModels));
     }
 
     private sealed class InputModel

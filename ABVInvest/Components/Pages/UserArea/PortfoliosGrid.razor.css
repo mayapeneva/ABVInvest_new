@@ -1,0 +1,53 @@
+﻿::deep .e-headercell {
+    border: 1px ridge var(--middlegreen-color) !important;
+}
+
+::deep .e-rowcell {
+    border: 1px ridge var(--middlegreen-color) !important;
+}
+
+::deep .e-toolbar-items .e-toolbar-item .e-control {
+    background-color: var(--lightgreen-color);
+}
+
+    ::deep .e-toolbar-items .e-toolbar-item .e-control:hover {
+        background-color: var(--middlegreen-color);
+    }
+
+    ::deep .e-toolbar-items .e-toolbar-item .e-control .e-tbar-btn-text {
+        color: var(--darkgreen-color) !important;
+    }
+
+    ::deep .e-toolbar-items .e-toolbar-item .e-control .e-pdfexport {
+        color: var(--darkgreen-color) !important;
+    }
+
+::deep .e-grid .e-gridheader .e-headertext {
+    color: var(--middlegreen-color);
+    font-size: 16px;
+}
+
+::deep .e-grid .e-row .e-rowcell {
+    color: var(--darkgreen-color) !important;
+    font-size: 16px;
+}
+
+::deep .sf-pager {
+    color: var(--darkgreen-color);
+}
+
+    ::deep .sf-pager .e-pagercontainer .e-icons {
+        color: var(--darkgreen-color) !important;
+    }
+
+    ::deep .sf-pager .e-pagercontainer .e-numericitem {
+        color: var(--darkgreen-color) !important;
+    }
+
+::deep .e-grid .e-row .no-profit {
+    color: var(--middlegreen-color) !important;
+}
+
+::deep .e-grid .e-row .negative-profit {
+    color: var(--red-color) !important;
+}

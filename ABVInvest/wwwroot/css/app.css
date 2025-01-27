@@ -39,3 +39,7 @@ h1:focus {
 .darker-border-checkbox.form-check-input {
     border-color: #89BF32;
 }
+
+table, th, td {
+    border: 1px ridge var(--darkgreen-color);
+}

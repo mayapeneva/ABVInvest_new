@@ -191,7 +191,7 @@ namespace ABVInvest.Services.Portfolios
 
             if (!decimal.TryParse(accountData.ResultBGN.Replace(" ", string.Empty), out var profitInBGN))
             {
-                result.Errors.Add(string.Format(Messages.DealsAndPortfolios.SecurityCannotBeRegistered, portfolioKey, profitInBGN.ToString("N2", CultureInfo.CreateSpecificCulture(ShortConstants.Common.SvSeCulture)), accountData.ResultBGN));
+                result.Errors.Add(string.Format(Messages.DealsAndPortfolios.SecurityCannotBeRegistered, portfolioKey, profitInBGN.ToString("N2", CultureInfo.CreateSpecificCulture(ShortConstants.Common.BgCulture)), accountData.ResultBGN));
                 return result;
             }
 

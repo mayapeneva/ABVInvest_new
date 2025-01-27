@@ -168,26 +168,6 @@ input {
     margin: 50px;
 }
 
-/*.portfolio-table thead > tr > th {
-    color: var(--middlegreen-color) !important;
-}*/
-
-.portfolio-table tbody > tr:nth-child(even) > td {
-    color: var(--darkgreen-color);
-}
-
-.portfolio-table tbody > tr:nth-child(odd) > td {
-    color: var(--darkgreen-color);
-}
-
-.profit-positive {
-    color: var(--middlegreen-color) !important;
-}
-
-.profit-negative {
-    color: var(--red-color) !important;
-}
-
 .export-button {
     margin-bottom: 20px !important;
 }
@@ -197,9 +177,8 @@ input {
     margin-top: 40px;
 }
 
-.nav-link-pdf {
+.button-float-right {
     float: right;
-    margin-top: 40px;
 }
 
 .add-data-button {
