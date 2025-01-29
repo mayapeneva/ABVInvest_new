@@ -27,4 +27,10 @@
 	  <Folder Include="wwwroot\uploadedfiles\" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Content Update="wwwroot\fonts\regular_base64.txt">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	</ItemGroup>
+
 </Project>

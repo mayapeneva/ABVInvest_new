@@ -32,12 +32,17 @@
         public static class Portfolios
         {
             public const string AveragePrice = "Средна цена";
+            public const string BfbCode = "БФБ Код";
+            public const string CurrencyCode = "Валута";
+            public const string ISIN = "ISIN";
             public const string MarketPrice = "Пазарна цена";
             public const string MarketValue = "Пазарна стойност";
             public const string PortfolioShare = "Тегло в портфейла";
             public const string Profit = "Доходност";
             public const string ProfitInPersentage = "Доходност в %";
             public const string Quantity = "Наличност";
+            public const string SecurityIssuer = "Емитент";
+            public const string TotalPriceBuy = "Стойност на придобиване";
         }
 
         public static class Role

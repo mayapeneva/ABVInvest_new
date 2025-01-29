@@ -16,19 +16,19 @@
         <GridPageSettings PageSize="12"></GridPageSettings>
         <GridEvents QueryCellInfo="QueryCellInfoHandler" OnToolbarClick="ToolbarClickHandler" TValue="PortfolioViewModel"></GridEvents>
         <Syncfusion.Blazor.Grids.GridColumns>
-            <Syncfusion.Blazor.Grids.GridColumn Field=@nameof(PortfolioViewModel.SecurityIssuerName) HeaderText="Емитент" MinWidth="8" Width="200">
+            <Syncfusion.Blazor.Grids.GridColumn Field=@nameof(PortfolioViewModel.SecurityIssuerName) HeaderText=@ShortConstants.Portfolios.SecurityIssuer MinWidth="8" Width="200">
             </Syncfusion.Blazor.Grids.GridColumn>
-            <Syncfusion.Blazor.Grids.GridColumn Field=@nameof(PortfolioViewModel.SecurityBfbCode) HeaderText="БФБ Код" MinWidth="8" Width="100"></Syncfusion.Blazor.Grids.GridColumn>
-            <Syncfusion.Blazor.Grids.GridColumn Field=@nameof(PortfolioViewModel.SecurityIsin) HeaderText="ISIN" MinWidth="8" Width="100"></Syncfusion.Blazor.Grids.GridColumn>
-            <Syncfusion.Blazor.Grids.GridColumn Field=@nameof(PortfolioViewModel.Quantity) HeaderText="Наличност" MinWidth="8" Width="100"></Syncfusion.Blazor.Grids.GridColumn>
-            <Syncfusion.Blazor.Grids.GridColumn Field=@nameof(PortfolioViewModel.CurrencyCode) HeaderText="Валута" MinWidth="8" Width="100"></Syncfusion.Blazor.Grids.GridColumn>
-            <Syncfusion.Blazor.Grids.GridColumn Field=@nameof(PortfolioViewModel.AveragePriceBuy) HeaderText="Средна цена" MinWidth="8" Width="100"></Syncfusion.Blazor.Grids.GridColumn>
-            <Syncfusion.Blazor.Grids.GridColumn Field=@nameof(PortfolioViewModel.TotalPriceBuy) HeaderText="Стойност на придобиване" MinWidth="8" Width="100"></Syncfusion.Blazor.Grids.GridColumn>
-            <Syncfusion.Blazor.Grids.GridColumn Field=@nameof(PortfolioViewModel.MarketPrice) HeaderText="Пазарна цена" MinWidth="8" Width="100"></Syncfusion.Blazor.Grids.GridColumn>
-            <Syncfusion.Blazor.Grids.GridColumn Field=@nameof(PortfolioViewModel.TotalMarketPrice) HeaderText="Пазарна стойност" MinWidth="8" Width="100"></Syncfusion.Blazor.Grids.GridColumn>
-            <Syncfusion.Blazor.Grids.GridColumn Field=@nameof(PortfolioViewModel.ProfitString) HeaderText="Доходност" MinWidth="8" Width="100"></Syncfusion.Blazor.Grids.GridColumn>
-            <Syncfusion.Blazor.Grids.GridColumn Field=@nameof(PortfolioViewModel.ProfitPercentage) HeaderText="Доходност (%)" MinWidth="8" Width="100"></Syncfusion.Blazor.Grids.GridColumn>
-            <Syncfusion.Blazor.Grids.GridColumn Field=@nameof(PortfolioViewModel.PortfolioShare) HeaderText="Тегло в портфейла (%)" MinWidth="8" Width="100"></Syncfusion.Blazor.Grids.GridColumn>
+            <Syncfusion.Blazor.Grids.GridColumn Field=@nameof(PortfolioViewModel.SecurityBfbCode) HeaderText=@ShortConstants.Portfolios.BfbCode MinWidth="8" Width="100"></Syncfusion.Blazor.Grids.GridColumn>
+            <Syncfusion.Blazor.Grids.GridColumn Field=@nameof(PortfolioViewModel.SecurityIsin) HeaderText=@ShortConstants.Portfolios.ISIN MinWidth="8" Width="100"></Syncfusion.Blazor.Grids.GridColumn>
+            <Syncfusion.Blazor.Grids.GridColumn Field=@nameof(PortfolioViewModel.Quantity) HeaderText=@ShortConstants.Portfolios.Quantity MinWidth="8" Width="100"></Syncfusion.Blazor.Grids.GridColumn>
+            <Syncfusion.Blazor.Grids.GridColumn Field=@nameof(PortfolioViewModel.CurrencyCode) HeaderText=@ShortConstants.Portfolios.CurrencyCode MinWidth="8" Width="100"></Syncfusion.Blazor.Grids.GridColumn>
+            <Syncfusion.Blazor.Grids.GridColumn Field=@nameof(PortfolioViewModel.AveragePriceBuy) HeaderText=@ShortConstants.Portfolios.AveragePrice MinWidth="8" Width="100"></Syncfusion.Blazor.Grids.GridColumn>
+            <Syncfusion.Blazor.Grids.GridColumn Field=@nameof(PortfolioViewModel.TotalPriceBuy) HeaderText=@ShortConstants.Portfolios.TotalPriceBuy MinWidth="8" Width="100"></Syncfusion.Blazor.Grids.GridColumn>
+            <Syncfusion.Blazor.Grids.GridColumn Field=@nameof(PortfolioViewModel.MarketPrice) HeaderText=@ShortConstants.Portfolios.MarketPrice MinWidth="8" Width="100"></Syncfusion.Blazor.Grids.GridColumn>
+            <Syncfusion.Blazor.Grids.GridColumn Field=@nameof(PortfolioViewModel.TotalMarketPrice) HeaderText=@ShortConstants.Portfolios.MarketValue MinWidth="8" Width="100"></Syncfusion.Blazor.Grids.GridColumn>
+            <Syncfusion.Blazor.Grids.GridColumn Field=@nameof(PortfolioViewModel.ProfitString) HeaderText=@ShortConstants.Portfolios.Profit MinWidth="8" Width="100"></Syncfusion.Blazor.Grids.GridColumn>
+            <Syncfusion.Blazor.Grids.GridColumn Field=@nameof(PortfolioViewModel.ProfitPercentage) HeaderText=@ShortConstants.Portfolios.ProfitInPersentage MinWidth="8" Width="100"></Syncfusion.Blazor.Grids.GridColumn>
+            <Syncfusion.Blazor.Grids.GridColumn Field=@nameof(PortfolioViewModel.PortfolioShare) HeaderText=@ShortConstants.Portfolios.PortfolioShare MinWidth="8" Width="100"></Syncfusion.Blazor.Grids.GridColumn>
         </Syncfusion.Blazor.Grids.GridColumns>
     </SfGrid>
 </div>
@@ -43,24 +43,36 @@
     private List<string> ToolbarItems = new List<string>() { "PdfExport" };
     private SfGrid<PortfolioViewModel>? DefaultGrid;
 
+    private string CyrilicFontFamily;
+
     public List<PdfHeaderFooterContent> HeaderContent = new List<PdfHeaderFooterContent>
     {
-        new PdfHeaderFooterContent() 
-        { 
+        new PdfHeaderFooterContent()
+        {
             Type = ContentType.Text,
-            Value = "Something", // "АБВ Инвестиции" ,
-            Position = new PdfPosition() { X = 450, Y = 10 }, 
+            Value = "АБВ Инвестиции",
+            Position = new PdfPosition() { X = 450, Y = 10 },
             Style = new PdfContentStyle() { TextBrushColor = "#89BF32", FontSize = 12, Font = new PdfGridFont{ FontFamily = "Times New Roman" }, HAlign = PdfHorizontalAlign.Center }
         }
     };
 
     public List<PdfHeaderFooterContent> FooterContent = new List<PdfHeaderFooterContent>
     {
-        new PdfHeaderFooterContent() { Type = ContentType.PageNumber,
+        new PdfHeaderFooterContent()
+        {
+            Type = ContentType.PageNumber,
             PageNumberType = PdfPageNumberType.Arabic,
             Position = new PdfPosition() { X = 500, Y = 10 },
-            Style = new PdfContentStyle() { TextBrushColor = "#89BF32", FontSize = 12, HAlign = PdfHorizontalAlign.Center } }
+            Style = new PdfContentStyle() { TextBrushColor = "#89BF32", FontSize = 12, HAlign = PdfHorizontalAlign.Center }
+        }
     };
+
+    protected override async Task OnInitializedAsync()
+    {
+        var filePath = Path.GetDirectoryName(AppDomain.CurrentDomain.BaseDirectory);
+        using var recordStreamReader = new StreamReader($"{filePath}/wwwroot/fonts/regular_base64.txt");
+        CyrilicFontFamily = await recordStreamReader.ReadToEndAsync();
+    }
 
     public async Task ToolbarClickHandler(Syncfusion.Blazor.Navigations.ClickEventArgs args)
     {
@@ -76,18 +88,18 @@
             exportProperties.DisableAutoFitWidth = true;
             exportProperties.Columns = new List<GridColumn>()
             {
-                new GridColumn(){ Field="SecurityIssuerName", HeaderText="Емитент", Width="100"},
-                new GridColumn(){ Field="SecurityBfbCode", HeaderText="БФБ Код", Width="40"},
-                new GridColumn(){ Field="SecurityIsin", HeaderText="ISIN", Width="90"},
-                new GridColumn(){ Field="Quantity", HeaderText="Наличност", Width="80"},
-                new GridColumn(){ Field="CurrencyCode", HeaderText="Валута", Width="40"},
-                new GridColumn(){ Field="AveragePriceBuy", HeaderText="Средна цена", Width="50"},
-                new GridColumn(){ Field="TotalPriceBuy", HeaderText="Стойност на придобиване", Width="70"},
-                new GridColumn(){ Field="MarketPrice", HeaderText="Пазарна цена", Width="50"},
-                new GridColumn(){ Field="TotalMarketPrice", HeaderText="Пазарна стойност", Width="70"},
-                new GridColumn(){ Field="ProfitString", HeaderText="Доходност", Width="70"},
-                new GridColumn(){ Field="ProfitPercentage", HeaderText="Доходност (%)", Width="50"},
-                new GridColumn(){ Field="PortfolioShare", HeaderText="Тегло в портфейла (%)", Width="50"}
+                new GridColumn(){ Field=nameof(PortfolioViewModel.SecurityIssuerName), HeaderText=ShortConstants.Portfolios.SecurityIssuer, Width="100"},
+                new GridColumn(){ Field=nameof(PortfolioViewModel.SecurityBfbCode), HeaderText=ShortConstants.Portfolios.BfbCode, Width="40"},
+                new GridColumn(){ Field=nameof(PortfolioViewModel.SecurityIsin), HeaderText=ShortConstants.Portfolios.ISIN, Width="75"},
+                new GridColumn(){ Field=nameof(PortfolioViewModel.Quantity), HeaderText=ShortConstants.Portfolios.Quantity, Width="75"},
+                new GridColumn(){ Field=nameof(PortfolioViewModel.CurrencyCode), HeaderText=ShortConstants.Portfolios.CurrencyCode, Width="45"},
+                new GridColumn(){ Field=nameof(PortfolioViewModel.AveragePriceBuy), HeaderText=ShortConstants.Portfolios.AveragePrice, Width="50"},
+                new GridColumn(){ Field=nameof(PortfolioViewModel.TotalPriceBuy), HeaderText=ShortConstants.Portfolios.TotalPriceBuy, Width="80"},
+                new GridColumn(){ Field=nameof(PortfolioViewModel.MarketPrice), HeaderText=ShortConstants.Portfolios.MarketPrice, Width="55"},
+                new GridColumn(){ Field=nameof(PortfolioViewModel.TotalMarketPrice), HeaderText=ShortConstants.Portfolios.MarketValue, Width="65"},
+                new GridColumn(){ Field=nameof(PortfolioViewModel.ProfitString), HeaderText=ShortConstants.Portfolios.Profit, Width="65"},
+                new GridColumn(){ Field=nameof(PortfolioViewModel.ProfitPercentage), HeaderText=ShortConstants.Portfolios.ProfitInPersentage, Width="45"},
+                new GridColumn(){ Field=nameof(PortfolioViewModel.PortfolioShare), HeaderText=ShortConstants.Portfolios.PortfolioShare, Width="65"}
             };
 
             var theme = new PdfTheme();
@@ -96,9 +108,8 @@
 
             var headerThemeStyle = new PdfThemeStyle()
                 {
-                    FontColor = "#89BF32",
-                    FontName = "Times New Roman",
-                    FontSize = 12,
+                    Font = new PdfGridFont { IsTrueType = true, FontSize = 10, FontFamily = CyrilicFontFamily },
+                    FontColor = "#2A833F",
                     Bold = true,
                     Border = border
                 };
@@ -106,9 +117,8 @@
 
             var recordThemeStyle = new PdfThemeStyle()
                 {
+                    Font = new PdfGridFont { IsTrueType = true, FontSize = 10, FontFamily = CyrilicFontFamily },
                     FontColor = "#2A833F",
-                    FontName = "Times New Roman",
-                    FontSize = 10,
                     Border = border
 
                 };
