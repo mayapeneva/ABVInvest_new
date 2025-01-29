@@ -43,7 +43,7 @@
     private List<string> ToolbarItems = new List<string>() { "PdfExport" };
     private SfGrid<PortfolioViewModel>? DefaultGrid;
 
-    private string CyrilicFontFamily;
+    private string CyrilicFontFamily = "";
 
     public List<PdfHeaderFooterContent> HeaderContent = new List<PdfHeaderFooterContent>
     {
@@ -52,7 +52,7 @@
             Type = ContentType.Image,
             Src = ShortConstants.Logo.LogoString,
             Position = new PdfPosition() { X = 450, Y = 10 },
-            Size = new PdfSize() { Height = 41, Width = 101 } // 41/101 or 40/98
+            Size = new PdfSize() { Height = 41, Width = 101 }
         }
     };
 
