@@ -49,10 +49,10 @@
     {
         new PdfHeaderFooterContent()
         {
-            Type = ContentType.Text,
-            Value = "АБВ Инвестиции",
+            Type = ContentType.Image,
+            Src = ShortConstants.Logo.LogoString,
             Position = new PdfPosition() { X = 450, Y = 10 },
-            Style = new PdfContentStyle() { TextBrushColor = "#89BF32", FontSize = 12, Font = new PdfGridFont{ FontFamily = "Times New Roman" }, HAlign = PdfHorizontalAlign.Center }
+            Size = new PdfSize() { Height = 41, Width = 101 } // 41/101 or 40/98
         }
     };
 
@@ -128,7 +128,7 @@
             var header = new PdfHeader()
                 {
                     FromTop = 0,
-                    Height = 50,
+                    Height = 70,
                     Contents = HeaderContent
                 };
             exportProperties.Header = header;
