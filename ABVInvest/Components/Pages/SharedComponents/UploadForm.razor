@@ -1,0 +1,44 @@
+﻿<div>
+    <h2 class="bg-abvmiddlegreen"> Качване на информация за @LabelPart </h2>
+    <hr />
+
+    <div class="col-md-4">
+        <h4> Тук можете да качите файлът с клиентските @LabelPart: </h4>
+
+        <EditForm Model="Input" method="post" OnValidSubmit="AddInfo" FormName="addFileForm" enctype="multipart/form-data">
+            <DataAnnotationsValidator />
+            <div class="form-group">
+                <div class="row p-0 m-0 mb-3">
+                    <DateInput class="form-control" TValue="DateOnly?" @bind-Value="Input.Date" EnableMinMax="true" Min="@ShortConstants.Common.MinDate" Max="@ShortConstants.Common.MaxDate" Placeholder="Изберете дата" />
+                    <ValidationMessage For="() => Input.Date" class="text-danger" />
+                </div>
+                <div class="row mb-3 mx-auto">
+                    <InputFile class="form-control" OnChange="@SetFile" multiple />
+                    <ValidationMessage For="() => Input.XMLFiles" class="text-danger" />
+                </div>
+                <Button Type="ButtonType.Submit" Class="add-data-button bg-bg-abvlightgreen bg-abvdarkgreen large-fontsize"> Качи </Button>
+            </div>
+        </EditForm>
+    </div>
+</div>
+
+@code {
+    [SupplyParameterFromForm(FormName = "addFileForm")]
+    private FileInputModel Input { get; set; } = new();
+
+    [Parameter]
+    public string LabelPart { get; set; }
+
+    [Parameter]
+    public EventCallback<FileInputModel> AddInfoCallback { get; set; }
+
+    private void SetFile(InputFileChangeEventArgs e)
+    {
+        Input.XMLFiles = e.GetMultipleFiles();
+    }
+
+    private async Task AddInfo()
+    {
+        if (Input is not null && Input.Date is not null && Input.XMLFiles is not null) await this.AddInfoCallback.InvokeAsync(Input);
+    }
+}

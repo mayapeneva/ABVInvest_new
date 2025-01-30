@@ -8,27 +8,7 @@
 @inject IPortfoliosService PortfoliosService
 
 <div class="container">
-    <h2 class="bg-abvmiddlegreen"> Качване на информация за портфолиа </h2>
-    <hr />
-
-    <div class="col-md-4">
-        <h4> Тук можете да качите файлът с клиентските портофолиа: </h4>
-
-        <EditForm Model="Input" method="post" OnValidSubmit="AddPortfolios" FormName="addPortfoliosForm" enctype="multipart/form-data">
-            <DataAnnotationsValidator />
-            <div class="form-group">
-                <div class="row p-0 m-0 mb-3">
-                    <DateInput class="form-control" TValue="DateOnly?" @bind-Value="Input.Date" EnableMinMax="true" Min="@ShortConstants.Common.MinDate" Max="@ShortConstants.Common.MaxDate" Placeholder="Изберете дата" />
-                    <ValidationMessage For="() => Input.Date" class="text-danger" />
-                </div>
-                <div class="row mb-3 mx-auto">
-                    <InputFile class="form-control" placeholder="Клиентски портфолиа" OnChange="@SetFile" multiple />
-                    <ValidationMessage For="() => Input.XMLFiles" class="text-danger" />
-                </div>
-                <Button Type="ButtonType.Submit" Class="add-data-button bg-bg-abvlightgreen bg-abvdarkgreen large-fontsize"> Качи </Button>
-            </div>
-        </EditForm>
-    </div>
+    <UploadForm LabelPart="портофолиа" AddInfoCallback="AddPortfolios"></UploadForm>
 
     <div class="status-message">
         <StatusDisplayMessage DisplayMessages="@ErrorMessages" Success="@Success" />
@@ -41,17 +21,9 @@
     private IEnumerable<string>? ErrorMessages;
     private bool Success;
 
-    [SupplyParameterFromForm(FormName = "addPortfoliosForm")]
-    private FileInputModel Input { get; set; } = new();
-
-    private void SetFile(InputFileChangeEventArgs e)
+    private async Task AddPortfolios(FileInputModel Input)
     {
-        Input.XMLFiles = e.GetMultipleFiles();
-    }
-
-    private async Task AddPortfolios()
-    {
-        if (Input.Date is not null && Input.XMLFiles is not null)
+        if (Input.Date != default && Input.XMLFiles is not null)
         {
             foreach (var file in Input.XMLFiles)
             {
