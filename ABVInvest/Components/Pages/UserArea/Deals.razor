@@ -8,24 +8,7 @@
 <section>
     @if (!DealsModels.Any())
     {
-        <div class="container">
-            <h2 class="bg-abvmiddlegreen"> Сделки </h2>
-            <hr />
-            <EditForm Model="Input" method="post" OnValidSubmit="ShowDeals" FormName="dealsForm">
-                <DataAnnotationsValidator />
-                <ValidationSummary class="text-danger" role="alert" />
-                <div class="form-group">
-                    <div class="col-md-5 mb-3">
-                        <label class="col-form-label"> За да да получите информация за сделките, сключени за ваша сметка, моля изберете дата след @ShortConstants.Common.MinDate.ToString(ShortConstants.Common.DateTimeParseFormat) и не по-късна от @ShortConstants.Common.MaxDate.ToString(ShortConstants.Common.DateTimeParseFormat): </label>
-                    </div>
-                    <div class="col-md-2 mb-3">
-                        <DateInput class="form-control" TValue="DateOnly?" @bind-Value="Input.Date" EnableMinMax="true" Min="@ShortConstants.Common.MinDate" Max="@ShortConstants.Common.MaxDate" Placeholder="Изберете дата" />
-                        <ValidationMessage For="() => Input.Date" class="text-danger" />
-                    </div>
-                    <Button Type="ButtonType.Submit" Class="button-top-margin bg-bg-abvlightgreen bg-abvdarkgreen large-fontsize"> Избери </Button>
-                </div>
-            </EditForm>
-        </div>
+        <DatePicker Title="Сделки" LabelPart="сделките, сключени за ваша сметка" ShowDataCallback="ShowDeals"></DatePicker>
     }
     else
     {
@@ -88,25 +71,25 @@
         </div>
     </div>
 
-    <BackToPage />
+    <BackToPageLink />
 </section>
 
 @code {
     private IEnumerable<string>? ErrorMessages;
     private bool Success;
 
-    [SupplyParameterFromForm]
-    private InputModel Input { get; set; } = new();
+    private DateOnly Date;
 
     BlazorBootstrap.Grid<DealViewModel> grid = default!;
     private IEnumerable<DealViewModel> DealsModels = new List<DealViewModel>();
 
-    private async Task ShowDeals()
+    private async Task ShowDeals(DateOnly date)
     {
-        if (Input.Date is not null)
+        if (date != default)
         {
+            Date = date;
             var authenticationState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
-            var deals = await DealsService.GetUserDailyDealsAsync<DealViewModel>(authenticationState.User, Input.Date.Value);
+            var deals = await DealsService.GetUserDailyDealsAsync<DealViewModel>(authenticationState.User, date);
             if (deals != null && deals.Count() > 0)
             {
                 DealsModels = deals!;
@@ -123,12 +106,6 @@
     private async Task<GridDataProviderResult<DealViewModel>> DealsDataProvider(GridDataProviderRequest<DealViewModel> request)
     {
         return await Task.FromResult(request.ApplyTo(DealsModels));
-    }
-
-    private sealed class InputModel
-    {
-        [DataType(DataType.Date)]
-        public DateOnly? Date;
     }
 }
 

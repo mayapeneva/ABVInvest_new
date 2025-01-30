@@ -1,0 +1,44 @@
+﻿<div class="container">
+    <h2 class="bg-abvmiddlegreen"> @Title </h2>
+    <hr />
+
+    <EditForm Model="Input" method="post" OnValidSubmit="ShowData" FormName="datePicker">
+        <DataAnnotationsValidator />
+        <ValidationSummary class="text-danger" role="alert" />
+        <div class="form-group">
+            <div class="col-md-5 mb-3">
+                <label class="col-form-label"> За да да получите информация за @LabelPart, моля изберете дата след @ShortConstants.Common.MinDate.ToString(ShortConstants.Common.DateTimeParseFormat) и не по-късна от @ShortConstants.Common.MaxDate.ToString(ShortConstants.Common.DateTimeParseFormat): </label>
+            </div>
+            <div class="col-md-2 mb-3">
+                <DateInput class="form-control" TValue="DateOnly?" @bind-Value="Input.Date" EnableMinMax="true" Min="@ShortConstants.Common.MinDate" Max="@ShortConstants.Common.MaxDate" Placeholder="Изберете дата" />
+                <ValidationMessage For="() => Input.Date" class="text-danger" />
+            </div>
+            <Button Type="ButtonType.Submit" Class="button-top-margin bg-bg-abvlightgreen bg-abvdarkgreen large-fontsize"> Избери </Button>
+        </div>
+    </EditForm>
+</div>
+
+@code {
+    [SupplyParameterFromForm]
+    private InputModel Input { get; set; } = new();
+
+    [Parameter]
+    public string Title { get; set; }
+
+    [Parameter]
+    public string LabelPart { get; set; }
+
+    [Parameter]
+    public EventCallback<DateOnly> ShowDataCallback { get; set; }
+
+    private async Task ShowData()
+    {
+        if (Input.Date is not null) await this.ShowDataCallback.InvokeAsync(Input.Date.Value);
+    }
+
+    private sealed class InputModel
+    {
+        [DataType(DataType.Date)]
+        public DateOnly? Date;
+    }
+}

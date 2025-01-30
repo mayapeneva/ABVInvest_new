@@ -8,52 +8,35 @@
 <section>
     @if (!PortfolioModels.Any())
     {
-        <div class="container">
-            <h2 class="bg-abvmiddlegreen"> Портфолио </h2>
-            <hr />
-            <EditForm Model="Input" method="post" OnValidSubmit="ShowPortfolio" FormName="portfolioForm">
-                <DataAnnotationsValidator />
-                <ValidationSummary class="text-danger" role="alert" />
-                <div class="form-group">
-                    <div class="col-md-5 mb-3">
-                        <label class="col-form-label"> За да да получите информация за портфолиото си, моля изберете дата след @ShortConstants.Common.MinDate.ToString(ShortConstants.Common.DateTimeParseFormat) и не по-късна от @ShortConstants.Common.MaxDate.ToString(ShortConstants.Common.DateTimeParseFormat): </label>
-                    </div>
-                    <div class="col-md-2 mb-3">
-                        <DateInput class="form-control" TValue="DateOnly?" @bind-Value="Input.Date" EnableMinMax="true" Min="@ShortConstants.Common.MinDate" Max="@ShortConstants.Common.MaxDate" Placeholder="Изберете дата" />
-                        <ValidationMessage For="() => Input.Date" class="text-danger" />
-                    </div>
-                    <Button Type="ButtonType.Submit" Class="button-top-margin bg-bg-abvlightgreen bg-abvdarkgreen large-fontsize"> Избери </Button>
-                </div>
-            </EditForm>
-        </div>
+        <DatePicker Title="Портфолио" LabelPart="портфолиото си" ShowDataCallback="ShowPortfolio"></DatePicker>
     }
     else
     {
-        <PortfoliosGrid PortfolioModels="@PortfolioModels" Date="@Input.Date"></PortfoliosGrid>
+        <PortfoliosGrid PortfolioModels="@PortfolioModels" Date="@Date"></PortfoliosGrid>
     }
 
     <div class="status-message">
         <StatusDisplayMessage DisplayMessages="@ErrorMessages" Success="@Success" />
     </div>
 
-    <BackToPage />
+    <BackToPageLink />
 </section>
 
 @code {
     private IEnumerable<string>? ErrorMessages;
     private bool Success;
 
-    [SupplyParameterFromForm]
-    private InputModel Input { get; set; } = new();
+    private DateOnly Date;
 
     private IEnumerable<PortfolioViewModel> PortfolioModels = new List<PortfolioViewModel>();
 
-    private async Task ShowPortfolio()
+    private async Task ShowPortfolio(DateOnly date)
     {
-        if (Input.Date is not null)
+        if (date != default)
         {
+            Date = date;
             var authenticationState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
-            var portfolio = await PortfoliosService.GetUserDailyPortfolioAsync<PortfolioViewModel>(authenticationState.User, Input.Date.Value);
+            var portfolio = await PortfoliosService.GetUserDailyPortfolioAsync<PortfolioViewModel>(authenticationState.User, date);
             if (portfolio != null && portfolio.Count() > 0)
             {
                 PortfolioModels = portfolio!;
@@ -65,11 +48,5 @@
                 ErrorMessages = [Messages.DealsAndPortfolios.NoPortfolio];
             }
         }
-    }
-
-    private sealed class InputModel
-    {
-        [DataType(DataType.Date)]
-        public DateOnly? Date;
     }
 }
