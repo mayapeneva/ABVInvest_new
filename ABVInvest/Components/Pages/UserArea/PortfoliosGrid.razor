@@ -1,27 +1,27 @@
 @using Syncfusion.Blazor.Grids
 
-<div class="portfolio-table-container">
+<div class="table-container">
     <h2 class="bg-abvmiddlegreen"> Списък с ценни книжа към дата @Date?.ToString(ShortConstants.Common.DateTimeParseFormat) </h2>
     <hr />
 
     <SfGrid ID="Grid"
-    DataSource="@PortfolioModels"
-    @ref="DefaultGrid"
-    Toolbar="@ToolbarItems"
-    AllowPdfExport="true"
-    AllowResizing="true"
-    AllowTextWrap="true"
-    AllowPaging="true"
-    Height="500">
+            DataSource="@PortfolioModels"
+            @ref="DefaultGrid"
+            Toolbar="@ToolbarItems"
+            AllowPdfExport="true"
+            AllowResizing="true"
+            AllowTextWrap="true"
+            AllowPaging="true"
+            Height="500">
         <GridPageSettings PageSize="12"></GridPageSettings>
         <GridEvents QueryCellInfo="QueryCellInfoHandler" OnToolbarClick="ToolbarClickHandler" TValue="PortfolioViewModel"></GridEvents>
         <Syncfusion.Blazor.Grids.GridColumns>
-            <Syncfusion.Blazor.Grids.GridColumn Field=@nameof(PortfolioViewModel.SecurityIssuerName) HeaderText=@ShortConstants.Portfolios.SecurityIssuer MinWidth="8" Width="200">
+            <Syncfusion.Blazor.Grids.GridColumn Field=@nameof(PortfolioViewModel.SecurityIssuerName) HeaderText=@ShortConstants.Common.SecurityIssuer MinWidth="8" Width="200">
             </Syncfusion.Blazor.Grids.GridColumn>
-            <Syncfusion.Blazor.Grids.GridColumn Field=@nameof(PortfolioViewModel.SecurityBfbCode) HeaderText=@ShortConstants.Portfolios.BfbCode MinWidth="8" Width="100"></Syncfusion.Blazor.Grids.GridColumn>
+            <Syncfusion.Blazor.Grids.GridColumn Field=@nameof(PortfolioViewModel.SecurityBfbCode) HeaderText=@ShortConstants.Common.BfbCode MinWidth="8" Width="100"></Syncfusion.Blazor.Grids.GridColumn>
             <Syncfusion.Blazor.Grids.GridColumn Field=@nameof(PortfolioViewModel.SecurityIsin) HeaderText=@ShortConstants.Portfolios.ISIN MinWidth="8" Width="100"></Syncfusion.Blazor.Grids.GridColumn>
             <Syncfusion.Blazor.Grids.GridColumn Field=@nameof(PortfolioViewModel.Quantity) HeaderText=@ShortConstants.Portfolios.Quantity MinWidth="8" Width="100"></Syncfusion.Blazor.Grids.GridColumn>
-            <Syncfusion.Blazor.Grids.GridColumn Field=@nameof(PortfolioViewModel.CurrencyCode) HeaderText=@ShortConstants.Portfolios.CurrencyCode MinWidth="8" Width="100"></Syncfusion.Blazor.Grids.GridColumn>
+            <Syncfusion.Blazor.Grids.GridColumn Field=@nameof(PortfolioViewModel.CurrencyCode) HeaderText=@ShortConstants.Common.CurrencyCode MinWidth="8" Width="100"></Syncfusion.Blazor.Grids.GridColumn>
             <Syncfusion.Blazor.Grids.GridColumn Field=@nameof(PortfolioViewModel.AveragePriceBuy) HeaderText=@ShortConstants.Portfolios.AveragePrice MinWidth="8" Width="100"></Syncfusion.Blazor.Grids.GridColumn>
             <Syncfusion.Blazor.Grids.GridColumn Field=@nameof(PortfolioViewModel.TotalPriceBuy) HeaderText=@ShortConstants.Portfolios.TotalPriceBuy MinWidth="8" Width="100"></Syncfusion.Blazor.Grids.GridColumn>
             <Syncfusion.Blazor.Grids.GridColumn Field=@nameof(PortfolioViewModel.MarketPrice) HeaderText=@ShortConstants.Portfolios.MarketPrice MinWidth="8" Width="100"></Syncfusion.Blazor.Grids.GridColumn>
@@ -88,11 +88,11 @@
             exportProperties.DisableAutoFitWidth = true;
             exportProperties.Columns = new List<GridColumn>()
             {
-                new GridColumn(){ Field=nameof(PortfolioViewModel.SecurityIssuerName), HeaderText=ShortConstants.Portfolios.SecurityIssuer, Width="100"},
-                new GridColumn(){ Field=nameof(PortfolioViewModel.SecurityBfbCode), HeaderText=ShortConstants.Portfolios.BfbCode, Width="40"},
+                new GridColumn(){ Field=nameof(PortfolioViewModel.SecurityIssuerName), HeaderText=ShortConstants.Common.SecurityIssuer, Width="100"},
+                new GridColumn(){ Field=nameof(PortfolioViewModel.SecurityBfbCode), HeaderText=ShortConstants.Common.BfbCode, Width="40"},
                 new GridColumn(){ Field=nameof(PortfolioViewModel.SecurityIsin), HeaderText=ShortConstants.Portfolios.ISIN, Width="55"},
                 new GridColumn(){ Field=nameof(PortfolioViewModel.Quantity), HeaderText=ShortConstants.Portfolios.Quantity, Width="75"},
-                new GridColumn(){ Field=nameof(PortfolioViewModel.CurrencyCode), HeaderText=ShortConstants.Portfolios.CurrencyCode, Width="45"},
+                new GridColumn(){ Field=nameof(PortfolioViewModel.CurrencyCode), HeaderText=ShortConstants.Common.CurrencyCode, Width="45"},
                 new GridColumn(){ Field=nameof(PortfolioViewModel.AveragePriceBuy), HeaderText=ShortConstants.Portfolios.AveragePrice, Width="50"},
                 new GridColumn(){ Field=nameof(PortfolioViewModel.TotalPriceBuy), HeaderText=ShortConstants.Portfolios.TotalPriceBuy, Width="80"},
                 new GridColumn(){ Field=nameof(PortfolioViewModel.MarketPrice), HeaderText=ShortConstants.Portfolios.MarketPrice, Width="55"},

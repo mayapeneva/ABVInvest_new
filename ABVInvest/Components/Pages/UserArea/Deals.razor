@@ -12,57 +12,7 @@
     }
     else
     {
-        <div class="deals-table-container">
-            <h2 class="bg-abvmiddlegreen"> Списък със сделки на ценни книжа @DealsModels.First().DailyDealsDate </h2>
-            <hr />
-
-            <Grid @ref="grid"
-                  TItem="DealViewModel"
-                  Class="table table-hover table-bordered table-striped text-nowrap deals-table"
-                  HeaderRowCssClass="bg-abvmiddlegreen !important"
-                  DataProvider="DealsDataProvider"
-                  FixedHeader="true"
-                  Height="600"
-                  Responsive="true"
-                  Unit="Unit.Px">
-
-                <GridColumns>
-                    <GridColumn TItem="DealViewModel" HeaderText="Тип на сделката" PropertyName="DealType">
-                        @context.DealType
-                    </GridColumn>
-                    <GridColumn TItem="DealViewModel" HeaderText="БФБ Код" PropertyName="SecurityBfbCode">
-                        @context.SecurityBfbCode
-                    </GridColumn>
-                    <GridColumn TItem="DealViewModel" HeaderText="Емитент" PropertyName="SecurityIssuerName">
-                        @context.SecurityIssuerName
-                    </GridColumn>
-                    <GridColumn TItem="DealViewModel" HeaderText="Количество" PropertyName="Quantity">
-                        @context.Quantity
-                    </GridColumn>
-                    <GridColumn TItem="DealViewModel" HeaderText="Цена" PropertyName="Price">
-                        @context.Price
-                    </GridColumn>
-                    <GridColumn TItem="DealViewModel" HeaderText="Купон" PropertyName="Coupon">
-                        @context.Coupon
-                    </GridColumn>
-                    <GridColumn TItem="DealViewModel" HeaderText="Стойност" PropertyName="TotalPrice">
-                        @context.TotalPrice
-                    </GridColumn>
-                    <GridColumn TItem="DealViewModel" HeaderText="Комисионна" PropertyName="Fee">
-                        @context.Fee
-                    </GridColumn>
-                    <GridColumn TItem="DealViewModel" HeaderText="Валута" PropertyName="CurrencyCode">
-                        @context.CurrencyCode
-                    </GridColumn>
-                    <GridColumn TItem="DealViewModel" HeaderText="Сетълмент" PropertyName="Settlement">
-                        @context.Settlement
-                    </GridColumn>
-                    <GridColumn TItem="DealViewModel" HeaderText="Пазар" PropertyName="MarketName">
-                        @context.MarketName
-                    </GridColumn>
-                </GridColumns>
-            </Grid>
-        </div>
+        <DealsGrid DealsModels="@DealsModels" Date="@Date"></DealsGrid>
     }
 
     <div class="container">
@@ -80,7 +30,6 @@
 
     private DateOnly Date;
 
-    BlazorBootstrap.Grid<DealViewModel> grid = default!;
     private IEnumerable<DealViewModel> DealsModels = new List<DealViewModel>();
 
     private async Task ShowDeals(DateOnly date)
@@ -101,11 +50,6 @@
                 ErrorMessages = [Messages.DealsAndPortfolios.NoDeals];
             }
         }
-    }
-
-    private async Task<GridDataProviderResult<DealViewModel>> DealsDataProvider(GridDataProviderRequest<DealViewModel> request)
-    {
-        return await Task.FromResult(request.ApplyTo(DealsModels));
     }
 }
 

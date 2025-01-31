@@ -4,12 +4,15 @@
     {
         public static class Common
         {
+            public const string BfbCode = "БФБ Код";
+            public const string BgCulture = "bg-BG";
             public const string DateTimeParseFormat = "dd-MM-yyyy";
+            public const string CurrencyCode = "Валута";
             public const string Error = "Грешка";
             public const string FileUploadFolder = "wwwroot/uploadedfiles";
             public static readonly DateOnly MaxDate = DateOnly.FromDateTime(DateTime.UtcNow);
             public static readonly DateOnly MinDate = new DateOnly(2016, 01, 01);
-            public const string BgCulture = "bg-BG";
+            public const string SecurityIssuer = "Емитент";
             public const string UploadedFile = "UploadedFile.xml";
             public const string XmlFileContentType = "xml";
             public const string XmlRootAttr = "WebData";
@@ -21,19 +24,20 @@
             public const string Buy = "BUY";
             public const string Coupon = "Купон";
             public const string CurrencyValue = "Стойност в дадената валута";
+            public const string DealType = "Тип на сделката";
             public const string Fee = "Комисионна";
+            public const string MarketName = "Пазар";
             public const string Price = "Цена";
             public const string Quantity = "Количество";
             public const string Sell = "SELL";
             public const string Settlement = "Сетълмент";
+            public const string TotalPrice = "Стойност";
             public const string TypeOfDeal = "Тип на сделката";
         }
 
         public static class Portfolios
         {
             public const string AveragePrice = "Средна цена";
-            public const string BfbCode = "БФБ Код";
-            public const string CurrencyCode = "Валута";
             public const string ISIN = "ISIN";
             public const string MarketPrice = "Пазарна цена";
             public const string MarketValue = "Пазарна стойност";
@@ -41,7 +45,6 @@
             public const string Profit = "Доходност";
             public const string ProfitInPersentage = "Доходност в %";
             public const string Quantity = "Наличност";
-            public const string SecurityIssuer = "Емитент";
             public const string TotalPriceBuy = "Стойност на придобиване";
         }
 

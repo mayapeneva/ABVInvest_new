@@ -163,15 +163,6 @@ input {
     padding: 7px 10px;
 }
 
-/*Deals and Portfolios*/
-.portfolio-table-container {
-    margin: 50px;
-}
-
-.export-button {
-    margin-bottom: 20px !important;
-}
-
 /*Common*/
 .button-top-margin {
     margin-top: 40px;
@@ -204,6 +195,10 @@ input {
 
 .back-to-page-link {
     text-decoration: none;
+}
+
+.table-container {
+    margin: 50px;
 }
 
 /* Font-sizes*/
