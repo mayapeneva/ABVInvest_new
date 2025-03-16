@@ -1,37 +1,13 @@
 @using Syncfusion.Blazor.Grids
 
-<div class="table-container">
-    <h2 class="bg-abvmiddlegreen"> Списък с ценни книжа към дата @Date?.ToString(ShortConstants.Common.DateTimeParseFormat) </h2>
-    <hr />
-
-    <SfGrid ID="Grid"
-            DataSource="@PortfolioModels"
-            @ref="DefaultGrid"
-            Toolbar="@ToolbarItems"
-            AllowPdfExport="true"
-            AllowResizing="true"
-            AllowTextWrap="true"
-            AllowPaging="true"
-            Height="500">
-        <GridPageSettings PageSize="12"></GridPageSettings>
-        <GridEvents QueryCellInfo="QueryCellInfoHandler" OnToolbarClick="ToolbarClickHandler" TValue="PortfolioViewModel"></GridEvents>
-        <Syncfusion.Blazor.Grids.GridColumns>
-            <Syncfusion.Blazor.Grids.GridColumn Field=@nameof(PortfolioViewModel.SecurityIssuerName) HeaderText=@ShortConstants.Common.SecurityIssuer MinWidth="8" Width="200">
-            </Syncfusion.Blazor.Grids.GridColumn>
-            <Syncfusion.Blazor.Grids.GridColumn Field=@nameof(PortfolioViewModel.SecurityBfbCode) HeaderText=@ShortConstants.Common.BfbCode MinWidth="8" Width="100"></Syncfusion.Blazor.Grids.GridColumn>
-            <Syncfusion.Blazor.Grids.GridColumn Field=@nameof(PortfolioViewModel.SecurityIsin) HeaderText=@ShortConstants.Portfolios.ISIN MinWidth="8" Width="100"></Syncfusion.Blazor.Grids.GridColumn>
-            <Syncfusion.Blazor.Grids.GridColumn Field=@nameof(PortfolioViewModel.Quantity) HeaderText=@ShortConstants.Portfolios.Quantity MinWidth="8" Width="100"></Syncfusion.Blazor.Grids.GridColumn>
-            <Syncfusion.Blazor.Grids.GridColumn Field=@nameof(PortfolioViewModel.CurrencyCode) HeaderText=@ShortConstants.Common.CurrencyCode MinWidth="8" Width="100"></Syncfusion.Blazor.Grids.GridColumn>
-            <Syncfusion.Blazor.Grids.GridColumn Field=@nameof(PortfolioViewModel.AveragePriceBuy) HeaderText=@ShortConstants.Portfolios.AveragePrice MinWidth="8" Width="100"></Syncfusion.Blazor.Grids.GridColumn>
-            <Syncfusion.Blazor.Grids.GridColumn Field=@nameof(PortfolioViewModel.TotalPriceBuy) HeaderText=@ShortConstants.Portfolios.TotalPriceBuy MinWidth="8" Width="100"></Syncfusion.Blazor.Grids.GridColumn>
-            <Syncfusion.Blazor.Grids.GridColumn Field=@nameof(PortfolioViewModel.MarketPrice) HeaderText=@ShortConstants.Portfolios.MarketPrice MinWidth="8" Width="100"></Syncfusion.Blazor.Grids.GridColumn>
-            <Syncfusion.Blazor.Grids.GridColumn Field=@nameof(PortfolioViewModel.TotalMarketPrice) HeaderText=@ShortConstants.Portfolios.MarketValue MinWidth="8" Width="100"></Syncfusion.Blazor.Grids.GridColumn>
-            <Syncfusion.Blazor.Grids.GridColumn Field=@nameof(PortfolioViewModel.ProfitString) HeaderText=@ShortConstants.Portfolios.Profit MinWidth="8" Width="100"></Syncfusion.Blazor.Grids.GridColumn>
-            <Syncfusion.Blazor.Grids.GridColumn Field=@nameof(PortfolioViewModel.ProfitPercentage) HeaderText=@ShortConstants.Portfolios.ProfitInPersentage MinWidth="8" Width="100"></Syncfusion.Blazor.Grids.GridColumn>
-            <Syncfusion.Blazor.Grids.GridColumn Field=@nameof(PortfolioViewModel.PortfolioShare) HeaderText=@ShortConstants.Portfolios.PortfolioShare MinWidth="8" Width="100"></Syncfusion.Blazor.Grids.GridColumn>
-        </Syncfusion.Blazor.Grids.GridColumns>
-    </SfGrid>
-</div>
+<BaseGrid TModel="PortfolioViewModel"
+          Models="PortfolioModels"
+          Title="Списък с ценни книжа към дата"
+          FileName="Securities"
+          Columns="PortfolioColumns"
+          PdfColumns="PdfColumns"
+          Date="Date">
+</BaseGrid>
 
 @code {
     [Parameter]
@@ -40,119 +16,35 @@
     [Parameter]
     public DateOnly? Date { get; set; }
 
-    private List<string> ToolbarItems = new List<string>() { "PdfExport" };
-    private SfGrid<PortfolioViewModel>? DefaultGrid;
-
-    private string CyrilicFontFamily = "";
-
-    public List<PdfHeaderFooterContent> HeaderContent = new List<PdfHeaderFooterContent>
+    private List<GridColumn> PortfolioColumns = new List<GridColumn>
     {
-        new PdfHeaderFooterContent()
-        {
-            Type = ContentType.Image,
-            Src = ShortConstants.Logo.LogoString,
-            Position = new PdfPosition() { X = 450, Y = 10 },
-            Size = new PdfSize() { Height = 41, Width = 101 }
-        }
+        new GridColumn { Field = nameof(PortfolioViewModel.SecurityIssuerName), HeaderText = ShortConstants.Common.SecurityIssuer, Width = "200" },
+        new GridColumn { Field = nameof(PortfolioViewModel.SecurityBfbCode), HeaderText = ShortConstants.Common.BfbCode, Width = "100" },
+        new GridColumn { Field = nameof(PortfolioViewModel.SecurityIsin), HeaderText = ShortConstants.Portfolios.ISIN, Width = "100" },
+        new GridColumn { Field = nameof(PortfolioViewModel.Quantity), HeaderText = ShortConstants.Portfolios.Quantity, Width = "100" },
+        new GridColumn { Field = nameof(PortfolioViewModel.CurrencyCode), HeaderText = ShortConstants.Common.CurrencyCode, Width = "100" },
+        new GridColumn { Field = nameof(PortfolioViewModel.AveragePriceBuy), HeaderText = ShortConstants.Portfolios.AveragePrice, Width = "100" },
+        new GridColumn { Field = nameof(PortfolioViewModel.TotalPriceBuy), HeaderText = ShortConstants.Portfolios.TotalPriceBuy, Width = "100" },
+        new GridColumn { Field = nameof(PortfolioViewModel.MarketPrice), HeaderText = ShortConstants.Portfolios.MarketPrice, Width = "100" },
+        new GridColumn { Field = nameof(PortfolioViewModel.TotalMarketPrice), HeaderText = ShortConstants.Portfolios.MarketValue, Width = "100" },
+        new GridColumn { Field = nameof(PortfolioViewModel.ProfitString), HeaderText = ShortConstants.Portfolios.Profit, Width = "100" },
+        new GridColumn { Field = nameof(PortfolioViewModel.ProfitPercentage), HeaderText = ShortConstants.Portfolios.ProfitInPersentage, Width = "100" },
+        new GridColumn { Field = nameof(PortfolioViewModel.PortfolioShare), HeaderText = ShortConstants.Portfolios.PortfolioShare, Width = "100" }
     };
 
-    public List<PdfHeaderFooterContent> FooterContent = new List<PdfHeaderFooterContent>
+    private List<GridColumn> PdfColumns = new List<GridColumn>
     {
-        new PdfHeaderFooterContent()
-        {
-            Type = ContentType.PageNumber,
-            PageNumberType = PdfPageNumberType.Arabic,
-            Position = new PdfPosition() { X = 500, Y = 10 },
-            Style = new PdfContentStyle() { TextBrushColor = "#89BF32", FontSize = 12, HAlign = PdfHorizontalAlign.Center }
-        }
+        new GridColumn(){ Field=nameof(PortfolioViewModel.SecurityIssuerName), HeaderText=ShortConstants.Common.SecurityIssuer, Width="100"},
+        new GridColumn(){ Field=nameof(PortfolioViewModel.SecurityBfbCode), HeaderText=ShortConstants.Common.BfbCode, Width="40"},
+        new GridColumn(){ Field=nameof(PortfolioViewModel.SecurityIsin), HeaderText=ShortConstants.Portfolios.ISIN, Width="55"},
+        new GridColumn(){ Field=nameof(PortfolioViewModel.Quantity), HeaderText=ShortConstants.Portfolios.Quantity, Width="75"},
+        new GridColumn(){ Field=nameof(PortfolioViewModel.CurrencyCode), HeaderText=ShortConstants.Common.CurrencyCode, Width="45"},
+        new GridColumn(){ Field=nameof(PortfolioViewModel.AveragePriceBuy), HeaderText=ShortConstants.Portfolios.AveragePrice, Width="50"},
+        new GridColumn(){ Field=nameof(PortfolioViewModel.TotalPriceBuy), HeaderText=ShortConstants.Portfolios.TotalPriceBuy, Width="80"},
+        new GridColumn(){ Field=nameof(PortfolioViewModel.MarketPrice), HeaderText=ShortConstants.Portfolios.MarketPrice, Width="55"},
+        new GridColumn(){ Field=nameof(PortfolioViewModel.TotalMarketPrice), HeaderText=ShortConstants.Portfolios.MarketValue, Width="65"},
+        new GridColumn(){ Field=nameof(PortfolioViewModel.ProfitString), HeaderText=ShortConstants.Portfolios.Profit, Width="65"},
+        new GridColumn(){ Field=nameof(PortfolioViewModel.ProfitPercentage), HeaderText=ShortConstants.Portfolios.ProfitInPersentage, Width="65"},
+        new GridColumn(){ Field=nameof(PortfolioViewModel.PortfolioShare), HeaderText=ShortConstants.Portfolios.PortfolioShare, Width="65"}
     };
-
-    protected override async Task OnInitializedAsync()
-    {
-        var filePath = Path.GetDirectoryName(AppDomain.CurrentDomain.BaseDirectory);
-        using var recordStreamReader = new StreamReader($"{filePath}/wwwroot/fonts/regular_base64.txt");
-        CyrilicFontFamily = await recordStreamReader.ReadToEndAsync();
-    }
-
-    public async Task ToolbarClickHandler(Syncfusion.Blazor.Navigations.ClickEventArgs args)
-    {
-        if (args.Item.Id == "Grid_pdfexport" && DefaultGrid is not null)
-        {
-            PdfExportProperties exportProperties = new PdfExportProperties();
-            exportProperties.FileName = $"Securities_{Date?.ToString(ShortConstants.Common.DateTimeParseFormat)}.pdf";
-
-            exportProperties.IsRepeatHeader = true;
-            exportProperties.PageSize = PdfPageSize.A4;
-            exportProperties.PageOrientation = PageOrientation.Landscape;
-
-            exportProperties.DisableAutoFitWidth = true;
-            exportProperties.Columns = new List<GridColumn>()
-            {
-                new GridColumn(){ Field=nameof(PortfolioViewModel.SecurityIssuerName), HeaderText=ShortConstants.Common.SecurityIssuer, Width="100"},
-                new GridColumn(){ Field=nameof(PortfolioViewModel.SecurityBfbCode), HeaderText=ShortConstants.Common.BfbCode, Width="40"},
-                new GridColumn(){ Field=nameof(PortfolioViewModel.SecurityIsin), HeaderText=ShortConstants.Portfolios.ISIN, Width="55"},
-                new GridColumn(){ Field=nameof(PortfolioViewModel.Quantity), HeaderText=ShortConstants.Portfolios.Quantity, Width="75"},
-                new GridColumn(){ Field=nameof(PortfolioViewModel.CurrencyCode), HeaderText=ShortConstants.Common.CurrencyCode, Width="45"},
-                new GridColumn(){ Field=nameof(PortfolioViewModel.AveragePriceBuy), HeaderText=ShortConstants.Portfolios.AveragePrice, Width="50"},
-                new GridColumn(){ Field=nameof(PortfolioViewModel.TotalPriceBuy), HeaderText=ShortConstants.Portfolios.TotalPriceBuy, Width="80"},
-                new GridColumn(){ Field=nameof(PortfolioViewModel.MarketPrice), HeaderText=ShortConstants.Portfolios.MarketPrice, Width="55"},
-                new GridColumn(){ Field=nameof(PortfolioViewModel.TotalMarketPrice), HeaderText=ShortConstants.Portfolios.MarketValue, Width="65"},
-                new GridColumn(){ Field=nameof(PortfolioViewModel.ProfitString), HeaderText=ShortConstants.Portfolios.Profit, Width="65"},
-                new GridColumn(){ Field=nameof(PortfolioViewModel.ProfitPercentage), HeaderText=ShortConstants.Portfolios.ProfitInPersentage, Width="65"},
-                new GridColumn(){ Field=nameof(PortfolioViewModel.PortfolioShare), HeaderText=ShortConstants.Portfolios.PortfolioShare, Width="65"}
-            };
-
-            var theme = new PdfTheme();
-            var border = new PdfBorder();
-            border.Color = "#89BF32";
-
-            var headerThemeStyle = new PdfThemeStyle()
-                {
-                    Font = new PdfGridFont { IsTrueType = true, FontSize = 10, FontFamily = CyrilicFontFamily },
-                    FontColor = "#2A833F",
-                    Bold = true,
-                    Border = border
-                };
-            theme.Header = headerThemeStyle;
-
-            var recordThemeStyle = new PdfThemeStyle()
-                {
-                    Font = new PdfGridFont { IsTrueType = true, FontSize = 10, FontFamily = CyrilicFontFamily },
-                    FontColor = "#2A833F",
-                    Border = border
-
-                };
-            theme.Record = recordThemeStyle;
-            exportProperties.Theme = theme;
-
-            var header = new PdfHeader()
-                {
-                    FromTop = 0,
-                    Height = 70,
-                    Contents = HeaderContent
-                };
-            exportProperties.Header = header;
-
-            exportProperties.Footer = new PdfFooter()
-                {
-                    FromBottom = 0,
-                    Height = 50,
-                    Contents = FooterContent
-                };
-
-            await this.DefaultGrid.ExportToPdfAsync(false, exportProperties);
-        }
-    }
-
-    public void QueryCellInfoHandler(QueryCellInfoEventArgs<PortfolioViewModel> args)
-    {
-        if (args.Data.Profit < 0)
-        {
-            args.Cell.AddClass(new string[] { "negative-profit" });
-        }
-        else if (args.Data.Profit == 0M)
-        {
-            args.Cell.AddClass(new string[] { "no-profit" });
-        }
-    }
 }
