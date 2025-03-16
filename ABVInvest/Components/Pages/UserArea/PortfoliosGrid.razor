@@ -6,7 +6,8 @@
           FileName="Securities"
           Columns="PortfolioColumns"
           PdfColumns="PdfColumns"
-          Date="Date">
+          Date="Date"
+          QueryCellInfoHandler="QueryCellInfoHandler">
 </BaseGrid>
 
 @code {
@@ -47,4 +48,16 @@
         new GridColumn(){ Field=nameof(PortfolioViewModel.ProfitPercentage), HeaderText=ShortConstants.Portfolios.ProfitInPersentage, Width="65"},
         new GridColumn(){ Field=nameof(PortfolioViewModel.PortfolioShare), HeaderText=ShortConstants.Portfolios.PortfolioShare, Width="65"}
     };
+
+    public void QueryCellInfoHandler(QueryCellInfoEventArgs<PortfolioViewModel> args)
+    {
+        if (args.Data.Profit < 0)
+        {
+            args.Cell.AddClass(new string[] { "negative-profit" });
+        }
+        else if (args.Data.Profit == 0M)
+        {
+            args.Cell.AddClass(new string[] { "no-profit" });
+        }
+    }
 }

@@ -44,6 +44,9 @@
     [Parameter]
     public DateOnly? Date { get; set; }
 
+    [Parameter]
+    public EventCallback<QueryCellInfoEventArgs<TModel>> QueryCellInfoHandler { get; set; }
+
     private List<string> ToolbarItems = new List<string>() { "PdfExport" };
     private SfGrid<TModel>? DefaultGrid;
 
@@ -130,25 +133,6 @@
                 };
 
             await this.DefaultGrid.ExportToPdfAsync(false, exportProperties);
-        }
-    }
-
-    public void QueryCellInfoHandler(QueryCellInfoEventArgs<TModel> args)
-    {
-        if (args.Data is PortfolioViewModel)
-        {
-            var model = args.Data as PortfolioViewModel;
-            if (model != null)
-            {
-                if (model.Profit < 0)
-                {
-                    args.Cell.AddClass(new string[] { "negative-profit" });
-                }
-                else if (model.Profit == 0M)
-                {
-                    args.Cell.AddClass(new string[] { "no-profit" });
-                }
-            }
         }
     }
 }
