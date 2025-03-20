@@ -6,6 +6,11 @@
     border: 1px ridge var(--middlegreen-color) !important;
 }
 
+::deep .e-grid .e-toolbar {
+    background-color: transparent;
+    border-top: none;
+}
+
 ::deep .e-toolbar-items .e-toolbar-item .e-control {
     background-color: var(--lightgreen-color);
 }
@@ -22,6 +27,10 @@
         color: var(--darkgreen-color) !important;
     }
 
+::deep .e-grid .e-gridheader {
+    border-top: none;
+}
+
 ::deep .e-grid .e-gridheader .e-headertext {
     color: var(--middlegreen-color);
     font-size: 16px;
@@ -32,8 +41,13 @@
     font-size: 16px;
 }
 
+::deep .e-grid {
+    border: none;
+}
+
 ::deep .sf-pager {
     color: var(--darkgreen-color);
+    border-top: none;
 }
 
     ::deep .sf-pager .e-pagercontainer .e-icons {
