@@ -27,8 +27,8 @@
         color: var(--darkgreen-color) !important;
     }
 
-::deep .e-grid .e-gridheader {
-    border-top: none;
+::deep .e-grid {
+    border: none;
 }
 
 ::deep .e-grid .e-gridheader .e-headertext {
@@ -39,10 +39,6 @@
 ::deep .e-grid .e-row .e-rowcell {
     color: var(--darkgreen-color) !important;
     font-size: 16px;
-}
-
-::deep .e-grid {
-    border: none;
 }
 
 ::deep .sf-pager {
