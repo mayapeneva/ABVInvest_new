@@ -12,26 +12,14 @@
     }
     else
     {
-        <div class="table-container">
-            <h2 class="bg-abvmiddlegreen"> Баланс към дата @Date.ToString(ShortConstants.Common.DateTimeParseFormat) </h2>
-            <hr />
-
-            <SfGrid ID="Grid"
-                    DataSource="@BalanceModels"
-                    @ref="DefaultGrid"
-                    AllowResizing="true"
-                    AllowTextWrap="true"
-                    AllowPaging="true"
-                    Height="500">
-                <GridPageSettings PageSize="12"></GridPageSettings>
-                <Syncfusion.Blazor.Grids.GridColumns>
-                    @foreach (var column in BalanceColumns)
-                    {
-                        <Syncfusion.Blazor.Grids.GridColumn Field="@column.Field" HeaderText="@column.HeaderText" MinWidth="8" Width="@column.Width"></Syncfusion.Blazor.Grids.GridColumn>
-                    }
-                </Syncfusion.Blazor.Grids.GridColumns>
-            </SfGrid>
-        </div>
+        <BaseGrid TModel="BalanceViewModel"
+                  Models="BalanceModels"
+                  Title="Баланс към дата"
+                  Columns="BalanceColumns"
+                  Date="Date"
+                  ShowToolbar="false"
+                  AllowPdfExport="false">
+        </BaseGrid>
     }
 
     <div class="container">
@@ -50,8 +38,6 @@
     private DateOnly Date;
 
     private IEnumerable<BalanceViewModel> BalanceModels = new List<BalanceViewModel>();
-
-    private SfGrid<BalanceViewModel>? DefaultGrid;
 
     private List<GridColumn> BalanceColumns = new List<GridColumn>
     {

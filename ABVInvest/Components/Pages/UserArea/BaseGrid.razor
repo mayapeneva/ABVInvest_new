@@ -46,7 +46,13 @@
     [Parameter]
     public EventCallback<QueryCellInfoEventArgs<TModel>> QueryCellInfoHandler { get; set; }
 
-    private List<string> ToolbarItems = new List<string>() { "PdfExport" };
+    [Parameter]
+    public bool ShowToolbar { get; set; } = true;
+
+    [Parameter]
+    public bool AllowPdfExport { get; set; } = true;
+
+    private List<string> ToolbarItems => ShowToolbar ? new List<string>() { "PdfExport" } : new List<string>();
     private SfGrid<TModel>? DefaultGrid;
 
     private string CyrilicFontFamily = string.Empty;
@@ -82,7 +88,7 @@
 
     public async Task ToolbarClickHandler(Syncfusion.Blazor.Navigations.ClickEventArgs args)
     {
-        if (args.Item.Id == "Grid_pdfexport" && DefaultGrid is not null)
+        if (AllowPdfExport && args.Item.Id == "Grid_pdfexport" && DefaultGrid is not null)
         {
             PdfExportProperties exportProperties = new PdfExportProperties();
             exportProperties.FileName = $"{FileName}_{Date?.ToString(ShortConstants.Common.DateTimeParseFormat)}.pdf";
