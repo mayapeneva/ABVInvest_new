@@ -6,43 +6,31 @@
 @inject IBalancesService BalancesService
 
 <section>
-    @if (!BalanceModel.Any())
+    @if (!BalanceModels.Any())
     {
         <DatePicker Title="Баланс" LabelPart="баланса си" ShowDataCallback="ShowBalance"></DatePicker>
     }
     else
     {
-        <div class="balance-table-container">
+        <div class="table-container">
             <h2 class="bg-abvmiddlegreen"> Баланс към дата @Date.ToString(ShortConstants.Common.DateTimeParseFormat) </h2>
             <hr />
 
-            <Grid @ref="grid"
-                  TItem="BalanceViewModel"
-                  Class="table table-hover table-bordered table-striped text-nowrap balance-table"
-                  HeaderRowCssClass="bg-abvmiddlegreen !important"
-                  DataProvider="BalanceDataProvider"
-                  Unit="Unit.Px">
-                <GridColumns>
-                    <GridColumn TItem="BalanceViewModel" HeaderText="Валута" PropertyName="CurrencyCode">
-                        @context.CurrencyCode
-                    </GridColumn>
-                    <GridColumn TItem="BalanceViewModel" HeaderText="Пари в брой" PropertyName="Cash">
-                        @context.Cash
-                    </GridColumn>
-                    <GridColumn TItem="BalanceViewModel" HeaderText="Стойност на придобиване на ценните книжа" PropertyName="AllSecuritiesTotalPriceBuy">
-                        @context.AllSecuritiesTotalPriceBuy
-                    </GridColumn>
-                    <GridColumn TItem="BalanceViewModel" HeaderText="Пазарна стойност на ценните книжа" PropertyName="AllSecuritiesTotalMarketPrice">
-                        @context.AllSecuritiesTotalMarketPrice
-                    </GridColumn>
-                    <GridColumn TItem="BalanceViewModel" HeaderText="Обща доходност" PropertyName="VirtualProfit">
-                        @context.VirtualProfit
-                    </GridColumn>
-                    <GridColumn TItem="BalanceViewModel" HeaderText="Обща доходност(%)" PropertyName="VirtualProfitPercentage%">
-                        @context.VirtualProfitPercentage%
-                    </GridColumn>
-                </GridColumns>
-            </Grid>
+            <SfGrid ID="Grid"
+                    DataSource="@BalanceModels"
+                    @ref="DefaultGrid"
+                    AllowResizing="true"
+                    AllowTextWrap="true"
+                    AllowPaging="true"
+                    Height="500">
+                <GridPageSettings PageSize="12"></GridPageSettings>
+                <Syncfusion.Blazor.Grids.GridColumns>
+                    @foreach (var column in BalanceColumns)
+                    {
+                        <Syncfusion.Blazor.Grids.GridColumn Field="@column.Field" HeaderText="@column.HeaderText" MinWidth="8" Width="@column.Width"></Syncfusion.Blazor.Grids.GridColumn>
+                    }
+                </Syncfusion.Blazor.Grids.GridColumns>
+            </SfGrid>
         </div>
     }
 
@@ -61,8 +49,19 @@
 
     private DateOnly Date;
 
-    BlazorBootstrap.Grid<BalanceViewModel> grid = default!;
-    private IEnumerable<BalanceViewModel> BalanceModel = new List<BalanceViewModel>();
+    private IEnumerable<BalanceViewModel> BalanceModels = new List<BalanceViewModel>();
+
+    private SfGrid<BalanceViewModel>? DefaultGrid;
+
+    private List<GridColumn> BalanceColumns = new List<GridColumn>
+    {
+        new GridColumn { Field = nameof(BalanceViewModel.CurrencyCode), HeaderText = ShortConstants.Common.CurrencyCode, Width = "75" },
+        new GridColumn { Field = nameof(BalanceViewModel.Cash), HeaderText = ShortConstants.Balances.Cash, Width = "125" },
+        new GridColumn { Field = nameof(BalanceViewModel.AllSecuritiesTotalPriceBuy), HeaderText = ShortConstants.Balances.SecuritiesTotalPriceBuy, Width = "150" },
+        new GridColumn { Field = nameof(BalanceViewModel.AllSecuritiesTotalMarketPrice), HeaderText = ShortConstants.Balances.SecuritiesTotalMarketPrice, Width = "150" },
+        new GridColumn { Field = nameof(BalanceViewModel.VirtualProfit), HeaderText = ShortConstants.Balances.TotalProfit, Width = "100" },
+        new GridColumn { Field = nameof(BalanceViewModel.VirtualProfit), HeaderText = ShortConstants.Balances.TotalProfitInPersentage, Width = "100" }
+    };
 
     private async Task ShowBalance(DateOnly date)
     {
@@ -73,7 +72,7 @@
             var balance = await BalancesService.GetUserDailyBalanceAsync<BalanceViewModel>(authenticationState.User, date);
             if (balance is not null)
             {
-                BalanceModel = [balance];
+                BalanceModels = [balance];
                 ErrorMessages = [];
             }
             else
@@ -82,11 +81,6 @@
                 ErrorMessages = [string.Format(Messages.Common.NoBalance, DateTime.UtcNow.ToString(ShortConstants.Common.DateTimeParseFormat))];
             }
         }
-    }
-
-    private async Task<GridDataProviderResult<BalanceViewModel>> BalanceDataProvider(GridDataProviderRequest<BalanceViewModel> request)
-    {
-        return await Task.FromResult(request.ApplyTo(BalanceModel));
     }
 }
 

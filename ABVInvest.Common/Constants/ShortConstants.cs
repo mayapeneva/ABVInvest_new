@@ -48,6 +48,15 @@
             public const string TotalPriceBuy = "Стойност на придобиване";
         }
 
+        public static class Balances
+        {
+            public const string Cash = "Парив брой";
+            public const string SecuritiesTotalPriceBuy = "Стойност на придобиване на ценните книжа";
+            public const string SecuritiesTotalMarketPrice = "Пазарна стойност на ценните книжа";
+            public const string TotalProfit = "Обща доходност";
+            public const string TotalProfitInPersentage = "Обща доходност в %";
+        }
+
         public static class Role
         {
             public const string Admin = "Admin";
