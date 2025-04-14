@@ -28,7 +28,14 @@ body {
     resize: horizontal;
     overflow: hidden;
     display: flex;
+}
+
+.navbar-container-left {
     margin-left: 100px;
+}
+
+.navbar-container-right {
+    margin-right: 100px;
 }
 
 .navbar-brand {
@@ -52,6 +59,10 @@ body {
         color: var(--darkgreen-color) !important;
         background-color: var(--lightgreen-color);
     }
+
+.nav-link-right {
+    padding-bottom: 10px;
+}
 
 /*Index*/
 .carousel-slide {
