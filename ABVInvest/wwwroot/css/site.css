@@ -135,18 +135,6 @@ body {
     outline: 10px solid white;
 }
 
-.login-checkbox-box:checked {
-    background-color: var(--middlegreen-color);
-}
-
-.login-checkbox-box:hover {
-    outline: 10px solid white;
-}
-
-.login-checkbox-box:focus-within {
-    outline: 10px solid white;
-}
-
 /*Register*/
 .register-box:hover {
     outline: 10px solid white;

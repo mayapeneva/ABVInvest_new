@@ -5,12 +5,13 @@ using ABVInvest.Components;
 using ABVInvest.Components.Account;
 using ABVInvest.Data;
 using ABVInvest.Data.Models;
-using ABVInvest.Seeders;
+using ABVInvest.Middlewares;
 using ABVInvest.Services.Balances;
 using ABVInvest.Services.Data;
 using ABVInvest.Services.Deals;
 using ABVInvest.Services.Portfolios;
 using AutoMapper;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -71,6 +72,14 @@ builder.Services.AddScoped<IDataService, DataService>();
 builder.Services.AddScoped<IDealsService, DealsService>();
 
 var app = builder.Build();
+
+app.MapGet("/Logout", async (HttpContext context, string returnUrl = "/") =>
+{
+    await context.SignOutAsync(IdentityConstants.ApplicationScheme);
+    context.Response.Cookies.Delete(".AspNetCore.Identity.Application");
+    context.Response.Redirect(returnUrl);
+})
+    .RequireAuthorization();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

@@ -30,14 +30,8 @@
                 <label for="password" class="form-label"> Парола </label>
                 <ValidationMessage For="() => Input.Password" class="text-danger" />
             </div>
-            <div class="checkbox mb-3 login-checkbox">
-                <label class="form-label">
-                    <InputCheckbox @bind-Value="Input.RememberMe" class="darker-border-checkbox form-check-input login-checkbox-box" />
-                    Запомни ме
-                </label>
-            </div>
             <div>
-                <button type="submit" class="btn bg-bg-abvlightgreen bg-abvdarkgreen large-fontsize w-50"> Вход </button>
+                <button type="submit" class="btn bg-bg-abvlightgreen bg-abvdarkgreen large-fontsize register-button w-50"> Вход </button>
             </div>
             <div class="login-links">
                 <p>
@@ -81,7 +75,7 @@
     {
         // This doesn't count login failures towards account lockout
         // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-        var result = await SignInManager.PasswordSignInAsync(Input.UserName, Input.Password, Input.RememberMe, lockoutOnFailure: false);
+        var result = await SignInManager.PasswordSignInAsync(Input.UserName, Input.Password, isPersistent: false, lockoutOnFailure: false);
         if (result.Succeeded)
         {
             var dbUser = UserManager.Users.SingleOrDefault(u => u.UserName == this.Input.UserName);
@@ -118,8 +112,5 @@
         [Required(ErrorMessage = Messages.Common.RequiredField)]
         [DataType(DataType.Password)]
         public string Password { get; set; } = "";
-
-        [Display(Name = "Remember me?")]
-        public bool RememberMe { get; set; }
     }
 }

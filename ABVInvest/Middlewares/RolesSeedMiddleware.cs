@@ -2,7 +2,7 @@
 using ABVInvest.Data.Models;
 using Microsoft.AspNetCore.Identity;
 
-namespace ABVInvest.Seeders
+namespace ABVInvest.Middlewares
 {
     public class RolesSeedMiddleware(RequestDelegate next)
     {
