@@ -398,3 +398,4 @@ FodyWeavers.xsd
 *.sln.iml
 /ABVInvest/appsettings.Development.json
 /ABVInvest/appsettings.Development.json
+/ABVInvest/Properties/ServiceDependencies/ABVInvestApp - Web Deploy/profile.arm.json
