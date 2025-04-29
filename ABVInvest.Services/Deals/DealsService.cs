@@ -134,7 +134,8 @@ namespace ABVInvest.Services.Deals
             {
                 dealResult.Errors.ToList().ForEach(result.Errors.Add);
                 return result;
-            };
+            }
+            ;
 
             var dbDeal = dealResult.Data;
 
@@ -165,7 +166,7 @@ namespace ABVInvest.Services.Deals
                     security.ISIN, dealKey, ShortConstants.Deals.TypeOfDeal, operation));
                 return result;
             }
-            var dealType = operation == ShortConstants.Deals.Buy ? DealType.Купува : DealType.Продава;
+            var dealType = operation == ShortConstants.Deals.Buy ? DealType.Buy : DealType.Sell;
 
             var ifQuantityParsed = decimal.TryParse(dealData.ShareCount.Replace(" ", string.Empty), out var quantity);
             if (!ifQuantityParsed)

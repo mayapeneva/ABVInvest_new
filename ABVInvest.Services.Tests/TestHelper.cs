@@ -62,7 +62,7 @@ namespace ABVInvest.Services.Tests
                 Date = DealsDate,
                 Deals = [ new Deal
                     {
-                        DealType = DealType.Купува,
+                        DealType = DealType.Buy,
                         Quantity = 100,
                         Price = 100,
                         Coupon = 0,

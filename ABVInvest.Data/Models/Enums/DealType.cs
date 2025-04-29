@@ -2,7 +2,7 @@
 {
     public enum DealType
     {
-        Купува = 1,
-        Продава = 2
+        Buy = 1,
+        Sell = 2
     }
 }
