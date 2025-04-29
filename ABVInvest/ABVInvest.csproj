@@ -5,6 +5,7 @@
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<UserSecretsId>aspnet-ABVInvest-f2e2eb55-1981-4fb8-bab8-e99041763086</UserSecretsId>
+		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -19,6 +20,7 @@
 		  <PrivateAssets>all</PrivateAssets>
 		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
+		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.0" />
 		<PackageReference Include="Syncfusion.Blazor.Grid" Version="28.1.39" />
 		<PackageReference Include="Syncfusion.Blazor.Themes" Version="28.1.39" />
 	</ItemGroup>
