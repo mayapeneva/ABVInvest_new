@@ -55,4 +55,4 @@ jobs:
           app-name: 'ABVInvestApp'
           slot-name: 'Production'
           package: .
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_B1A45C6D73CA4BCE9C120674AE7B9286 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_BEF20B7E552B42BDBE33F3B3E9D7018D }}
