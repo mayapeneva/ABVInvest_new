@@ -21,7 +21,7 @@ name: Build and deploy ASP.Net Core app to an Azure Web App
 
 env:
   AZURE_WEBAPP_NAME: 'ABVInvestApp'    # set this to the name of your Azure Web App
-  AZURE_WEBAPP_PACKAGE_PATH: 'abvinvestapp-hegnfvbgcqe9bba8.westeurope-01.azurewebsites.net'      # set this to the path to your web app project, defaults to the repository root
+  AZURE_WEBAPP_PACKAGE_PATH: 'abvinvestapp-hsfbhae4gfh0bpa3.canadacentral-01.azurewebsites.net'      # set this to the path to your web app project, defaults to the repository root
   DOTNET_VERSION: '8'                 # set this to the .NET Core version to use
 
 on:
@@ -86,4 +86,4 @@ jobs:
           app-name: 'ABVInvestApp'
           slot-name: 'Production'
           package: .
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_B1A45C6D73CA4BCE9C120674AE7B9286 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_BEF20B7E552B42BDBE33F3B3E9D7018D }}
