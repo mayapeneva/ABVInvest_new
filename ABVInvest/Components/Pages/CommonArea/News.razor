@@ -13,7 +13,7 @@
     {
         foreach (var item in RssModels)
         {
-            <a class="bg-abvdarkgreen" target="_blank" href="@item.Uri"> @item.Title </a>
+            <a class="bg-abvdarkgreen" target="_blank" href="@item.Uri" rel="noopener noreferrer"> @item.Title </a>
             <div class="bg-abvmiddlegreen"> @item.Summary </div>
             <div class="bg-abvlightgreen"> @item.PublishedDate </div>
             <hr />
@@ -23,20 +23,22 @@
 
 @code {
     private IEnumerable<RssFeedViewModel> RssModels = new List<RssFeedViewModel>();
+    private Timer ?Тimer;
 
     protected override async Task OnInitializedAsync()
     {
-        RssModels = await RssFeedParser.LoadNewsAsync();
+        await LoadNews();
+        Тimer = new Timer(async _ => await LoadNews(), null, 60000, 60000);
     }
 
-    protected override void OnAfterRender(bool firstRender)
+    private async Task LoadNews()
     {
-        if (firstRender)
-        {
-            var timer = new Timer(new TimerCallback(_ =>
-            {
-                NavigationManager.Refresh();
-            }), null, 60000, 60000);
-        }
+        RssModels = await RssFeedParser.LoadNewsAsync();
+        await InvokeAsync(StateHasChanged);
+    }
+
+    public void Dispose()
+    {
+        Тimer?.Dispose();
     }
 }
