@@ -1,7 +1,7 @@
 ﻿@typeparam TModel
 
 <div class="table-container">
-    <h2 class="bg-abvmiddlegreen"> @Title @Date?.ToString(ShortConstants.Common.DateTimeParseFormat)</h2>
+    <h2 class="bg-abvmiddlegreen"> @Title @Date.ToString(ShortConstants.Common.DateTimeParseFormat)</h2>
     <hr />
 
     <SfGrid ID="Grid"
@@ -41,7 +41,7 @@
     public List<GridColumn> PdfColumns { get; set; } = new List<GridColumn>();
 
     [Parameter]
-    public DateOnly? Date { get; set; }
+    public DateOnly Date { get; set; }
 
     [Parameter]
     public EventCallback<QueryCellInfoEventArgs<TModel>> QueryCellInfoHandler { get; set; }
@@ -90,54 +90,61 @@
     {
         if (AllowPdfExport && args.Item.Id == "Grid_pdfexport" && DefaultGrid is not null)
         {
-            PdfExportProperties exportProperties = new PdfExportProperties();
-            exportProperties.FileName = $"{FileName}_{Date?.ToString(ShortConstants.Common.DateTimeParseFormat)}.pdf";
+            try
+            {
+                PdfExportProperties exportProperties = new PdfExportProperties();
+                exportProperties.FileName = $"{FileName}_{Date.ToString(ShortConstants.Common.DateTimeParseFormat)}.pdf";
 
-            exportProperties.IsRepeatHeader = true;
-            exportProperties.PageSize = PdfPageSize.A4;
-            exportProperties.PageOrientation = PageOrientation.Landscape;
+                exportProperties.IsRepeatHeader = true;
+                exportProperties.PageSize = PdfPageSize.A4;
+                exportProperties.PageOrientation = PageOrientation.Landscape;
 
-            exportProperties.DisableAutoFitWidth = true;
-            exportProperties.Columns = PdfColumns;
+                exportProperties.DisableAutoFitWidth = true;
+                exportProperties.Columns = PdfColumns;
 
-            var theme = new PdfTheme();
-            var border = new PdfBorder();
-            border.Color = "#89BF32";
+                var theme = new PdfTheme();
+                var border = new PdfBorder();
+                border.Color = "#89BF32";
 
-            var headerThemeStyle = new PdfThemeStyle()
+                var headerThemeStyle = new PdfThemeStyle()
                 {
                     Font = new PdfGridFont { IsTrueType = true, FontSize = 10, FontFamily = CyrilicFontFamily },
                     FontColor = "#2A833F",
                     Bold = true,
                     Border = border
                 };
-            theme.Header = headerThemeStyle;
+                theme.Header = headerThemeStyle;
 
-            var recordThemeStyle = new PdfThemeStyle()
+                var recordThemeStyle = new PdfThemeStyle()
                 {
                     Font = new PdfGridFont { IsTrueType = true, FontSize = 10, FontFamily = CyrilicFontFamily },
                     FontColor = "#2A833F",
                     Border = border
                 };
-            theme.Record = recordThemeStyle;
-            exportProperties.Theme = theme;
+                theme.Record = recordThemeStyle;
+                exportProperties.Theme = theme;
 
-            var header = new PdfHeader()
+                var header = new PdfHeader()
                 {
                     FromTop = 0,
                     Height = 70,
                     Contents = HeaderContent
                 };
-            exportProperties.Header = header;
+                exportProperties.Header = header;
 
-            exportProperties.Footer = new PdfFooter()
+                exportProperties.Footer = new PdfFooter()
                 {
                     FromBottom = 0,
                     Height = 50,
                     Contents = FooterContent
                 };
 
-            await this.DefaultGrid.ExportToPdfAsync(false, exportProperties);
+                await this.DefaultGrid.ExportToPdfAsync(false, exportProperties);
+            }
+            catch (Exception ex)
+            {
+                Console.Error.WriteLine($"Error exporting to PDF: {ex.Message}");
+            }
         }
     }
 }
