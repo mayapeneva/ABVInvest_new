@@ -6,11 +6,11 @@
 @inject NavigationManager NavigationManager
 @inject IdentityRedirectManager RedirectManager
 
-<h2 class="bg-abvmiddlegreen"> Вход за потребители </h2>
-<hr />
+<div class="container">
+    <h2 class="bg-abvmiddlegreen"> Вход за потребители </h2>
+    <hr />
 
-<div class="col-md-4">
-    <section>
+    <div class="col-md-4">
         <StatusMessage Message="@errorMessage" />
         <EditForm Model="Input" method="post" OnValidSubmit="LoginUser" FormName="login">
             <DataAnnotationsValidator />
@@ -45,7 +45,7 @@
                 </p>
             </div>
         </EditForm>
-    </section>
+    </div>
 
     <BackToPageLink />
 </div>
@@ -108,7 +108,7 @@
         [RegularExpression(ShortConstants.User.PINRegex, ErrorMessage = Messages.User.PINError)]
         [Display(Name = "PIN")]
         public string PIN { get; set; }
-        
+
         [Required(ErrorMessage = Messages.Common.RequiredField)]
         [DataType(DataType.Password)]
         public string Password { get; set; } = "";

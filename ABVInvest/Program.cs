@@ -11,7 +11,6 @@ using ABVInvest.Services.Data;
 using ABVInvest.Services.Deals;
 using ABVInvest.Services.Portfolios;
 using AutoMapper;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -28,9 +27,10 @@ builder.Services.AddBlazorBootstrap();
 builder.Services.AddSyncfusionBlazor();
 
 builder.Services.AddCascadingAuthenticationState();
+builder.Services.AddScoped<AuthenticationStateProvider, PersistingRevalidatingAuthenticationStateProvider>();
+
 builder.Services.AddScoped<IdentityUserAccessor>();
 builder.Services.AddScoped<IdentityRedirectManager>();
-builder.Services.AddScoped<AuthenticationStateProvider, PersistingRevalidatingAuthenticationStateProvider>();
 
 builder.Services.AddAuthentication(options =>
     {
@@ -61,8 +61,8 @@ var mapperConfiguration = new MapperConfiguration(configuration =>
 var mapper = mapperConfiguration.CreateMapper();
 builder.Services.AddSingleton(mapper);
 
-
 builder.Services.AddHttpClient();
+
 builder.Services.AddScoped<IRssFeedParser, RssFeedParser>();
 builder.Services.AddScoped<IDeserialiser, Deserialiser>();
 
@@ -72,14 +72,6 @@ builder.Services.AddScoped<IDataService, DataService>();
 builder.Services.AddScoped<IDealsService, DealsService>();
 
 var app = builder.Build();
-
-app.MapGet("/Logout", async (HttpContext context, string returnUrl = "/") =>
-{
-    await context.SignOutAsync(IdentityConstants.ApplicationScheme);
-    context.Response.Cookies.Delete(".AspNetCore.Identity.Application");
-    context.Response.Redirect(returnUrl);
-})
-    .RequireAuthorization();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
