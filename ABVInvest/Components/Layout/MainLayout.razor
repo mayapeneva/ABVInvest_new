@@ -1,20 +1,22 @@
 ﻿@inherits LayoutComponentBase
 
-<div class="page">
-    <main>
-        <NavMenu />
+<ErrorBoundary>
+    <div class="page">
+        <main>
+            <NavMenu />
 
-        <div class="body-content">
-            @Body
-        </div>
-
-        <div class="page-footer">
-            <div class="container text-center bg-abvmiddlegreen">
-                <p>АБВ Инвестиции. Всички права запазени. &copy; 2024</p>
+            <div class="body-content">
+                @Body
             </div>
-        </div>
-    </main>
-</div>
+
+            <div class="page-footer">
+                <div class="container text-center bg-abvmiddlegreen">
+                    <p>АБВ Инвестиции. Всички права запазени. &copy; 2024</p>
+                </div>
+            </div>
+        </main>
+    </div>
+</ErrorBoundary>
 
 <div id="blazor-error-ui">
     <h3 class="bg-abvred text-center">Възникна грешка.</h3>
