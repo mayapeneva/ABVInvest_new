@@ -14,6 +14,8 @@ using AutoMapper;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Polly;
+using Polly.Contrib.WaitAndRetry;
 using Syncfusion.Blazor;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -61,7 +63,10 @@ var mapperConfiguration = new MapperConfiguration(configuration =>
 var mapper = mapperConfiguration.CreateMapper();
 builder.Services.AddSingleton(mapper);
 
-builder.Services.AddHttpClient();
+builder.Services.AddHttpClient<IRssFeedParser, RssFeedParser>()
+        .SetHandlerLifetime(TimeSpan.FromMinutes(5))
+        .AddTransientHttpErrorPolicy(policyBuilder =>
+            policyBuilder.WaitAndRetryAsync(Backoff.DecorrelatedJitterBackoffV2(TimeSpan.FromSeconds(1), 5)));
 
 builder.Services.AddScoped<IRssFeedParser, RssFeedParser>();
 builder.Services.AddScoped<IDeserialiser, Deserialiser>();
