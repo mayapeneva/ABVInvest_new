@@ -13,8 +13,10 @@ using ABVInvest.Services.Portfolios;
 using AutoMapper;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.EntityFrameworkCore;
 using Syncfusion.Blazor;
+using System.Threading.RateLimiting;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -64,6 +66,31 @@ builder.Services.AddSingleton(mapper);
 builder.Services.AddHttpClient<IRssFeedParser, RssFeedParser>()
     .AddStandardResilienceHandler();
 
+builder.Services.AddRateLimiter(options =>
+{
+    options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
+
+    options.OnRejected = async (context, token) =>
+    {
+        if (context.Lease.TryGetMetadata(MetadataName.RetryAfter, out var retryAfter))
+        {
+            context.HttpContext.Response.Headers.RetryAfter = ((int)retryAfter.TotalSeconds).ToString();
+        }
+        else
+        {
+            context.HttpContext.Response.Headers.RetryAfter = "10";
+        }
+    };
+
+    options.AddFixedWindowLimiter("Fixed", config =>
+    {
+        config.PermitLimit = 10;
+        config.Window = TimeSpan.FromSeconds(10);
+        config.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
+        config.QueueLimit = 2;
+    });
+});
+
 builder.Services.AddScoped<IRssFeedParser, RssFeedParser>();
 builder.Services.AddScoped<IDeserialiser, Deserialiser>();
 
@@ -87,6 +114,8 @@ else
     app.UseHsts();
 }
 
+app.UseRateLimiter();
+
 app.UseHttpsRedirection();
 
 app.UseStaticFiles();
@@ -97,10 +126,11 @@ app.UseMiddleware<RolesSeedMiddleware>();
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode()
     .AddInteractiveWebAssemblyRenderMode()
-    .AddAdditionalAssemblies(typeof(ABVInvest.Client._Imports).Assembly);
+    .AddAdditionalAssemblies(typeof(ABVInvest.Client._Imports).Assembly)
+    .RequireRateLimiting("Fixed");
 
 // Add additional endpoints required by the Identity /Account Razor components.
-app.MapAdditionalIdentityEndpoints();
+app.MapAdditionalIdentityEndpoints().RequireRateLimiting("Fixed");
 
 Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(builder.Configuration.GetConnectionString("SyncfusionLicenseCode") ?? throw new InvalidOperationException("Connection string 'SyncfusionLicenseCode' not found."));
 
