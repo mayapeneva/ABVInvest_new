@@ -12,6 +12,7 @@ using ABVInvest.Services.Portfolios;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging.Abstractions;
 using Moq;
 using System.Security.Claims;
 using System.Xml.Serialization;
@@ -107,7 +108,17 @@ namespace ABVInvest.Services.Tests
             var dataService = new DataService(db, mapper);
 
             var mockUserStore = new Mock<IUserStore<ApplicationUser>>();
-            var userManager = new Mock<UserManager<ApplicationUser>>(mockUserStore.Object, null, null, null, null, null, null, null, null);
+            var userManager = new Mock<UserManager<ApplicationUser>>(
+                mockUserStore.Object,
+                new Mock<IPasswordHasher<ApplicationUser>>().Object,
+                new List<IUserValidator<ApplicationUser>>(),
+                new List<IPasswordValidator<ApplicationUser>>(),
+                new Mock<ILookupNormalizer>().Object,
+                new Mock<IdentityErrorDescriber>().Object,
+                new Mock<IServiceProvider>().Object,
+                new NullLoggerFactory(),
+                new Mock<IdentityOptions>().Object
+            );
             userManager.Setup(um => um.GetUserAsync(principal)).Returns(Task.FromResult(moqUser?.Object));
             var balancesService = new BalancesService(db, userManager.Object, mapper);
 
@@ -132,7 +143,17 @@ namespace ABVInvest.Services.Tests
             var dataService = new DataService(db, mapper);
 
             var mockUserStore = new Mock<IUserStore<ApplicationUser>>();
-            var userManager = new Mock<UserManager<ApplicationUser>>(mockUserStore.Object, null, null, null, null, null, null, null, null);
+            var userManager = new Mock<UserManager<ApplicationUser>>(
+                mockUserStore.Object,
+                new Mock<IPasswordHasher<ApplicationUser>>().Object,
+                new List<IUserValidator<ApplicationUser>>(),
+                new List<IPasswordValidator<ApplicationUser>>(),
+                new Mock<ILookupNormalizer>().Object,
+                new Mock<IdentityErrorDescriber>().Object,
+                new Mock<IServiceProvider>().Object,
+                new NullLoggerFactory(),
+                new Mock<IdentityOptions>().Object
+            );
             userManager.Setup(um => um.GetUserAsync(principal)).Returns(Task.FromResult(moqUser?.Object));
 
             var dealsService = new DealsService(db, userManager.Object, dataService, mapper);
@@ -154,7 +175,17 @@ namespace ABVInvest.Services.Tests
             var mapper = GetMapper();
 
             var mockUserStore = new Mock<IUserStore<ApplicationUser>>();
-            var userManager = new Mock<UserManager<ApplicationUser>>(mockUserStore.Object, null, null, null, null, null, null, null, null);
+            var userManager = new Mock<UserManager<ApplicationUser>>(
+                mockUserStore.Object,
+                new Mock<IPasswordHasher<ApplicationUser>>().Object,
+                new List<IUserValidator<ApplicationUser>>(),
+                new List<IPasswordValidator<ApplicationUser>>(),
+                new Mock<ILookupNormalizer>().Object,
+                new Mock<IdentityErrorDescriber>().Object,
+                new Mock<IServiceProvider>().Object,
+                new NullLoggerFactory(),
+                new Mock<IdentityOptions>().Object
+            );
             userManager.Setup(um => um.GetUserAsync(principal)).Returns(Task.FromResult(moqUser?.Object));
             var balancesService = new BalancesService(db, userManager.Object, mapper);
 
@@ -171,7 +202,7 @@ namespace ABVInvest.Services.Tests
         private static Mapper GetMapper()
         {
             var mappingProfile = new MappingProfile();
-            var configuration = new MapperConfiguration(cfg => cfg.AddProfile(mappingProfile));
+            var configuration = new MapperConfiguration(cfg => cfg.AddProfile(mappingProfile), new NullLoggerFactory());
             var mapper = new Mapper(configuration);
             return mapper;
         }

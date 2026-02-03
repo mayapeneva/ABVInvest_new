@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging.Abstractions;
 using Syncfusion.Blazor;
 using System.Threading.RateLimiting;
 
@@ -59,7 +60,7 @@ var mapperConfiguration = new MapperConfiguration(configuration =>
 {
     var profile = new MappingProfile();
     configuration.AddProfile(profile);
-});
+}, new NullLoggerFactory());
 var mapper = mapperConfiguration.CreateMapper();
 builder.Services.AddSingleton(mapper);
 
