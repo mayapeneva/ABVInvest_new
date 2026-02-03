@@ -33,7 +33,7 @@ namespace ABVInvest.Services.Tests.DealsServiceTests
         {
             // Arrange
             var date = DateOnly.FromDateTime(new DateTime(2020, 11, 01));
-            var deserializedDeals = await TestHelper.DeserialiseDeals(string.Format(Constants.FileNameDeals, string.Empty));
+            var deserializedDeals = TestHelper.DeserialiseDeals(string.Format(Constants.FileNameDeals, string.Empty));
             var expectedBooleanResult = true;
 
             // Act
@@ -59,7 +59,7 @@ namespace ABVInvest.Services.Tests.DealsServiceTests
             // Arrange
             var date = DateOnly.FromDateTime(new DateTime(2020, 12, 02));
             var userName = "0000000002";
-            var deserializedDeals = await TestHelper.DeserialiseDeals(string.Format(Constants.FileNameDeals, "2"));
+            var deserializedDeals = TestHelper.DeserialiseDeals(string.Format(Constants.FileNameDeals, "2"));
 
             // Act
             var actualResult = await DealsService.SeedDealsAsync(deserializedDeals, date);
@@ -76,7 +76,7 @@ namespace ABVInvest.Services.Tests.DealsServiceTests
         {
             // Arange
             var date = DateOnly.FromDateTime(new DateTime(2020, 12, 03));
-            var deserializedDeals = await TestHelper.DeserialiseDeals(string.Format(Constants.FileNameDeals, string.Empty));
+            var deserializedDeals = TestHelper.DeserialiseDeals(string.Format(Constants.FileNameDeals, string.Empty));
 
             var firstResult = await DealsService.SeedDealsAsync(deserializedDeals, date);
             Assert.True(firstResult.IsSuccessful());
@@ -100,7 +100,7 @@ namespace ABVInvest.Services.Tests.DealsServiceTests
             // Arrange
             var date = DateOnly.FromDateTime(new DateTime(2020, 12, 04));
             var securityISIN = "BG1100041067";
-            var deserializedDeals = await TestHelper.DeserialiseDeals(string.Format(Constants.FileNameDeals, "3"));
+            var deserializedDeals = TestHelper.DeserialiseDeals(string.Format(Constants.FileNameDeals, "3"));
 
             // Act
             var actualResult = await DealsService.SeedDealsAsync(deserializedDeals, date);
@@ -116,7 +116,7 @@ namespace ABVInvest.Services.Tests.DealsServiceTests
         {
             // Arrange
             var date = DateOnly.FromDateTime(new DateTime(2020, 12, 05));
-            var deserializedDeals = await TestHelper.DeserialiseDeals(string.Format(Constants.FileNameDeals, "4"));
+            var deserializedDeals = TestHelper.DeserialiseDeals(string.Format(Constants.FileNameDeals, "4"));
             var expectedErrorsCount = 2;
 
             // Act
@@ -135,7 +135,7 @@ namespace ABVInvest.Services.Tests.DealsServiceTests
             // Arrange
             var date = DateOnly.FromDateTime(new DateTime(2020, 12, 06));
             var currencyCode = "EUR";
-            var deserializedDeals = await TestHelper.DeserialiseDeals(string.Format(Constants.FileNameDeals, "5"));
+            var deserializedDeals = TestHelper.DeserialiseDeals(string.Format(Constants.FileNameDeals, "5"));
 
             // Act
             var actualResult = await DealsService.SeedDealsAsync(deserializedDeals, date);
@@ -151,7 +151,7 @@ namespace ABVInvest.Services.Tests.DealsServiceTests
         {
             // Arrange
             var date = DateOnly.FromDateTime(new DateTime(2020, 12, 07));
-            var deserializedDeals = await TestHelper.DeserialiseDeals(string.Format(Constants.FileNameDeals, "6"));
+            var deserializedDeals = TestHelper.DeserialiseDeals(string.Format(Constants.FileNameDeals, "6"));
             var expectedErrorsCount = 2;
 
             // Act
@@ -169,7 +169,7 @@ namespace ABVInvest.Services.Tests.DealsServiceTests
         {
             // Arrange
             var date = DateOnly.FromDateTime(new DateTime(2020, 12, 08));
-            var deserializedDeals = await TestHelper.DeserialiseDeals(string.Format(Constants.FileNameDeals, "7"));
+            var deserializedDeals = TestHelper.DeserialiseDeals(string.Format(Constants.FileNameDeals, "7"));
             var expectedErrorsCount = 2;
 
             // Act
@@ -187,7 +187,7 @@ namespace ABVInvest.Services.Tests.DealsServiceTests
         {
             // Arrange
             var date = DateOnly.FromDateTime(new DateTime(2020, 12, 09));
-            var deserializedDeals = await TestHelper.DeserialiseDeals(string.Format(Constants.FileNameDeals, "8"));
+            var deserializedDeals = TestHelper.DeserialiseDeals(string.Format(Constants.FileNameDeals, "8"));
             var expectedErrorsCount = 2;
 
             // Act
@@ -205,7 +205,7 @@ namespace ABVInvest.Services.Tests.DealsServiceTests
         {
             // Arrange
             var date = DateOnly.FromDateTime(new DateTime(2020, 12, 10));
-            var deserializedDeals = await TestHelper.DeserialiseDeals(string.Format(Constants.FileNameDeals, "9"));
+            var deserializedDeals = TestHelper.DeserialiseDeals(string.Format(Constants.FileNameDeals, "9"));
             var expectedErrorsCount = 2;
 
             // Act
@@ -223,7 +223,7 @@ namespace ABVInvest.Services.Tests.DealsServiceTests
         {
             // Arrange
             var date = DateOnly.FromDateTime(new DateTime(2020, 12, 11));
-            var deserializedDeals = await TestHelper.DeserialiseDeals(string.Format(Constants.FileNameDeals, "10"));
+            var deserializedDeals = TestHelper.DeserialiseDeals(string.Format(Constants.FileNameDeals, "10"));
             var expectedErrorsCount = 2;
 
             // Act
@@ -241,7 +241,7 @@ namespace ABVInvest.Services.Tests.DealsServiceTests
         {
             // Arrange
             var date = DateOnly.FromDateTime(new DateTime(2020, 12, 12));
-            var deserializedDeals = await TestHelper.DeserialiseDeals(string.Format(Constants.FileNameDeals, "11"));
+            var deserializedDeals = TestHelper.DeserialiseDeals(string.Format(Constants.FileNameDeals, "11"));
             var expectedErrorsCount = 2;
 
             // Act
@@ -259,7 +259,7 @@ namespace ABVInvest.Services.Tests.DealsServiceTests
         {
             // Arrange
             var date = DateOnly.FromDateTime(new DateTime(2020, 12, 13));
-            var deserializedDeals = await TestHelper.DeserialiseDeals(string.Format(Constants.FileNameDeals, "12"));
+            var deserializedDeals = TestHelper.DeserialiseDeals(string.Format(Constants.FileNameDeals, "12"));
             var expectedErrorsCount = 2;
 
             // Act
@@ -277,7 +277,7 @@ namespace ABVInvest.Services.Tests.DealsServiceTests
         {
             // Arrange
             var date = DateOnly.FromDateTime(new DateTime(2020, 12, 14));
-            var deserializedDeals = await TestHelper.DeserialiseDeals(string.Format(Constants.FileNameDeals, "13"));
+            var deserializedDeals = TestHelper.DeserialiseDeals(string.Format(Constants.FileNameDeals, "13"));
             var expectedErrorsCount = 2;
 
             // Act
@@ -295,7 +295,7 @@ namespace ABVInvest.Services.Tests.DealsServiceTests
         {
             // Arrange
             var date = DateOnly.FromDateTime(new DateTime(2020, 12, 15));
-            var deserializedDeals = await TestHelper.DeserialiseDeals(string.Format(Constants.FileNameDeals, "14"));
+            var deserializedDeals = TestHelper.DeserialiseDeals(string.Format(Constants.FileNameDeals, "14"));
             var expectedErrorsCount = 2;
 
             // Act
@@ -313,7 +313,7 @@ namespace ABVInvest.Services.Tests.DealsServiceTests
         {
             // Arrange
             var date = DateOnly.FromDateTime(new DateTime(2020, 12, 16));
-            var deserializedDeals = await TestHelper.DeserialiseDeals(string.Format(Constants.FileNameDeals, "15"));
+            var deserializedDeals = TestHelper.DeserialiseDeals(string.Format(Constants.FileNameDeals, "15"));
             var expectedErrorsCount = 2;
 
             // Act

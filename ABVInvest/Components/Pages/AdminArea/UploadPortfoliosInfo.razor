@@ -37,7 +37,7 @@
                             ErrorMessages = [Messages.Common.CouldNotUploadInformation];
                         else
                         {
-                            var result = await this.PortfoliosService.SeedPortfoliosAsync(deserializedPortfolios, Input.Date.Value);
+                            var result = await this.PortfoliosService.SeedPortfoliosAsync(deserializedPortfolios, Input.Date!.Value);
                             if (!result.IsSuccessful())
                             {
                                 Success = false;

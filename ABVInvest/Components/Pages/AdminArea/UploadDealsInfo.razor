@@ -37,7 +37,7 @@
                             ErrorMessages = [Messages.Common.CouldNotUploadInformation];
                         else
                         {
-                            var result = await this.DealsService.SeedDealsAsync(deserializedDeals, Input.Date.Value);
+                            var result = await this.DealsService.SeedDealsAsync(deserializedDeals, Input.Date!.Value);
                             if (!result.IsSuccessful())
                             {
                                 Success = false;

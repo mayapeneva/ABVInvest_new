@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ABVInvest.Data
 {
-    public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) 
+    public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         : IdentityDbContext<ApplicationUser>(options)
     {
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
@@ -43,7 +43,10 @@ namespace ABVInvest.Data
 
             builder.Entity<Security>()
                 .Property(s => s.SecuritiesType)
-                .HasConversion(st => st.ToString(), st => (SecuritiesType)Enum.Parse(typeof(SecuritiesType), st));
+                .HasConversion(
+                    st => st.ToString(),
+                    st => st != null ? (SecuritiesType)Enum.Parse(typeof(SecuritiesType), st) : default
+                );
         }
     }
 }

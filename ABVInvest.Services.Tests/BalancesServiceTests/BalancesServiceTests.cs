@@ -159,6 +159,6 @@ namespace ABVInvest.Services.Tests.BalancesServiceTests
             Assert.Null(actualUserBalance);
         }
 
-        public void Dispose() => Db?.Dispose();
+        private void Dispose() => Db?.Dispose();
     }
 }

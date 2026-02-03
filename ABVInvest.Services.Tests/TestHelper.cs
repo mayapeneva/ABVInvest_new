@@ -115,7 +115,7 @@ namespace ABVInvest.Services.Tests
             return new Tuple<IPortfoliosService, ApplicationDbContext>(portfoliosService, db);
         }
 
-        public static async Task<IEnumerable<PortfolioRowBindingModel>> DeserialisePortfolios(string fileName)
+        public static IEnumerable<PortfolioRowBindingModel> DeserialisePortfolios(string fileName)
         {
             var xmlFileContentString = File.ReadAllText(fileName);
             var serializer = new XmlSerializer(typeof(PortfolioRowBindingModel[]), new XmlRootAttribute(ShortConstants.Common.XmlRootAttr));
@@ -139,7 +139,7 @@ namespace ABVInvest.Services.Tests
             return new Tuple<IDealsService, ApplicationDbContext>(dealsService, db);
         }
 
-        public static async Task<IEnumerable<DealRowBindingModel>> DeserialiseDeals(string fileName)
+        public static IEnumerable<DealRowBindingModel> DeserialiseDeals(string fileName)
         {
             var xmlFileContentString = File.ReadAllText(fileName);
             var serializer = new XmlSerializer(typeof(DealRowBindingModel[]), new XmlRootAttribute(ShortConstants.Common.XmlRootAttr));

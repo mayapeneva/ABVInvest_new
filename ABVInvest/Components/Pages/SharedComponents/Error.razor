@@ -35,10 +35,10 @@
 
     public void OnGet()
     {
-        RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier;
+        RequestId = Activity.Current?.Id ?? HttpContext?.TraceIdentifier;
 
         var exceptionHandlerPathFeature =
-            HttpContext.Features.Get<IExceptionHandlerPathFeature>();
+            HttpContext?.Features.Get<IExceptionHandlerPathFeature>();
 
         if (exceptionHandlerPathFeature?.Error is FileNotFoundException)
         {
